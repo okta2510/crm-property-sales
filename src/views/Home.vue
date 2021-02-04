@@ -14,14 +14,17 @@
       </ion-header>
     
       <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <strong>all page</strong>
+        <ul>
+          <li> <a href="/test">test page</a></li>
+          <li> <a href="/take-photo">Take Photo</a></li>
+        </ul>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
@@ -37,7 +40,10 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style  scoped>
+ul li {
+  padding: 15px 10px;
+}
 #container {
   text-align: center;
   

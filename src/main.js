@@ -3,6 +3,19 @@ import App from './App.vue'
 import router from './router';
 
 import { IonicVue } from '@ionic/vue';
+import { addIcons } from 'ionicons';
+import { 
+  heart,
+  logoAndroid,
+  logoApple 
+} from 'ionicons/icons';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
+addIcons({
+  'heart': heart,
+  'apple-logo':logoApple,
+  'android': logoAndroid 
+});
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -22,6 +35,9 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import './theme/custom.css';
+
+defineCustomElements(window);
 
 const app = createApp(App)
   .use(IonicVue)
