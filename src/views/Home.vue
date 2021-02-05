@@ -18,6 +18,7 @@
         <ul>
           <li> <a href="/test">test page</a></li>
           <li> <a href="/take-photo">Take Photo</a></li>
+          <li> <a href="/login">Login</a></li>
         </ul>
       </div>
     </ion-content>
