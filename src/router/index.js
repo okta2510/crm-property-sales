@@ -5,7 +5,12 @@ import Home from '../views/Home.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/welcome'
+  },
+  {
+    path: '/welcome',
+    name: 'Welcome',
+    component: () => import('@/views/Welcome.vue')
   },
   {
     path: '/home',
@@ -13,9 +18,19 @@ const routes = [
     component: Home
   },
   {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/Dashboard.vue')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/auth/Login.vue')
+  },
+  {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    component: () => import('@/views/auth/ForgotPassword.vue')
   },
   {
     path: '/register',
