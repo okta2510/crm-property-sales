@@ -1,5 +1,13 @@
 
 .form-custom {
+  .sub-title {
+    &.h3 {
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+  }
   .label-stacked {
     font-size: 16px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -24,11 +32,60 @@
        --padding-top:10px;
     }
   }
-  ion-input {
+  ion-input, ion-textarea {
     --color: #fff;
   }
   .label-stacked.sc-ion-label-md-h {
     transform: none;
+  }
+  ion-datetime {
+    --padding-start: 0;
+    --color: #fff;
+    color:#fff;
+  }
+  ion-item.photo {
+    --border-width: 0px;
+    --border-color: rgba(255,255,255, 0);
+    border:none;
+  }
+  .component-upload-photo {
+    position: relative;
+    background-color: #fff;
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    background-image: url("/assets/bg-photo-empty.jpg");
+    background-size: 100%;
+    overflow: hidden;
+    text-align: center;
+    margin: 2px;
+    img {
+      height: 100%;
+      width: auto;
+      margin: 0  auto;
+    }
+    ion-button {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+    }
+  }
+  ion-button.btn-take-photo {
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --box-shadow: 0;
+    --background: #304B57;
+    box-shadow: none;
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    text-align: center;
+    --border-radius: 32px;
+    ion-icon {
+      font-size: 16px;
+    }
   }
 }
 
@@ -116,4 +173,49 @@ ion-toast.custom-toast {
   img {
     vertical-align: middle;
   }
+}
+
+
+ion-header.logged {
+  box-shadow: 0px 5px 10px #00000020;
+  ion-toolbar {
+    --background: #00A79D;
+    --color:#fff;
+  }
+}
+ion-header.logged ion-title {
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+}
+ion-header.main {
+  ion-title {
+    font-weight: 700;
+    font-size: 16px;
+  }
+  ion-button{
+    --box-shadow: none;
+    --background-focused-opacity: 0;
+    --background-activated-opacity: 0;
+    --background-hover-opacity: 0;
+    --ripple-color: (255,255,255,0)
+  }
+  ion-button.ios {
+    box-shadow: none;
+    ion-icon,span {
+      color: #00A79D;
+    }
+  }
+}
+
+ion-button.clear-button {
+  --box-shadow: none;
+  --background: none;
+  --background-focused-opacity: 0;
+  --background-activated-opacity: 0;
+  --background-hover-opacity: 0;
+  --ripple-color: (255,255,255,0);
+  --padding-start: 0;
+  --padding-end: 0;
+  box-shadow: none;
 }

@@ -2,7 +2,13 @@
     <ion-page>
       <ion-header class="main">
         <ion-toolbar>
-          <ion-title>Lupa Kata Sandi</ion-title>
+          <ion-buttons slot="start">
+            <ion-button class="clear-button" @click="router.push('/login')">
+              <ion-icon :icon="chevronBack"></ion-icon>
+              <span>kembali</span>
+            </ion-button>
+          </ion-buttons>
+          <ion-title mode="ios">Lupa Kata Sandi</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>
@@ -31,7 +37,7 @@
                     <ion-button
                     :disabled="!isNotEmpty || submitted || requestingEmail"
                     color="secondary"
-                    size="default"
+                    size="large"
                     class="ios md"
                     expand="block"
                     type="submit">
@@ -48,7 +54,9 @@
 <script>
 import axios from 'axios';
 import {IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, toastController} from '@ionic/vue'
-import { add } from 'ionicons/icons';
+import { 
+  chevronBack
+} from 'ionicons/icons';
 import { useRouter } from 'vue-router'
 
 export default {
@@ -59,7 +67,7 @@ export default {
   setup() {
     const router = useRouter();
     return {
-      add, router
+      chevronBack, router
     }
   },
   ionViewWillEnter() {
@@ -75,7 +83,6 @@ export default {
   created() {
   },
   mounted() {
-      // this.userInfo ? this.router.push('/my-listing') : this.router.push('/login')
   },
   data: function() {
     return {
@@ -86,7 +93,7 @@ export default {
   },
   computed: {
     API_LOGIN: function () {
-      return 'https://reqres.in/api/login'
+      return '/api/v1/consumer/member/login'
     },
     isNotEmpty: function () {
       return this.email ? true : false
@@ -111,14 +118,13 @@ export default {
       this.requestingEmail = true
       if (!this.submitted) {
         axios.post(this.API_LOGIN, {
-          email: 'eve.holt@reqres.in',
-          password: 'cityslicka'
+          "username": "+62081210161816",
+          "password": "qweqweqwe"
         })
         .then(response => {
           this.openToast('<img src="assets/check-icon.svg" /> Silahkan cek email anda untuk kata sandi baru', 5000, 'success')
-          this.submitted = true
-          this.requestingEmail = false
           this.router.push('/login')
+          this.resetState()
           console.log(response)
         }).catch(function (error) {
           // handle error

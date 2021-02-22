@@ -7,6 +7,14 @@ const routes = [
     path: '/',
     redirect: '/welcome'
   },
+  { path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/NotFound.vue')
+  },
+  { path: '/:pathMatch(.*)',
+  name: 'bad-not-found',
+  component: () => import('@/views/NotFound.vue')
+  },
   {
     path: '/welcome',
     name: 'Welcome',
@@ -18,14 +26,19 @@ const routes = [
     component: Home
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('@/views/Dashboard.vue')
+    path: '/my-listing',
+    name: 'MyListing',
+    component: () => import('@/views/MyListing.vue')
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/auth/Login.vue')
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => import('@/views/auth/Logout.vue')
   },
   {
     path: '/forgot-password',

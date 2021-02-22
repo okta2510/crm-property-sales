@@ -2221,3 +2221,15 @@ a.text-dark:hover, a.text-dark:focus {
 .d-block {
   display: block!important;
 }
+.d-none,.hidden {
+  display: none!important;
+}
+
+.not-displayed {
+  height: 0;
+  background: none;
+  border: none;
+  width: 0;
+  opacity: 0;
+  visibility: none;
+}

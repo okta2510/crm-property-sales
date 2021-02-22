@@ -33,9 +33,9 @@
                     </div>
                   </div>
                   <ion-button
-                  :disabled="!isNotEmpty"
+                  :disabled="!isNotEmpty || signingIn"
                   color="secondary"
-                  size="default"
+                  size="large"
                   class="ios md"
                   expand="block"
                   type="submit">
@@ -60,10 +60,10 @@
 </template>
 <script>
 import axios from 'axios';
-import {IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel} from '@ionic/vue'
+import {IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, toastController} from '@ionic/vue'
 import { add } from 'ionicons/icons';
-import { setLocal} from '@/services/storage'
-import { endpoint } from '@/api.config'
+import { setLocal, getLocal } from '@/services/storage'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Login',
@@ -71,42 +71,89 @@ export default {
     IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel
   },
   setup() {
-    return {
-      add
+    const router = useRouter();
+    const getLoggedUser = async function () {
+       await getLocal('userInfo').then((res)=>{
+        res ? router.push('/my-listing') : router.push('/login')
+      }).catch((err)=>{
+        console.log(err)
+      })
     }
+
+    getLoggedUser()
+
+    return {
+      add, router
+    }
+  },
+  ionViewWillEnter() {
+    this.resetState()
+  },
+  ionViewWillLeave() {
+  },
+  ionViewDidEnter() {
+  },
+  ionViewDidLeave() {
+    this.resetState()
+  },
+  created() {
+  },
+  mounted() {
   },
   data: function() {
     return {
       username: null,
       password: null,
+      signingIn: false
     }
   },
   computed: {
     API_LOGIN: function () {
-      return endpoint + '/consumer/member/login'
+      return '/api/v1/consumer/member/login'
     },
     isNotEmpty: function () {
       return this.username && this.password
     }
   },
-  created() {
-  },
   methods: {
+    async openToast(message='openToast', duration=2000, color='default') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
+    },
     onSubmit: function () {
-       axios.post(this.API_LOGIN, {
-         username: this.username,
-         password: this.password
-       })
-      .then(response => {
-        let users = response
-        setLocal('userInfo',users)
-        console.log(response)
-      }).catch(function (error) {
-        // handle error
-        console.log(error);
+      let self = this
+      this.signingIn = true
+      axios.post(this.API_LOGIN, {
+          "username": self.username,
+          "password": self.password
       })
+      .then(response => {
+        setLocal('userInfo', response.data)
+        this.router.push('/my-listing')
+        this.resetState()
+      }).catch(function (err) {
+        // handle err
+        console.log(err);
+          self.openToast(err ? err : 'Login Error', 5000, 'danger')
+         self.signingIn = false
+      })
+    },
+    resetState() {
+      this.username = null
+      this.password = null
+      this.signingIn = false
     }
-  },
+  }
 }
 </script>
 

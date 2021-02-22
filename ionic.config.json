@@ -5,8 +5,8 @@
   },
   "proxies": [
     {
-      "path": "/api",
-      "proxyUrl": "http://54.179.9.67:8000/api/v1"
+      "path": "^/api",
+      "proxyUrl": "http://54.179.9.67:8000"
     }
   ],
   "type": "vue"

@@ -2,6 +2,9 @@
   "name": "myApp",
   "version": "0.0.1",
   "private": true,
+  "proxy": {
+    "^/api": "http://54.179.9.67:8000"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -9,7 +12,8 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "ionic:build": "vue-cli-service build",
-    "ionic:serve": "vue-cli-service serve"
+    "ionic:serve": "vue-cli-service serve",
+    "buildall": "vue-cli-service build && rm -rf android && ionic cap add android && ionic cap copy"
   },
   "dependencies": {
     "@capacitor/android": "^2.4.6",
@@ -19,6 +23,8 @@
     "@ionic/vue-router": "^5.4.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "jquery": "^3.5.1",
+    "moment": "^2.29.1",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0"
   },
