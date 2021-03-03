@@ -391,17 +391,17 @@ ion-select::part(text) {
   -moz-box-shadow: none;
 }
 
-.component-listing .wrap-image {
+.component-listing .wrap-image, .component-news .wrap-image {
   text-align: center;
   position: relative;
 }
-.component-listing .wrap-image img {
+.component-listing .wrap-image img, .component-news .wrap-image img {
   display: block;
 }
-.component-listing .wrap-image .feature-img {
+.component-listing .wrap-image .feature-img, .component-news .wrap-image .feature-img {
   width: 100%;
 }
-.component-listing .wrap-image ul {
+.component-listing .wrap-image ul, .component-news .wrap-image ul {
   position: absolute;
   left: 0;
   right: 0;
@@ -415,7 +415,7 @@ ion-select::part(text) {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.component-listing .wrap-image ul li {
+.component-listing .wrap-image ul li, .component-news .wrap-image ul li {
   padding: 0 8px;
   color: #fff;
   display: inline-block;
@@ -423,15 +423,15 @@ ion-select::part(text) {
   font-size: 12px;
   line-height: auto;
 }
-.component-listing .wrap-image ul li img, .component-listing .wrap-image ul li span {
+.component-listing .wrap-image ul li img, .component-listing .wrap-image ul li span, .component-news .wrap-image ul li img, .component-news .wrap-image ul li span {
   height: 14px;
   display: inline-block;
   vertical-align: middle;
 }
-.component-listing .wrap-image ul li img {
+.component-listing .wrap-image ul li img, .component-news .wrap-image ul li img {
   padding-right: 8px;
 }
-.component-listing ion-card-subtitle {
+.component-listing ion-card-subtitle, .component-news ion-card-subtitle {
   color: #6A6A6A;
   font-size: 11px;
   line-height: 14px;
@@ -439,23 +439,23 @@ ion-select::part(text) {
   font-weight: normal;
   margin-bottom: 5px;
 }
-.component-listing ion-card-title {
+.component-listing ion-card-title, .component-news ion-card-title {
   font-size: 16px;
   line-height: 20px;
   font-weight: bold;
   margin-bottom: 3px;
 }
-.component-listing ion-card-header {
+.component-listing ion-card-header, .component-news ion-card-header {
   --padding-start: 15px;
   --padding-end: 15px;
   padding-left: 15px;
   padding-right: 15px;
 }
-.component-listing ion-card-header .wrap-header {
+.component-listing ion-card-header .wrap-header, .component-news ion-card-header .wrap-header {
   position: relative;
   padding-right: 80px;
 }
-.component-listing ion-card-header .wrap-header .status {
+.component-listing ion-card-header .wrap-header .status, .component-news ion-card-header .wrap-header .status {
   width: 70px;
   position: absolute;
   right: 0;
@@ -476,27 +476,45 @@ ion-select::part(text) {
   border-radius: 10px;
   -webkit-border-radius: 10px;
 }
-.component-listing ion-card-header .wrap-header .status span {
+.component-listing ion-card-header .wrap-header .status span, .component-news ion-card-header .wrap-header .status span {
   line-height: inherit;
 }
-.component-listing ion-card-header .wrap-header .price {
+.component-listing ion-card-header .wrap-header .price, .component-news ion-card-header .wrap-header .price {
   font-size: 14px;
   line-height: 18px;
   color: #000;
 }
-.component-listing ion-item.list-item {
+.component-listing ion-item.list-item, .component-news ion-item.list-item {
   --inner-padding-start: 0;
   --inner-padding-end: 0;
   --padding-start:0px ;
 }
-.component-listing ion-item.list-item .item-native {
+.component-listing ion-item.list-item .item-native, .component-news ion-item.list-item .item-native {
   --inner-padding-start: 0;
   --inner-padding-end: 0;
 }
-.component-listing ion-card {
+.component-listing ion-card, .component-news ion-card {
   width: 100%;
   margin-bottom: 30px;
   margin-top: 0px;
+}
+
+.component-news ion-card-header {
+  --padding-bottom: 5px;
+  padding-bottom: 5px;
+}
+.component-news ion-card-header .wrap-header {
+  padding-right: 0;
+}
+.component-news ion-card-subtitle {
+  font-size: 14px;
+  line-height: 18px;
+}
+.component-news ion-card-content {
+  --padding-start:16px;
+  padding-left: 16px;
+  --padding-end:16px;
+  padding-right: 16px;
 }
 
 .fab-button-custom ion-fab-button {
@@ -697,12 +715,94 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
   color: #868686;
 }
 
-.wrap-toggle-slide ion-segment {
+.wrap-toggle-slide ion-segment, .wrap-card-news ion-segment, .wrap-list-transactions ion-segment {
   width: 180px;
   margin: 0 auto 20px;
 }
-.wrap-toggle-slide .swiper-slide img {
+.wrap-toggle-slide .swiper-slide img, .wrap-card-news .swiper-slide img, .wrap-list-transactions .swiper-slide img {
   height: initial;
+}
+.wrap-toggle-slide .card-header-info .seeMore, .wrap-card-news .card-header-info .seeMore, .wrap-list-transactions .card-header-info .seeMore {
+  font-size: 12px;
+  line-height: 16px;
+  color: #2AB2FF;
+  text-decoration: none;
+  padding: 5px 0;
+}
+.wrap-toggle-slide .card-header-info .title, .wrap-card-news .card-header-info .title, .wrap-list-transactions .card-header-info .title {
+  font-size: 14px;
+  letter-spacing: 5%;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.toolbar-search-dashboard {
+  --padding-start:0;
+  --padding-end:0;
+  --padding-top:0;
+  --padding-bottom:0;
+}
+
+.component-transaction ion-item {
+  display: block;
+  --padding-start:0;
+  --padding-end:0;
+  --inner-padding-end: 0px;
+  padding: 0;
+}
+.component-transaction .item-row {
+  padding: 16px;
+}
+.component-transaction .date {
+  font-size: 11px;
+  color: #ACACAC;
+  line-height: 15px;
+}
+.component-transaction .title {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.component-transaction .pubid {
+  color: #456B80;
+  font-size: 12px;
+}
+
+ion-chip.status {
+  font-size: 11px;
+  height: 24px;
+  line-height: 24px;
+}
+ion-chip.status ion-label {
+  text-align: center;
+  min-width: 60px;
+}
+ion-chip.status.ion-color-success {
+  border-color: #00AF6E;
+  color: #00AF6E;
+  --color:#00AF6E;
+  --background:#00AF6E;
+}
+ion-chip.status.ion-color-warning {
+  border-color: #FDAF30;
+  color: #FDAF30;
+  --color:#FDAF30;
+  --background:#FDAF30;
+}
+ion-chip.status.ion-color-danger {
+  border-color: #E83D66;
+  color: #E83D66;
+  --color:#E83D66;
+  --background:#E83D66;
+}
+ion-chip.status.ion-color-secondary {
+  border-color: #2AB2FF;
+  color: #2AB2FF;
+  --color:#2AB2FF;
+  --background:#2AB2FF;
 }
 
 /*# sourceMappingURL=custom.css.map */

@@ -333,7 +333,7 @@ ion-select::part(text) {
   -moz-box-shadow: none;
 }
 
-.component-listing {
+.component-listing,.component-news {
   .wrap-image {
     text-align: center;
     position: relative;
@@ -428,7 +428,7 @@ ion-select::part(text) {
       }
     }
   }
-  
+
   ion-item.list-item {
     --inner-padding-start: 0;
     --inner-padding-end: 0;
@@ -443,6 +443,27 @@ ion-select::part(text) {
     width: 100%;
     margin-bottom: 30px;
     margin-top: 0px;
+  }
+}
+
+
+.component-news {
+  ion-card-header {
+    --padding-bottom: 5px;
+    padding-bottom: 5px;
+    .wrap-header {
+      padding-right: 0;
+    }
+  }
+  ion-card-subtitle {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  ion-card-content {
+    --padding-start:16px;
+    padding-left: 16px;
+    --padding-end:16px;
+    padding-right: 16px;
   }
 }
 
@@ -664,12 +685,98 @@ ion-modal.modal-component {
   }
 }
 
-.wrap-toggle-slide {
+.wrap-toggle-slide, .wrap-card-news, .wrap-list-transactions {
   ion-segment {
     width: 180px;
     margin: 0 auto 20px;
   }
   .swiper-slide img {
     height: initial;
+  }
+  .card-header-info {
+    .seeMore {
+      font-size: 12px;
+      line-height: 16px;
+      color:#2AB2FF;
+      text-decoration: none;
+      padding:5px 0;
+    }
+    .title {
+      font-size: 14px;
+      letter-spacing: 5%;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+}
+
+.toolbar-search-dashboard {
+  --padding-start:0;
+  --padding-end:0;
+  --padding-top:0;
+  --padding-bottom:0;
+}
+
+.component-transaction {
+  ion-item {
+    display: block;
+    --padding-start:0;
+    --padding-end:0;
+    --inner-padding-end: 0px;
+    padding: 0;
+  }
+  .item-row {
+    padding:16px;
+  }
+  .date {
+    font-size: 11px;
+    color:#ACACAC;
+    line-height: 15px;
+  }
+  .title {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pubid {
+    color:#456B80;
+    font-size: 12px;
+  }
+}
+
+ion-chip.status {
+  font-size: 11px;
+  height: 24px;
+  line-height: 24px;
+  ion-label {
+    text-align: center;
+    min-width: 60px;
+  }
+  &.ion-color-success {
+    border-color:#00AF6E;
+    color:#00AF6E;
+    --color:#00AF6E;
+    --background:#00AF6E;
+  }
+  &.ion-color-warning {
+    border-color:#FDAF30;
+    color:#FDAF30;
+    --color:#FDAF30;
+    --background:#FDAF30;
+  }
+  &.ion-color-danger {
+    border-color:#E83D66;
+    color:#E83D66;
+    --color:#E83D66;
+    --background:#E83D66;
+  }
+  &.ion-color-secondary {
+    border-color:#2AB2FF;
+    color:#2AB2FF;
+    --color:#2AB2FF;
+    --background:#2AB2FF;
   }
 }

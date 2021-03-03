@@ -16,7 +16,7 @@
           </ion-row>
         </ion-grid>
       </div>
-      <ion-toolbar>
+      <ion-toolbar class="toolbar-search-dashboard">
         <div class="search-dashboard ion-padding">
           <div class="input-search input-icon-left">
               <ion-icon :icon="search"></ion-icon>
@@ -40,6 +40,7 @@
         <div class="wrap-toggle-slide">
           <div class="text-center">
             <ion-segment
+              mode="ios"
               value="primary"
               swipeGesture="true">
               <ion-segment-button value="primary" @click="toggleSliderListing('primary')">
@@ -51,16 +52,17 @@
             </ion-segment>
           </div>
 
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <h3>Listing {{listingType === 'primary' ? 'Primary' : 'Lainnya'}}</h3>
+          <ion-grid class="ion-padding-start ion-padding-end card-header-info">
+            <ion-row class="ion-align-items-center">
+              <ion-col class="ion-no-padding">
+                <h3 class="my-0 title">Listing {{listingType === 'primary' ? 'Primary' : 'Lainnya'}}</h3>
               </ion-col>
-              <ion-col>
-                <a href="#">Lihat Semua</a>
+              <ion-col class="ion-no-padding text-right">
+                <a href="#" class="seeMore">Lihat Semua</a>
               </ion-col>
             </ion-row>
           </ion-grid>
+
           <ion-slides v-if="listingType === 'primary'" class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
             <ion-slide
             v-for="(item, index) in primaryResults"
@@ -84,7 +86,47 @@
           </ion-slides> 
         </div>
 
+        <div class="wrap-card-news">
+          <ion-grid class="ion-padding-start ion-padding-end card-header-info">
+            <ion-row class="ion-align-items-center">
+              <ion-col class="ion-no-padding">
+                <h3 class="my-0 title">Berita Properti</h3>
+              </ion-col>
+              <ion-col class="ion-no-padding text-right">
+                <a href="#" class="seeMore">Lihat Semua</a>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-slides class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
+            <ion-slide
+            v-for="(item, index) in otherResults"
+            :key="index">
+              <NewsDashboardCard
+              :detail="item"
+              classProps=""
+              ></NewsDashboardCard>
+            </ion-slide>
+          </ion-slides> 
+        </div>
       </div>
+
+      <div class="wrap-list-transactions">
+        <ion-grid class="ion-padding-start ion-padding-end card-header-info">
+          <ion-row class="ion-align-items-center">
+            <ion-col class="ion-no-padding">
+              <h3 class="my-0 title">Transaksi Saya</h3>
+            </ion-col>
+            <ion-col class="ion-no-padding text-right">
+              <a href="#" class="seeMore">Lihat Semua</a>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <TransactionItems
+        :result="transactions"
+        classProps=""
+        ></TransactionItems>
+      </div>
+
     </ion-content>
   </ion-page>
 </template>
@@ -113,6 +155,8 @@ import {
 } from 'ionicons/icons';
 import ModalNotification from '@/component/ModalNotification.vue'
 import ListingDashboardCard from '@/component/ListingDashboardCard.vue'
+import NewsDashboardCard from '@/component/NewsDashboardCard.vue'
+import TransactionItems from '@/component/TransactionItems.vue'
 
 export default defineComponent({
   name: 'Dashboard',
@@ -130,13 +174,16 @@ export default defineComponent({
     IonLabel,
     IonSegment,
     IonSegmentButton,
-    ListingDashboardCard
+    ListingDashboardCard,
+    NewsDashboardCard,
+    TransactionItems
   },
   data: function () {
     return {
       queryString: null,
       primaryResults: [1,2,3,4,5],
       otherResults: [3,2,1,5,4],
+      transactions: [1,2,3,4,5],
       listingType: 'primary'
     }
   },
@@ -164,6 +211,15 @@ export default defineComponent({
   created() {
   },
   methods: {
+    logScrollStart: function() {
+       console.log('start scroll')
+    },
+    logScrollEnd: function() {
+      console.log('end scroll')
+    },
+    logScrolling: function(val) {
+      console.log(val)
+    },
     toggleSliderListing: function(val) {
       this.listingType = val
       console.log(val)

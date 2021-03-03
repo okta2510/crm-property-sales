@@ -5,7 +5,11 @@
         <ion-title>tab3</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">Hello World</ion-content>
+    <ion-content :fullscreen="true" class="ion-padding">
+      <div style="min-height:950px">
+        Hello World
+      </div>
+    </ion-content>
   </ion-page>
 </template>
 

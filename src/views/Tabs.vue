@@ -1,23 +1,6 @@
 <template>
   <ion-page id="main-content">
-    <ion-content :fullscreen="true" >
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title mode="ios" size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
-      <div id="container">
-        <strong>Dashboard</strong>
-        <ul>
-          <li> <a href="/test">test page</a></li>
-          <li> <a href="/take-photo">Take Photo</a></li>
-          <li> <a href="/login">Login</a></li>
-          <li> <a href="/welcome">welcome</a></li>
-        </ul>
-      </div>
-    </ion-content>
-     <ion-tabs class="ion-tabs-custom">
+     <ion-tabs class="ion-tabs-custom" id="main-content">
       <ion-tab-bar slot="bottom">
          <ion-tab-button tab="tab1" href="/tab1">
           <ion-icon :icon="home" />
@@ -55,11 +38,11 @@
 
 <script>
 import {
-  IonContent,
-  IonHeader,
+  // IonContent,
+  // IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
+  // IonTitle,
+  // IonToolbar,
   IonTabs,
   IonTabButton,
   IonTabBar,
@@ -86,11 +69,11 @@ import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'Tabs',
   components: {
-    IonContent,
-    IonHeader,
+    // IonContent,
+    // IonHeader,
     IonPage,
-    IonTitle,
-    IonToolbar,
+    // IonTitle,
+    // IonToolbar,
     IonTabs,
     IonTabButton,
     IonTabBar,
