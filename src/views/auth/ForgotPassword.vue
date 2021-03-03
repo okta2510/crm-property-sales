@@ -54,9 +54,7 @@
 <script>
 import axios from 'axios';
 import {IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, toastController} from '@ionic/vue'
-import { 
-  chevronBack
-} from 'ionicons/icons';
+import { chevronBack } from 'ionicons/icons';
 import { useRouter } from 'vue-router'
 
 export default {

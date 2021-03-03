@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 // import { RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
+// import Tabs from '../views/Tabs.vue'
 
 const routes = [
   {
@@ -20,15 +21,56 @@ const routes = [
     name: 'Welcome',
     component: () => import('@/views/Welcome.vue')
   },
+  // {
+  //   path: '/home',
+  //   name: 'Home',
+  //   component: Home
+  // },
+  // {
+  //   path: '/my-listing',
+  //   name: 'MyListing',
+  //   component: () => import('@/views/MyListing.vue')
+  // },
   {
-    path: '/home',
-    name: 'Home',
-    component: Home
+    path: '/berita',
+    name: 'Berita',
+    component: () => import('@/views/Berita.vue')
   },
   {
-    path: '/my-listing',
-    name: 'MyListing',
-    component: () => import('@/views/MyListing.vue')
+    path: '/transaction',
+    name: 'Transaction',
+    component: () => import('@/views/Transaction.vue')
+  },
+  {
+    path: '/marketing',
+    name: 'Marketing',
+    component: () => import('@/views/Marketing.vue')
+  },
+  {
+    path: '/dashboard/',
+    component: () => import('@/views/Tabs.vue'),
+    children: [
+      {
+        path: '',
+       redirect: '/tab1'
+      },
+      {
+        path: '/tab1',
+        component: () => import('@/views/Dashboard.vue')
+      },
+      {
+        path: '/tab2',
+        component: () => import('@/views/Tab2.vue')
+      },
+      {
+        path: '/tab3',
+        component: () => import('@/views/Tab3.vue')
+      },
+      {
+        path: '/tab4',
+        component: () => import('@/views/Tab4.vue')
+      },
+    ]
   },
   {
     path: '/login',

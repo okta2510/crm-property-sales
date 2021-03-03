@@ -49,7 +49,7 @@ export default {
   methods: {
     directPage(res) {
       setTimeout(()=>{
-        res ? this.router.push('/my-listing') : this.router.push('/login')
+        res ? this.router.push('/dashboard') : this.router.push('/login')
       },5000)
     },
      getLoggedUser: async function (key) {

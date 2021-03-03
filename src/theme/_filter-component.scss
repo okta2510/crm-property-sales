@@ -1,0 +1,72 @@
+.filter-component {
+  ion-toolbar {
+    --color: #000;
+  }
+  ion-header ion-title {
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  ion-header {
+    ion-toolbar {
+      min-height: 50px;
+    }
+    box-shadow: 0px 5px 10px #00000020;
+  }
+  
+  ion-header ion-toolbar {
+      --background: #fff;
+      --color:#000;
+      color:#000;
+  }
+  
+  ion-header ion-toolbar button,
+  ion-header ion-toolbar ion-button.ios span,
+  ion-header ion-toolbar span {
+    font-size: 16px;
+    color: #BDBDBD;
+  }
+  ion-item {
+    --padding-start:0;
+  }
+  
+  ion-item.item-has-value .label-stacked {
+    font-weight: normal;
+    font-size: 12px;
+    color: #456B80;
+  }
+  .form-custom .sub-title.h3 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .form-custom .label-stacked {
+    font-size: 16px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    color: #456B80;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .form-custom ion-item.item-has-value .label-stacked {
+    font-weight: normal;
+    font-size: 12px;
+    color: #456B80;
+  }
+  .form-custom ion-item {
+    --border-color: #D7D7D7;
+  }
+  .form-custom ion-item.md {
+    --padding-top:10px;
+  }
+  .form-custom ion-input, .form-custom ion-textarea {
+    --color: #BDBDBD;
+  }
+  .form-custom .label-stacked.sc-ion-label-md-h {
+    transform: none;
+  }
+}

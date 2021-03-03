@@ -1,6 +1,8 @@
 module.exports = {
   crossorigin: 'use-credentials',
+  publicPath: "/",
   devServer: {
+    disableHostCheck: true,
     proxy: {
       '^/api': {
         target: 'http://54.179.9.67:8000',

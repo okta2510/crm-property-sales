@@ -2233,3 +2233,49 @@ a.text-dark:hover, a.text-dark:focus {
   opacity: 0;
   visibility: none;
 }
+
+.py-30 {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.bg-grey {
+  --background:#F2F2F2;
+}
+
+.color-success {
+  color:#00AF6E!important;
+}
+.bg-success {
+  background-color: #00AF6E!important;
+}
+.border-success {
+  border-color: #00AF6E!important;
+}
+.color-warning {
+  color:#FDAF30!important;
+}
+.bg-warning {
+  background-color: #FDAF30!important;
+}
+.border-warning {
+  border-color: #FDAF30!important;
+}
+.color-danger {
+  color:#E83D66!important;
+}
+.bg-danger {
+  background-color: #E83D66!important;
+}
+.border-danger {
+  border-color: #E83D66!important;
+}
+.color-info {
+  color:#2AB2FF!important;
+}
+.bg-info {
+  background-color: #2AB2FF!important;
+}
+.border-info {
+  border-color: #2AB2FF!important;
+}

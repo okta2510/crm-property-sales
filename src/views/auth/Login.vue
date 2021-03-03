@@ -60,7 +60,7 @@
 </template>
 <script>
 import axios from 'axios';
-import {IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, toastController} from '@ionic/vue'
+import {IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, toastController, IonHeader, IonFooter} from '@ionic/vue'
 import { add } from 'ionicons/icons';
 import { setLocal, getLocal } from '@/services/storage'
 import { useRouter } from 'vue-router'
@@ -68,13 +68,13 @@ import { useRouter } from 'vue-router'
 export default {
   name: 'Login',
   components: {
-    IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel
+    IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, IonHeader, IonFooter
   },
   setup() {
     const router = useRouter();
     const getLoggedUser = async function () {
        await getLocal('userInfo').then((res)=>{
-        res ? router.push('/my-listing') : router.push('/login')
+        res ? router.push('/dashboard') : router.push('/login')
       }).catch((err)=>{
         console.log(err)
       })
@@ -116,7 +116,7 @@ export default {
     }
   },
   methods: {
-    async openToast(message='openToast', duration=2000, color='default') {
+    async openToast(message='empty toast', duration=2000, color='default') {
         let toast = await toastController
           .create({
             message: message,
@@ -139,12 +139,12 @@ export default {
       })
       .then(response => {
         setLocal('userInfo', response.data)
-        this.router.push('/my-listing')
+        this.router.push('/dashboard')
         this.resetState()
       }).catch(function (err) {
         // handle err
         console.log(err);
-          self.openToast(err ? err : 'Login Error', 5000, 'danger')
+          self.openToast(err.response.data ? err.response.data.detail : 'Login Error', 5000, 'danger')
          self.signingIn = false
       })
     },

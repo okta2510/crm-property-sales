@@ -51,15 +51,14 @@ export default {
   created() {
   },
   mounted() {
-      // this.userInfo ? this.router.push('/my-listing') : this.router.push('/login')
   },
   methods: {
     directPage(res) {
       setTimeout(()=>{
-        res ? this.router.push('/my-listing') : this.router.push('/login')
+        res ? this.router.push('/dashboard') : this.router.push('/login')
       },5000)
     },
-     getLoggedUser: async function (key) {
+    getLoggedUser: async function (key) {
       await getLocal(key).then((res)=>{
         this.directPage(res)
       }).catch(()=>{

@@ -1,3 +1,71 @@
+.filter-component ion-toolbar {
+  --color: #000;
+}
+.filter-component ion-header ion-title {
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+}
+.filter-component ion-header {
+  box-shadow: 0px 5px 10px #00000020;
+}
+.filter-component ion-header ion-toolbar {
+  min-height: 50px;
+}
+.filter-component ion-header ion-toolbar {
+  --background: #fff;
+  --color:#000;
+  color: #000;
+}
+.filter-component ion-header ion-toolbar button,
+.filter-component ion-header ion-toolbar ion-button.ios span,
+.filter-component ion-header ion-toolbar span {
+  font-size: 16px;
+  color: #BDBDBD;
+}
+.filter-component ion-item {
+  --padding-start:0;
+}
+.filter-component ion-item.item-has-value .label-stacked {
+  font-weight: normal;
+  font-size: 12px;
+  color: #456B80;
+}
+.filter-component .form-custom .sub-title.h3 {
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+.filter-component .form-custom .label-stacked {
+  font-size: 16px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  color: #456B80;
+  font-size: 12px;
+  line-height: 18px;
+}
+.filter-component .form-custom ion-item.item-has-value .label-stacked {
+  font-weight: normal;
+  font-size: 12px;
+  color: #456B80;
+}
+.filter-component .form-custom ion-item {
+  --border-color: #D7D7D7;
+}
+.filter-component .form-custom ion-item.md {
+  --padding-top:10px;
+}
+.filter-component .form-custom ion-input, .filter-component .form-custom ion-textarea {
+  --color: #BDBDBD;
+}
+.filter-component .form-custom .label-stacked.sc-ion-label-md-h {
+  transform: none;
+}
+
 .form-custom .sub-title.h3 {
   font-size: 18px;
   line-height: 24px;
@@ -169,20 +237,9 @@ ion-toast.custom-toast img {
   vertical-align: middle;
 }
 
-ion-header.logged {
-  box-shadow: 0px 5px 10px #00000020;
+ion-header.main ion-toolbar {
+  min-height: 50px;
 }
-ion-header.logged ion-toolbar {
-  --background: #00A79D;
-  --color:#fff;
-}
-
-ion-header.logged ion-title {
-  text-align: center;
-  font-size: 16px;
-  line-height: 20px;
-}
-
 ion-header.main ion-title {
   font-weight: 700;
   font-size: 16px;
@@ -201,6 +258,26 @@ ion-header.main ion-button.ios ion-icon, ion-header.main ion-button.ios span {
   color: #00A79D;
 }
 
+ion-header.main.logged ion-title {
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+ion-header.main.logged {
+  box-shadow: 0px 5px 10px #00000020;
+}
+ion-header.main.logged ion-toolbar {
+  --background: #00A79D;
+  --color:#fff;
+  --border-color:transparent;
+  color: #fff;
+}
+ion-header.main.logged ion-toolbar button, ion-header.main.logged ion-toolbar ion-button, ion-header.main.logged ion-toolbar span {
+  --color:#fff;
+  color: #fff;
+}
+
 ion-button.clear-button {
   --box-shadow: none;
   --background: none;
@@ -208,9 +285,424 @@ ion-button.clear-button {
   --background-activated-opacity: 0;
   --background-hover-opacity: 0;
   --ripple-color: (255,255,255,0);
+  box-shadow: none;
+}
+
+ion-item.segment-handled {
+  display: block;
+  flex: none;
+  --padding-top:0;
+  --height: auto;
+  --min-height: initial;
+  height: auto;
+}
+ion-item.segment-handled ion-label.label {
+  overflow: visible;
+  display: block;
+}
+
+ion-segment {
+  --background: #F3F3F3;
+}
+
+ion-segment-button::part(indicator-background) {
+  --background-color: #456B80;
+  background-color: #456B80;
+}
+
+ion-segment-button {
+  color: #BDBDBD;
+  --color:#BDBDBD;
+}
+ion-segment-button.segment-button-checked {
+  --color:#fff;
+  color: #fff;
+}
+
+ion-select::part(text) {
+  color: #BDBDBD;
+  --color:#BDBDBD;
+}
+
+.wrap-content {
+  margin-left: unset;
+  margin-right: unset;
+  margin-inline: 16px;
+}
+
+.search-component {
+  margin-inline: 32px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.search-component ion-icon {
+  --color:#D7D7D7;
+  color: #D7D7D7;
+  line-height: 40px;
+  vertical-align: text-top;
+}
+.search-component .count-label {
+  color: #ACACAC;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 7px;
+}
+
+.input-search {
+  background-color: #fff;
+  --background: #fff;
+  border: solid 1px #D7D7D7;
+  width: 100%;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 10px;
+  --webkit-border-radius: 10px;
+  position: relative;
+}
+.input-search input {
+  height: 100%;
+  border: none;
+  padding: 0 0 0 10px;
+  margin: 0;
+  vertical-align: top;
+  display: inline-block;
+}
+.input-search input::-webkit-input-placeholder {
+  /* Edge */
+  color: #D7D7D7;
+}
+.input-search input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #D7D7D7;
+}
+.input-search input::placeholder {
+  color: #D7D7D7;
+}
+
+.input-search input:hover,
+.input-search input:focus,
+.input-search input:active {
+  outline: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+
+.component-listing .wrap-image {
+  text-align: center;
+  position: relative;
+}
+.component-listing .wrap-image img {
+  display: block;
+}
+.component-listing .wrap-image .feature-img {
+  width: 100%;
+}
+.component-listing .wrap-image ul {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  display: block;
+  margin: 0 auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.component-listing .wrap-image ul li {
+  padding: 0 8px;
+  color: #fff;
+  display: inline-block;
+  width: auto;
+  font-size: 12px;
+  line-height: auto;
+}
+.component-listing .wrap-image ul li img, .component-listing .wrap-image ul li span {
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.component-listing .wrap-image ul li img {
+  padding-right: 8px;
+}
+.component-listing ion-card-subtitle {
+  color: #6A6A6A;
+  font-size: 11px;
+  line-height: 14px;
+  font-size: 11px;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+.component-listing ion-card-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+.component-listing ion-card-header {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.component-listing ion-card-header .wrap-header {
+  position: relative;
+  padding-right: 80px;
+}
+.component-listing ion-card-header .wrap-header .status {
+  width: 70px;
+  position: absolute;
+  right: 0;
+  top: 6px;
+  max-width: 70px;
+  width: 100%;
+  border: solid 1px #ccc;
+  padding: 0px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 24px;
+  text-transform: uppercase;
+  font-size: 11px;
+  height: 24px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+.component-listing ion-card-header .wrap-header .status span {
+  line-height: inherit;
+}
+.component-listing ion-card-header .wrap-header .price {
+  font-size: 14px;
+  line-height: 18px;
+  color: #000;
+}
+.component-listing ion-item.list-item {
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+  --padding-start:0px ;
+}
+.component-listing ion-item.list-item .item-native {
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+}
+.component-listing ion-card {
+  width: 100%;
+  margin-bottom: 30px;
+  margin-top: 0px;
+}
+
+.fab-button-custom ion-fab-button {
+  --background:#00A79D;
+}
+.fab-button-custom ion-fab-button:hover, .fab-button-custom ion-fab-button:focus {
+  --background:#00A79D;
+}
+
+.ion-tabs-custom ion-tab-bar {
+  height: 57px;
+}
+.ion-tabs-custom ion-tab-bar ion-icon {
+  height: 20px;
+  margin-bottom: 5px;
+}
+.ion-tabs-custom ion-tab-bar ion-tab-button {
+  color: #304B57;
+  text-transform: uppercase;
+  letter-spacing: 5%;
+  font-size: 10px;
+}
+.ion-tabs-custom ion-tab-bar ion-tab-button.tab-selected {
+  color: #00A79D;
+}
+
+#side-menu {
+  z-index: 999;
+}
+
+.logged .header-md::after {
+  content: none;
+}
+.logged .header-ios ion-toolbar:last-of-type {
+  --border-width:0;
+}
+.logged .toolbar-container {
+  padding: 0 !important;
   --padding-start: 0;
   --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding: 0;
+  margin: 0;
+}
+
+.dashboard-page ion-slides {
+  --bullet-background: #00A79D;
+  --bullet-background-active: #00A79D;
+  background-color: #00A79D;
+}
+.dashboard-page .search-dashboard {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.dashboard-page .search-dashboard ion-icon {
+  --color:#D7D7D7;
+  color: #D7D7D7;
+  line-height: 40px;
+  vertical-align: text-top;
+}
+.dashboard-page .slider-listing {
+  padding-bottom: 30px;
+  min-height: 100px;
+  background-color: transparent;
+}
+
+.btn-notification {
+  --box-shadow: none;
   box-shadow: none;
+  font-size: 26px;
+  position: relative;
+  padding: 0 10px;
+  letter-spacing: initial;
+  margin: 0;
+  overflow: initial;
+  height: 26px;
+  display: inline-block;
+}
+.btn-notification .button-native {
+  overflow: initial;
+  contain: inherit;
+}
+.btn-notification ion-badge {
+  font-size: 12px;
+  --background:#E10338;
+  border-radius: 10px;
+  background-color: #E10338;
+  position: absolute;
+  left: 23px;
+  top: 0;
+  height: 16px;
+  line-height: 16px;
+  padding: 0px 5px;
+  max-width: 33px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.btn-notification ion-icon {
+  color: #304B57;
+  font-size: 26px;
+}
+
+ion-modal.modal-component .header-ios ion-toolbar:last-of-type {
+  --border-width: 0;
+}
+ion-modal.modal-component ion-toolbar {
+  --color: #000;
+}
+ion-modal.modal-component ion-header ion-title {
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+}
+ion-modal.modal-component ion-header {
+  box-shadow: 0px 5px 10px #00000020;
+}
+ion-modal.modal-component ion-header ion-toolbar {
+  min-height: 50px;
+}
+ion-modal.modal-component ion-header ion-toolbar {
+  --background: #fff;
+  --color:#000;
+  color: #000;
+}
+ion-modal.modal-component ion-header ion-toolbar button,
+ion-modal.modal-component ion-header ion-toolbar ion-button.ios span,
+ion-modal.modal-component ion-header ion-toolbar span {
+  font-size: 16px;
+  color: #BDBDBD;
+}
+ion-modal.modal-component ion-item {
+  --padding-start:0;
+}
+ion-modal.modal-component ion-item.item-has-value .label-stacked {
+  font-weight: normal;
+  font-size: 12px;
+  color: #456B80;
+}
+ion-modal.modal-component .form-custom .sub-title.h3 {
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+ion-modal.modal-component .form-custom .label-stacked {
+  font-size: 16px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  color: #456B80;
+  font-size: 12px;
+  line-height: 18px;
+}
+ion-modal.modal-component .form-custom ion-item.item-has-value .label-stacked {
+  font-weight: normal;
+  font-size: 12px;
+  color: #456B80;
+}
+ion-modal.modal-component .form-custom ion-item {
+  --border-color: #D7D7D7;
+}
+ion-modal.modal-component .form-custom ion-item.md {
+  --padding-top:10px;
+}
+ion-modal.modal-component .form-custom ion-input, ion-modal.modal-component .form-custom ion-textarea {
+  --color: #BDBDBD;
+}
+ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
+  transform: none;
+}
+
+.modal-notification ion-content ion-item ion-label {
+  padding: 15px 10px;
+  margin-inline: 0;
+}
+.modal-notification ion-content ion-item span {
+  display: block;
+}
+.modal-notification ion-content ion-item .date {
+  font-size: 11px;
+  line-height: 11px;
+  color: #ACACAC;
+}
+.modal-notification ion-content ion-item .title {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+}
+.modal-notification ion-content ion-item .desc {
+  font-size: 12px;
+  line-height: 18px;
+}
+.modal-notification ion-content ion-item.readed .title, .modal-notification ion-content ion-item.readed .desc {
+  color: #868686;
+}
+
+.wrap-toggle-slide ion-segment {
+  width: 180px;
+  margin: 0 auto 20px;
+}
+.wrap-toggle-slide .swiper-slide img {
+  height: initial;
 }
 
 /*# sourceMappingURL=custom.css.map */

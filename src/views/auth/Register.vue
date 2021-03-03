@@ -204,7 +204,7 @@ export default defineComponent({
     };
     const getLoggedUser = async function () {
        await getLocal('userInfo').then((res)=>{
-        res ? router.push('/my-listing') : null
+        res ? router.push('/dashboard') : null
       }).catch((err)=>{
         console.log(err)
       })
@@ -228,51 +228,53 @@ export default defineComponent({
       const image = await Camera.getPhoto({
         quality: 90,
         allowEditing: true,
-        resultType: CameraResultType.DataUrl,
+        resultType: CameraResultType.Base64,
         source: CameraSource.Prompt
       });
       console.log(image)
+      let url = `data:image/${image.format};base64, ${image.base64String}`
       if (state === 'ktp') {
-        ktpPhoto.value = image.dataUrl;
+        ktpPhoto.value = url;
       } else if (state === 'profile'){
-        profilePhoto.value = image.dataUrl;
+        profilePhoto.value = url;
       }
     }
 
-    const dataUrlToFile = async function(dataUrl, fileName){
-        const res = await fetch(dataUrl);
-        const blob = await res.blob();
-        let date = new Date()
-        fileName = fileName + moment(date).format('-YYYY_MM_DD-hh:mm:ss')
-        return new File([blob], fileName, { type: 'image/png' });
-    }
+    // const dataUrlToFile = async function(dataUrl, fileName){
+    //     const res = await fetch(dataUrl);
+    //     const blob = await res.blob();
+    //     let date = new Date()
+    //     fileName = fileName + moment(date).format('-YYYY_MM_DD-hh:mm:ss')
+    //     return new File([blob], fileName, { type: 'image/png' });
+    // }
     
 
     getLoggedUser()
 
-    return { chevronBack, chevronForward, router, slideOpts, slides, IonTextarea, IonInput, getIndex, goNext, disableSwap, IonDatetime, ktpPhoto, profilePhoto, takePhoto, camera, dataUrlToFile };
+    return { chevronBack, chevronForward, router, slideOpts, slides, IonTextarea, IonInput, getIndex, goNext, disableSwap, IonDatetime, ktpPhoto, profilePhoto, takePhoto, camera };
   },
   data: function () {
     return {
       signingIn: false,
-      dob: '1988-10-25',
-      name: 'oktaviardi',
-      display_name: 'okta',
-      phone: '+6281210161814',
-      email: 'me@okta.com',
-      address: 'jl. pakis raya',
-      pob: 'klaten',
-      ktp: 123123123123123123,
-      npwp: 12312312312312312,
+      dob: null,
+      name: null,
+      display_name: null,
+      phone: null,
+      email: null,
+      address: null,
+      pob: null,
+      ktp: null,
+      npwp: null,
       npwp_file: null,
       profile_picture: null,
-      bank: 'bca',
-      bank_branch: 'bekasi',
-      account_number: '3124123123123',
-      account_holder: 'okta',
-      member_id : '12312312',
-      rePassword: 'qweqweqwe',
-      password: 'qweqweqwe'
+      bank: null,
+      bank_branch: null,
+      account_number: null,
+      account_holder: null,
+      member_id : null,
+      rePassword: null,
+      password: null,
+      mail_address: null
     }
   },
   ionViewWillEnter() {
@@ -291,10 +293,10 @@ export default defineComponent({
   },
   watch: {
     ktpPhoto: async function (val) {
-      this.npwp_file = await this.dataUrlToFile(val, 'file')
+      this.npwp_file = val
     },
     profilePhoto: async function (val) {
-      this.profile_picture = await this.dataUrlToFile(val, 'file')
+      this.profile_picture = val;
     },
   },
   computed: {
@@ -319,7 +321,7 @@ export default defineComponent({
         account_number: this.account_number,
         account_holder: this.account_holder,
         member_id : this.member_id,
-        mail_address: 'alamat',
+        mail_address: this.mail_addresss,
         password: this.password
       }
     }
@@ -329,23 +331,19 @@ export default defineComponent({
   },
   methods: {
     onSubmit: function () {
-      console.log(this.payload)
-      this.onSubmit2()
-    },
-    onSubmit2: function () {
       let self = this
       this.signingIn = true
-      axios.post(this.API_REGISTER, this.payload, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      .then(response => {
-        self.openToast(response, 5000, 'success')
-      }).catch(function (err) {
+      axios.post(this.API_REGISTER, this.payload)
+      .then(() => {
+        self.openToast('Agent baru telah didaftarkan', 5000, 'success')
+        self.router.push('/login')
+        self.resetState()
+        self.signingIn = false
+      }).catch((err) => {
         // handle err
-        self.openToast(err ? err : 'Login Error', 5000, 'danger')
-         self.signingIn = false
+        console.log(err.response)
+        self.openToast(err.response ? err.response.data.detail : 'Login Error', 5000, 'danger')
+        self.signingIn = false
       })
     },
     async openToast(message='openToast', duration=2000, color='default') {
@@ -370,13 +368,25 @@ export default defineComponent({
       this.goNext()
     },
     resetState() {
-      // this.dob = null,
-      // this.name = null,
-      // this.display_name = null,
-      // this.phone = null,
-      // this.email = null,
-      // this.address =  null,
-      // this.pob = null
+      this.dob = null,
+      this.name = null,
+      this.display_name = null,
+      this.phone = null,
+      this.email = null,
+      this.address =  null,
+      this.pob = null,
+      this.ktp = null,
+      this.npwp = null,
+      this.npwp_file = null,
+      this.profile_picture = null,
+      this.bank = null,
+      this.bank_branch = null,
+      this.account_number = null,
+      this.account_holder = null,
+      this.member_id  = null,
+      this.rePassword = null,
+      this.password = null,
+      this.mail_addres =  null
     }
   }
 })
