@@ -1,7 +1,7 @@
 <template>
   <ion-header class="main" mode="md">
     <ion-toolbar class="ion-align-items-center">
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" class="ion-no-margin">
             <ion-button class="clear-button" @click="closeAction">
               <span>Tutup</span>
             </ion-button>
@@ -46,6 +46,56 @@
                 </ion-segment-button>
             </ion-segment>
 
+            <ion-list mode="ios" class="mb-3">
+              <ion-item>
+                <ion-label position="stacked">Status</ion-label>
+                <ion-select value="brown" ok-text="Pilih" cancel-text="Batal">
+                  <ion-select-option value="brown">Diproses</ion-select-option>
+                  <ion-select-option value="blonde">Selesai</ion-select-option>
+                  <ion-select-option value="black">Ditolak</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+
+
+            <ion-list  class="mb-3">
+              <ion-item class="md">
+                <ion-label color="medium" position="stacked">Mulai Dari Tanggal</ion-label>
+                <ion-datetime
+                mode="ios"
+                class="text-left logged"
+                min="1970-01"
+                max="2000"
+                v-model="dateStart"
+                :value="dateStart"
+                type="date"
+                @ionChange="dateStart = formattingDate($event.target.value, 'YYYY-MM-DD')"
+                name="date"
+                display-format="MMMM DD, YYYY"
+                month-short-names="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, des"
+                ></ion-datetime>
+              </ion-item>
+            </ion-list>
+
+            <ion-list  class="mb-3">
+              <ion-item class="md">
+                <ion-label color="medium" position="stacked">Sampai Dengan Tanggal</ion-label>
+                <ion-datetime
+                mode="ios"
+                class="text-left logged"
+                min="1970-01"
+                max="2000"
+                v-model="dateStart"
+                :value="dateStart"
+                type="date"
+                @ionChange="dateStart = formattingDate($event.target.value, 'YYYY-MM-DD')"
+                name="date"
+                display-format="MMMM DD, YYYY"
+                month-short-names="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, des"
+                ></ion-datetime>
+              </ion-item>
+            </ion-list>
+
             <ion-list mode="ios">
               <ion-item>
                 <ion-label position="stacked">Tipe Property</ion-label>
@@ -74,8 +124,27 @@
 </template>
 
 <script>
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonSegment, IonSegmentButton, IonLabel, IonItem, IonCol, IonRow, IonGrid, IonSelect, IonSelectOption, IonList } from '@ionic/vue';
+import { 
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonButtons,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
+  IonItem,
+  IonCol,
+  IonRow,
+  IonGrid,
+  IonSelect,
+  IonSelectOption,
+  IonList,
+  IonDatetime
+} from '@ionic/vue';
 import { defineComponent } from 'vue';
+import moment from 'moment';
 
 export default defineComponent({
   name: 'ModalFilterListing',
@@ -85,10 +154,33 @@ export default defineComponent({
   },
   data() {
     return {
+      dateStart: null,
+      dateEnd: null,
     }
   },
-  components: { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonSegment, IonSegmentButton, IonLabel, IonItem, IonCol, IonRow, IonGrid, IonSelect, IonSelectOption, IonList },
+  components: { 
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonButton,
+    IonButtons,
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    IonItem,
+    IonCol,
+    IonRow,
+    IonGrid,
+    IonSelect,
+    IonSelectOption,
+    IonList,
+    IonDatetime
+},
   methods: {
+    formattingDate(val, format) {
+      return moment(val).format(format)
+    },
     segmentChanged(ev) {
       console.log('Segment changed', ev);
     },
@@ -96,7 +188,6 @@ export default defineComponent({
       this.closeAction()
     },
     onSetFilter() {
-      alert('filter set')
       this.closeAction()
     }
   } 

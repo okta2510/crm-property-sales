@@ -33,7 +33,7 @@ export default {
   },
   created() {
     removeLocal('userInfo')
-    this.router.push('/login')
+    window.location = "/login";
   },
   mounted() {
   },

@@ -22,3 +22,6 @@ Note: After making updates to the native portion of the code (such as adding a n
 ```
 ionic cap sync
 ```
+```
+ionic cap open android
+```

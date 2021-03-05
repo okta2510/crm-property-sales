@@ -15,7 +15,7 @@ module.exports = {
       warnings: true,
       errors: true
     },
-    port: 8001
+    port: 9100
   }, chainWebpack: config => {
     config.plugins.delete('prefetch')
   },

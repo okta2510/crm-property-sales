@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300,0,400;0,500;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
 .filter-component ion-toolbar {
   --color: #000;
 }
@@ -158,6 +158,19 @@ body, html {
 }
 .form-custom ion-button.btn-take-photo ion-icon {
   font-size: 16px;
+}
+.form-custom .forgot_password {
+  padding: 10px 0;
+  color: #fff;
+  font-size: 12px;
+  line-height: 16px;
+}
+.form-custom .forgot_password input {
+  margin-right: 5px;
+}
+.form-custom .forgot_password > * {
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .heading-page .title {

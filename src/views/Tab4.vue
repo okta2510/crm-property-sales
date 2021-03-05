@@ -101,6 +101,9 @@ export default defineComponent({
   mounted() {
   },
   methods: {
+    goTo(path){
+      window.location.href = path
+    },
     getListing (queryString) {
       queryString ?  this.results = [1] :  this.results = [1,2,3,4,5]
     },

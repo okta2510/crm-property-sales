@@ -28,6 +28,11 @@
                       </ion-input>
                     </ion-item>
 
+                    <div class="forgot_password">
+                      <input type="checkbox" name="" v-model="rememberMe" id="">
+                      <span>Ingatkan Saya Selanjutnya</span>
+                    </div>
+
                     <div class="text-right small-text-1 mt-3">
                       <router-link to="/forgot-password" class="text-light">Lupa Kata Sandi?</router-link>
                     </div>
@@ -62,7 +67,7 @@
 import axios from 'axios';
 import {IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, toastController, IonHeader, IonFooter} from '@ionic/vue'
 import { add } from 'ionicons/icons';
-import { setLocal, getLocal } from '@/services/storage'
+import { setLocal, getLocal, removeLocal } from '@/services/storage'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -79,7 +84,6 @@ export default {
         console.log(err)
       })
     }
-
     getLoggedUser()
 
     return {
@@ -97,6 +101,7 @@ export default {
     this.resetState()
   },
   created() {
+   this.getRememberMe()
   },
   mounted() {
   },
@@ -104,7 +109,8 @@ export default {
     return {
       username: null,
       password: null,
-      signingIn: false
+      signingIn: false,
+      rememberMe: false
     }
   },
   computed: {
@@ -116,6 +122,18 @@ export default {
     }
   },
   methods: {
+    getRememberMe: async function () {
+       await getLocal('lastLogged').then((res)=>{
+        if(res) {
+          let {remember, username, password} = res 
+          this.rememberMe = remember
+          this.username = username
+          this.password = password
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
     async openToast(message='empty toast', duration=2000, color='default') {
         let toast = await toastController
           .create({
@@ -138,7 +156,19 @@ export default {
           "password": self.password
       })
       .then(response => {
+        // set local info
         setLocal('userInfo', response.data)
+        // set remember me
+        if(this.rememberMe) {
+          setLocal('lastLogged', {
+            remember: this.rememberMe,
+            username: this.username,
+            password: this.password
+          })
+        } else {
+          removeLocal('lastLogged')
+        }
+
         this.router.push('/dashboard')
         this.resetState()
       }).catch(function (err) {
