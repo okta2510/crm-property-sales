@@ -21,7 +21,7 @@
             </span>
           </ion-col>
           <ion-col class='ion-no-padding text-right' size="4">
-             <ion-chip class="status" color="success" outline="true">
+             <ion-chip disabled="true" class="status" color="success" outline="true">
                 <ion-label color="success">Selesai</ion-label>
               </ion-chip>
           </ion-col>
@@ -34,24 +34,24 @@
 
 <script>
 import {
-    IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
     IonItem,
-    IonCardContent
+    IonChip,
+    IonLabel,
+    IonRow,
+    IonCol,
+    IonGrid
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'NewsDashboardCard',
+  name: 'TransactionItems',
   components: {
-    IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
     IonItem,
-    IonCardContent
+    IonChip,
+    IonLabel,
+    IonRow,
+    IonCol,
+    IonGrid
   },
   setup(){
     return {
@@ -59,9 +59,9 @@ export default defineComponent({
   },
   props: {
     result: {
-      type: Number,
+      type: Array,
       default: function () {
-        return 1
+        return [1]
       },
       required: true
     },

@@ -1,12 +1,12 @@
 <template>
-  <div class="wrap-search wrap-content search-component">
-   <div class="input-search input-icon-left">
-      <ion-icon :icon="search"></ion-icon>
-      <input type="text" v-model="queryString" v-on:keyup="searchingQuery" placeholder="Ketik Pencarian...">
-   </div>
-    <span class="d-block count-label">
-      {{listResults.length}} {{searchType}}
-    </span>
+  <div class="wrap-search wrap-content search-component" :class="classProps">
+    <div class="input-search input-icon-left">
+        <ion-icon :icon="search"></ion-icon>
+        <input type="text" v-model="queryString" v-on:keyup="searchingQuery" placeholder="Ketik Pencarian...">
+    </div>
+      <span class="d-block count-label">
+        {{listResults.length}} {{searchType}}
+      </span>
   </div>
 </template>
 
@@ -36,12 +36,18 @@ export default defineComponent({
   props: {
     listResults: {
       type: Array,
-      default: []
+      default: function () {
+        return []
+      }
     },
     searchType: {
       type: String,
       required: true,
       default: 'Items'
+    },
+    classProps: {
+      type: String,
+      default: ''
     }
   },
   mounted() {

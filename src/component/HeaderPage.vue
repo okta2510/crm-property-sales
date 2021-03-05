@@ -1,34 +1,69 @@
 <template>
-  <ion-header class="main logged" >
-    <ion-toolbar>
-      <ion-buttons slot="start" v-show="sideMenuVisible">
+  <ion-header class="main logged" mode="md">
+    <ion-toolbar class="ion-align-items-center">
+      <!-- if backUrl is set -->
+      <ion-buttons slot="start" class="ion-no-margin" v-show="backUrl">
+        <ion-button class="clear-button"  @click="router.push(backUrl)" icon-only>
+          <ion-icon :icon="chevronBack"></ion-icon>
+          <ion-label>
+            {{backText}}
+          </ion-label>
+        </ion-button>
+      </ion-buttons>
+      <!-- if sideMenuVisible is set -->
+      <ion-buttons slot="start" class="ion-no-margin" v-show="sideMenuVisible">
         <ion-button class="clear-button" @click="openMenu" icon-only>
           <ion-icon :icon="menu"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-buttons slot="end" class="filter-button btn-function">
-        <ion-button class="clear-button" @click="openModal">
-          <span>Filter</span>
+
+      <ion-buttons slot="end"  class="filter-button btn-function on-no-margin">
+        <ion-button v-if="urlPage" class="clear-button" @click="router.push(urlPage)" icon-only>
+          <span>{{urlText || 'text'}}</span>
+        </ion-button>
+
+        <ion-button v-else-if="modalText" class="clear-button on-no-margin" @click="openModal" icon-only>
+          <span>{{modalText || 'Filter'}}</span>
         </ion-button>
       </ion-buttons>
+
       <ion-title mode="ios">{{title}}</ion-title>
     </ion-toolbar>
   </ion-header>
 </template>
 
 <script>
-import { IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonTitle, menuController } from '@ionic/vue';
+import {
+  IonHeader,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonTitle,
+  IonLabel,
+  menuController
+} from '@ionic/vue';
 import { defineComponent } from 'vue';
-import { menu } from 'ionicons/icons';
+import { menu, chevronBack } from 'ionicons/icons';
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'HeaderPage',
   components: {
-    IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonTitle
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonIcon,
+    IonTitle,
+    IonLabel
   },
   setup(){
+    const router = useRouter();
     return {
-      menu
+      menu,
+      router,
+      chevronBack
     }
   },
   props: {
@@ -41,6 +76,26 @@ export default defineComponent({
       type: Boolean,
       required: true,
       default: false
+    },
+    urlPage: {
+      type: String,
+      default: ''
+    },
+    urlText: {
+      type: String,
+      default: ''
+    },
+    backText: {
+      type: String,
+      default: 'Back'
+    },
+    backUrl: {
+      type: String,
+      default: ''
+    },
+    modalText: {
+      type: String,
+      default: ''
     }
   },
   mounted() {

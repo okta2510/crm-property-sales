@@ -2241,6 +2241,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .bg-grey {
   --background:#F2F2F2;
+  background:#F2F2F2;
 }
 
 .color-success {

@@ -1,6 +1,6 @@
 <template>
-  <ion-header class="main">
-    <ion-toolbar>
+  <ion-header class="main" mode="md">
+    <ion-toolbar class="ion-align-items-center">
       <ion-buttons slot="end">
             <ion-button class="clear-button" @click="closeAction">
               <span>Tutup</span>

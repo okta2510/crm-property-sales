@@ -2,6 +2,9 @@
   <ion-page class="logged">
     <HeaderPage
       title="Listing Saya"
+      urlPage=""
+      urlText=""
+      modalText="Filter"
       v-on:modalClick="openModal">
     </HeaderPage>
     <ion-header class="ion-no-padding">
@@ -14,7 +17,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding bg-grey" :fullscreen="true">
-      <div>
+      <div id="container-page-listing">
         <ListingCard
         :listResults="results"
         classProps="bg-grey"

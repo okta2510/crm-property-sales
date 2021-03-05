@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300,0,400;0,500;0,700;1,400&display=swap");
 .filter-component ion-toolbar {
   --color: #000;
 }
@@ -66,6 +67,10 @@
   transform: none;
 }
 
+body, html {
+  font-family: "Roboto", sans-serif;
+}
+
 .form-custom .sub-title.h3 {
   font-size: 18px;
   line-height: 24px;
@@ -104,6 +109,11 @@
   --padding-start: 0;
   --color: #fff;
   color: #fff;
+}
+.form-custom ion-datetime.logged {
+  --padding-start: 0;
+  --color: #BDBDBD;
+  color: #BDBDBD;
 }
 .form-custom ion-item.photo {
   --border-width: 0px;
@@ -331,9 +341,9 @@ ion-select::part(text) {
 }
 
 .search-component {
-  margin-inline: 32px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  margin-inline: 16px;
+  padding-top: 15px;
+  padding-bottom: 10px;
 }
 .search-component ion-icon {
   --color:#D7D7D7;
@@ -743,22 +753,22 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
   --padding-bottom:0;
 }
 
-.component-transaction ion-item {
+.component-transaction ion-item, .component-marketing ion-item {
   display: block;
   --padding-start:0;
   --padding-end:0;
   --inner-padding-end: 0px;
   padding: 0;
 }
-.component-transaction .item-row {
+.component-transaction .item-row, .component-marketing .item-row {
   padding: 16px;
 }
-.component-transaction .date {
+.component-transaction .date, .component-marketing .date {
   font-size: 11px;
   color: #ACACAC;
   line-height: 15px;
 }
-.component-transaction .title {
+.component-transaction .title, .component-marketing .title {
   font-size: 14px;
   line-height: 18px;
   font-weight: 500;
@@ -766,15 +776,32 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.component-transaction .pubid {
+.component-transaction .pubid, .component-marketing .pubid {
   color: #456B80;
   font-size: 12px;
+}
+
+.component-marketing .img-logo {
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+  line-height: 58px;
+  text-align: center;
+  border-radius: 58px;
+  background-color: #F3F3F3;
+}
+.component-marketing .img-logo img {
+  height: 100%;
 }
 
 ion-chip.status {
   font-size: 11px;
   height: 24px;
   line-height: 24px;
+  opacity: 1;
+}
+ion-chip.status > * {
+  line-height: initial;
 }
 ion-chip.status ion-label {
   text-align: center;
@@ -803,6 +830,96 @@ ion-chip.status.ion-color-secondary {
   color: #2AB2FF;
   --color:#2AB2FF;
   --background:#2AB2FF;
+}
+
+.container-component {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container-page-dashboard, #container-page-transaction, #container-page2, #container-page-listing {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+  height: 100%;
+  padding-bottom: 100px;
+  top: 0;
+}
+
+#container-page-transaction {
+  top: 145px;
+  padding-bottom: 120px;
+}
+
+#container-page2 {
+  top: 56px;
+}
+
+#container-page-listing {
+  top: 150px;
+  padding-bottom: 120px;
+}
+
+ion-item.reset-class {
+  display: block;
+  --padding-start:0;
+  --padding-end:0;
+  --inner-padding-end: 0px;
+  padding: 0;
+}
+
+.thumbnail-photo {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  text-align: center;
+  line-height: 150px;
+  border-radius: 150px;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+}
+.thumbnail-photo img {
+  max-width: unset;
+  height: 100%;
+  width: auto;
+  position: absolute;
+  left: -100px;
+  right: -100px;
+  margin: 0 auto;
+}
+
+.my-accounnt .profile-info {
+  padding: 30px 15px;
+  text-align: center;
+}
+.my-accounnt .profile-info .thumbnail-photo {
+  margin-bottom: 10px;
+}
+.my-accounnt ion-item ion-label {
+  font-size: 16px;
+  line-height: 24px;
+}
+.my-accounnt .text span {
+  display: block;
+}
+.my-accounnt .text span.name {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+.my-accounnt .text span.email {
+  color: #BDBDBD;
+  font-size: 14px;
+  line-height: 18px;
+}
+.my-accounnt .button-wrap {
+  margin-top: 130px;
 }
 
 /*# sourceMappingURL=custom.css.map */
