@@ -10,10 +10,10 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-grid>
+    <ion-grid class="ion-no-padding">
       <ion-row>
-        <ion-col size-md="4" size-xs="10" offset-md="4" offset-xs="1">
-           <form v-on:submit.prevent="onSetFilter" class="mt-4 form-custom">
+        <ion-col size-md="4" size-xs="12" offset-md="4" offset-xs="0">
+           <form v-on:submit.prevent="onSetFilter" class="mt-2 form-custom">
 
             <ion-list mode="ios">
               <ion-item>

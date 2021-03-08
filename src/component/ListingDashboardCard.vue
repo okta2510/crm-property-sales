@@ -5,7 +5,7 @@
     class="list-item"
     :class="classProps"
     >
-      <ion-card mode="ios" class="mb-3">
+      <ion-card mode="ios" class="mb-3" :href="`/listing/${detail}`">
         <div class="wrap-image">
           <ul>
             <li>
@@ -53,6 +53,7 @@ import {
     IonItem
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'ListingDashboardCard',
@@ -64,7 +65,9 @@ export default defineComponent({
     IonItem
   },
   setup(){
+    const router = useRouter();
     return {
+      router
     }
   },
   props: {

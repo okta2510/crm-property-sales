@@ -3,6 +3,7 @@
     <ion-item
     v-for="(item, index) in result"
     :key="index"
+    @click="router.push(`/transaction/${item}`)"
     class="list-item"
     :class="classProps"
     >
@@ -42,6 +43,7 @@ import {
     IonGrid
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'TransactionItems',
@@ -54,7 +56,9 @@ export default defineComponent({
     IonGrid
   },
   setup(){
+    const router = useRouter();
     return {
+      router
     }
   },
   props: {

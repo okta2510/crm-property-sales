@@ -5,7 +5,7 @@
     class="list-item"
     :class="classProps"
     >
-      <ion-card mode="ios" class="mb-3">
+      <ion-card mode="ios" class="mb-3" :href="`/berita/${detail}`">
         <div class="wrap-image">
           <img class="feature-img" :src="`/assets/img-sample${detail}.jpg`" />
         </div>
@@ -32,6 +32,7 @@ import {
     IonItem,
     IonCardContent
 } from '@ionic/vue';
+import { useRouter } from 'vue-router'
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -45,7 +46,9 @@ export default defineComponent({
     IonCardContent
   },
   setup(){
+    const router = useRouter();
     return {
+      router
     }
   },
   props: {

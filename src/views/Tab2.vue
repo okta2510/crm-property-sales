@@ -16,7 +16,7 @@
         ></SearchBar>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding bg-grey" :fullscreen="true">
+    <ion-content class="bg-grey min-height-100 ion-no-padding-start ion-no-padding-end pb-200">
       <div id="container-page-listing">
         <ListingCard
         :listResults="results"
@@ -68,6 +68,8 @@ export default defineComponent({
   ionViewDidEnter() {
   },
   ionViewDidLeave() {
+    this.results = [1,2,3,4,5]
+    this.currentModal = null
   },
   created() {
   },

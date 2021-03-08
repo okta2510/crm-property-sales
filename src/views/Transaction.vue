@@ -19,7 +19,7 @@
         ></SearchBar>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding" :fullscreen="true">
+    <ion-content class="min-height-100 ion-no-padding-start ion-no-padding-end pb-200">
       <div id="container-page-transaction">
         <div class="wrap-list-transactions">
           <TransactionItems

@@ -2280,3 +2280,52 @@ a.text-dark:hover, a.text-dark:focus {
 .border-info {
   border-color: #2AB2FF!important;
 }
+
+.ion-no-padding-top {
+  --padding-top: 0;
+  padding-top: 0;
+}
+.ion-no-padding-bottom {
+  --padding-top: 0;
+  padding-top: 0;
+}
+
+.pb-200 {
+  padding-bottom: 200px;
+  --padding-bottom:200px;
+}
+
+.pb-100 {
+  padding-bottom: 100px;
+  --padding-bottom: 100px;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.bg-primary {
+  background-color: #00A79D;
+  --background: #00A79D;
+}
+
+.bg-light {
+  background-color: #fff;
+  --background: #fff;
+}
+
+.text-light {
+  color:#fff;
+  --color:#fff;
+}
+
+.
+.bg-transparent {
+  --background:transparent;
+  background-color:transparent;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}

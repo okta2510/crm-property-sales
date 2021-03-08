@@ -103,7 +103,7 @@
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Alamat</ion-label>
-                          <ion-textarea rows="4" cols="20" id="" placeholder="" autocapitalize="off" title=""  v-model="address" value="address" required>
+                          <ion-textarea rows="4" cols="20" id="" placeholder="" autocapitalize="off" title=""  v-model="address" value="" required>
                           </ion-textarea>
                         </ion-item>
                       </div>
@@ -204,7 +204,8 @@ export default defineComponent({
     };
     const getLoggedUser = async function () {
        await getLocal('userInfo').then((res)=>{
-        res ? router.push('/dashboard') : null
+        // res ? router.push('/dashboard') : null
+        console.log(res)
       }).catch((err)=>{
         console.log(err)
       })
@@ -251,7 +252,23 @@ export default defineComponent({
 
     getLoggedUser()
 
-    return { chevronBack, chevronForward, router, slideOpts, slides, IonTextarea, IonInput, getIndex, goNext, disableSwap, IonDatetime, ktpPhoto, profilePhoto, takePhoto, camera };
+    return { 
+      chevronBack,
+      chevronForward,
+      router,
+      slideOpts,
+      slides,
+      IonTextarea,
+      IonInput,
+      getIndex,
+      goNext,
+      disableSwap,
+      IonDatetime,
+      ktpPhoto,
+      profilePhoto,
+      takePhoto,
+      camera 
+    };
   },
   data: function () {
     return {

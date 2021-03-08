@@ -92,16 +92,15 @@ export default {
   },
   ionViewWillEnter() {
     this.resetState()
+    this.getRememberMe()
   },
   ionViewWillLeave() {
   },
   ionViewDidEnter() {
   },
   ionViewDidLeave() {
-    this.resetState()
   },
   created() {
-   this.getRememberMe()
   },
   mounted() {
   },
@@ -170,7 +169,6 @@ export default {
         }
 
         this.router.push('/dashboard')
-        this.resetState()
       }).catch(function (err) {
         // handle err
         console.log(err);
@@ -182,6 +180,7 @@ export default {
       this.username = null
       this.password = null
       this.signingIn = false
+      this.rememberMe = false
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
-  <ion-header class="main logged" mode="md">
+  <ion-header class="main logged" :class="headerClass" mode="md">
     <ion-toolbar class="ion-align-items-center">
       <!-- if backUrl is set -->
       <ion-buttons slot="start" class="ion-no-margin" v-show="backUrl">
-        <ion-button class="clear-button"  @click="router.push(backUrl)" icon-only>
+        <ion-button class="clear-button"  :href="backUrl" icon-only>
           <ion-icon :icon="chevronBack"></ion-icon>
           <ion-label>
             {{backText}}
@@ -18,7 +18,7 @@
       </ion-buttons>
 
       <ion-buttons slot="end"  class="filter-button btn-function on-no-margin">
-        <ion-button v-if="urlPage" class="clear-button" @click="router.push(urlPage)" icon-only>
+        <ion-button v-if="urlPage" class="clear-button" :href="urlPage" icon-only>
           <span>{{urlText || 'text'}}</span>
         </ion-button>
 
@@ -67,6 +67,10 @@ export default defineComponent({
     }
   },
   props: {
+    headerClass: {
+      type: String,
+      default: ''
+    },
     title: {
       type: String,
       required: true,
@@ -113,7 +117,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-ion-header {
+/* ion-header {
   z-index: 9999;
   position: relative;
   background: #00A79D;
@@ -133,5 +137,5 @@ ion-toolbar.logged-header {
 ion-toolbar.logged-header .btn-function, ion-toolbar.logged-header .btn-function button{
   color:#fff;
   --color: #fff;
-}
+} */
 </style>

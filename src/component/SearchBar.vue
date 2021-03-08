@@ -33,6 +33,9 @@ export default defineComponent({
       search
     }
   },
+  ionViewDidLeave() {
+    this.queryString = ''
+  },
   props: {
     listResults: {
       type: Array,

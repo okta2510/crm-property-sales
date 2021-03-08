@@ -7,9 +7,9 @@
     class="list-item"
     :class="classProps"
     >
-      <ion-card mode="ios" class="mb-3">
+      <ion-card mode="ios" @click="router.push(`/berita/${item}`)">
         <div class="wrap-image">
-          <img class="feature-img" :src="`/assets/img-sample${index++}.jpg`" />
+          <img class="feature-img" :src="`/assets/img-sample${item}.jpg`" />
         </div>
         <ion-card-header>
           <div class="wrap-header">
@@ -31,9 +31,11 @@ import {
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
-    IonItem
+    IonItem,
+    IonCardContent
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'SearchBar',
@@ -42,10 +44,13 @@ export default defineComponent({
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
-    IonItem
+    IonItem,
+    IonCardContent
   },
   setup(){
+    const router = useRouter();
     return {
+      router
     }
   },
   props: {

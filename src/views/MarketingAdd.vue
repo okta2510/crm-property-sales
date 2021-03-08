@@ -1,19 +1,17 @@
 <template>
   <ion-page class="logged">
     <HeaderPage
-      title="Marketing Tools"
-      urlPage="/marketing/add"
-      urlText="Pesan"
-      modalText="Filter"
+      title="Form Pesanan"
+      urlPage=""
+      urlText=""
+      modalText=""
+      backText="Kembali"
+      backUrl="/tab3"
+      headerClass="bg-light"
       v-on:modalClick="null">
     </HeaderPage>
-    <ion-content class="ion-padding min-height-100 ion-no-padding-start ion-no-padding-end pb-100">
-      <div id="container-page2">
-        <MarketingItems
-        :result="results"
-        classProps=""
-        ></MarketingItems>
-      </div>
+    <ion-content  id="content-page" class="min-height-100 ion-padding pb-100 bg-primary text-light form-logged">
+        <FormMarketingAdd></FormMarketingAdd>
     </ion-content>
   </ion-page>
 </template>
@@ -27,14 +25,14 @@ import {
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
-import MarketingItems from '@/component/MarketingItems.vue'
+import FormMarketingAdd from '@/component/FormMarketingAdd.vue'
 
 export default defineComponent({
   components: {
     IonContent,
     IonPage,
     HeaderPage,
-    MarketingItems,
+    FormMarketingAdd
   },
   data: function() {
     return {

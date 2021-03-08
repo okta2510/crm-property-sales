@@ -7,8 +7,8 @@
       modalText=""
       v-on:modalClick="null">
     </HeaderPage>
-    <ion-content class="ion-padding" :fullscreen="true">
-      <div id="container-page2" class="my-accounnt">
+    <ion-content class="min-height-100 ion-no-padding-start ion-no-padding-end pb-100">
+      <div class="my-account">
         <div class="profile-info">
           <div class="thumbnail-photo">
             <img src="/assets/user-profile.png"/>

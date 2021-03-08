@@ -7,7 +7,7 @@
     class="list-item"
     :class="classProps"
     >
-      <ion-card mode="ios">
+      <ion-card mode="ios" @click="router.push(`/listing/${item}`)">
         <div class="wrap-image">
           <ul>
             <li>
@@ -55,6 +55,7 @@ import {
     IonItem
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'SearchBar',
@@ -66,7 +67,9 @@ export default defineComponent({
     IonItem
   },
   setup(){
+    const router = useRouter();
     return {
+      router
     }
   },
   props: {

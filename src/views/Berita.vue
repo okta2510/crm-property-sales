@@ -1,7 +1,7 @@
 <template>
   <ion-page class="logged">
     <HeaderPage
-      title="Listing Saya"
+      title="Berita Properti"
       urlPage=""
       urlText=""
       modalText=""
@@ -12,19 +12,34 @@
     <ion-header class="ion-no-padding">
       <ion-toolbar class="bg-grey ion-no-padding">
           <SearchBar
-        v-on:searchEnter="getListing"
+        v-on:searchEnter="getNews"
         searchType="Berita"
         :listResults="results"
         ></SearchBar>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding bg-grey" :fullscreen="true">
-      <div id="container-page-listing">
+    <ion-content class="bg-grey min-height-100 ion-no-padding-start ion-no-padding-end pb-200">
         <NewsCard
-        :listResults="results"
-        classProps="bg-grey"
-        ></NewsCard>
-      </div>
+          :listResults="results"
+          classProps="bg-grey"
+          ></NewsCard>
+        <div class="component-popular-news mb-set">
+          <div class="ion-padding-start ion-padding-end">
+            <h3 class="mt-0 mb-0">Artikel Terpopuler</h3>
+          </div>
+          <ul>
+            <li v-for="(item, index) in results" :key="index" class="item">
+              <a :href="`/berita/${item}`">
+                <span class="d-block w-100 date">
+                2020-11-05 10:00
+                </span>
+                <span class="d-block w-100 title">
+                  Termurah di jatiasih, bisa cicil 24x dengan bunga yang fantastis
+                </span>
+              </a>
+          </li>
+          </ul>
+        </div>
     </ion-content>
   </ion-page>
 </template>
@@ -35,7 +50,8 @@ import {
   IonPage,
   modalController,
   IonHeader,
-  IonToolbar
+  IonToolbar,
+  // IonItem
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
@@ -51,7 +67,8 @@ export default defineComponent({
     NewsCard,
     SearchBar,
     IonHeader,
-    IonToolbar
+    IonToolbar,
+    // IonItem
   },
   data: function() {
     return {
@@ -70,13 +87,15 @@ export default defineComponent({
   ionViewDidEnter() {
   },
   ionViewDidLeave() {
+    this.results = [1,2,3,4,5]
+    this.currentModal = null
   },
   created() {
   },
   mounted() {
   },
   methods: {
-    getListing (queryString) {
+    getNews (queryString) {
       queryString ?  this.results = [1] :  this.results = [1,2,3,4,5]
     },
     async openModal() {

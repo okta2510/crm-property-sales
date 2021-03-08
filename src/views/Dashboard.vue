@@ -1,7 +1,7 @@
 <template>
   <ion-page class="dashboard-page">
-    <ion-content :fullscreen="true" :scrollY="false">
-      <div id="container-page-dashboard">
+    <ion-content class="min-height-100 ion-no-padding-start ion-no-padding-end pb-100">
+      <!-- <div id="container-page-dashboard"> -->
         <div class="header ion-padding-start ion-padding-end ion-padding-top">
           <ion-grid class="ion-no-padding">
             <ion-row class="ion-align-items-center">
@@ -59,7 +59,7 @@
                 <h3 class="my-0 title">Listing {{listingType === 'primary' ? 'Primary' : 'Lainnya'}}</h3>
               </ion-col>
               <ion-col class="ion-no-padding text-right">
-                <a href="#" class="seeMore">Lihat Semua</a>
+                <span @click="router.replace('/tab2')" class="seeMore">Lihat Semua</span>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -94,7 +94,7 @@
                 <h3 class="my-0 title">Berita Properti</h3>
               </ion-col>
               <ion-col class="ion-no-padding text-right">
-                <a href="/berita" class="seeMore">Lihat Semua</a>
+                <span @click="router.replace('/berita')" class="seeMore">Lihat Semua</span>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -117,7 +117,8 @@
                 <h3 class="my-0 title">Transaksi Saya</h3>
               </ion-col>
               <ion-col class="ion-no-padding text-right">
-                <a href="/transaction" class="seeMore">Lihat Semua</a>
+                <span @click="router.replace('/transaction')" class="seeMore">Lihat Semua</span>
+                <!-- <a href="/transaction" class="seeMore">Lihat Semua</a> -->
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -126,7 +127,7 @@
           classProps=""
           ></TransactionItems>
         </div>
-      </div>
+      <!-- </div> -->
 
     </ion-content>
   </ion-page>
@@ -194,7 +195,10 @@ export default defineComponent({
     const router = useRouter();
     const slideOpts = {
       initialSlide: 0,
-      speed: 400
+      speed: 400,
+       autoplay: {
+        delay: 5000
+      }
     };
     const slideFeatureOpts = {
       initialSlide: 0,

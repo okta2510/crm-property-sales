@@ -37,15 +37,35 @@ const routes = [
     component: () => import('@/views/Berita.vue')
   },
   {
+    path: '/berita/:id',
+    name: 'Berita Detail',
+    component: () => import('@/views/NewsDetail.vue')
+  },
+  {
+    path: '/listing/:id',
+    name: 'Listing Detail',
+    component: () => import('@/views/ListingDetail.vue')
+  },
+  {
+    path: '/transaction/:id',
+    name: 'Transaction Detail',
+    component: () => import('@/views/TransactionDetail.vue')
+  },
+  {
     path: '/transaction',
     name: 'Transaction',
     component: () => import('@/views/Transaction.vue')
   },
   {
-    path: '/marketing',
-    name: 'Marketing',
-    component: () => import('@/views/Marketing.vue')
+    path: '/marketing/add',
+    name: 'Marketing Add',
+    component: () => import('@/views/MarketingAdd.vue')
   },
+  // {
+  //   path: '/marketing',
+  //   name: 'Marketing',
+  //   component: () => import('@/views/Marketing.vue')
+  // },
   {
     path: '/dashboard/',
     component: () => import('@/views/Tabs.vue'),
