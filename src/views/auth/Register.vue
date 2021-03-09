@@ -224,7 +224,7 @@ export default defineComponent({
     };
     const getLoggedUser = async function () {
        await getLocal('userInfo').then((res)=>{
-        // res ? router.push('/dashboard') : null
+        res ? router.push('/dashboard') : null
         console.log(res)
       }).catch((err)=>{
         console.log(err)
