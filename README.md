@@ -26,6 +26,11 @@ ionic cap sync
 ionic cap open android
 ```
 
+run this after build for update icon and splash screen
+```
+npm run resources
+```
+
 ###genereate icon and splash image
 
 https://dalezak.medium.com/generate-app-icon-and-splash-screen-images-for-ionic-framework-using-capacitor-e1f8c6ef0fd4
