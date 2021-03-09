@@ -5,6 +5,10 @@ body, html {
   font-family: 'Roboto', sans-serif;
 }
 .form-custom {
+  small {
+    font-size: 11px;
+    line-height: 15px;
+  }
   .sub-title {
     &.h3 {
       font-size: 18px;
@@ -1092,4 +1096,22 @@ ion-header.main.logged.bg-light ion-toolbar{
 .form-logged {
   padding-top: 30px;
   --padding-top: 30px;
+  .native-textarea {
+    padding-top: 0;
+  }
+}
+
+.component-form {
+  ion-item {
+    padding-top: 15px;
+    --padding-top: 15px;
+    &::part(native) {
+      background-color: transparent;
+      --background-color: transparent;
+    }
+    ion-select::part(text) {
+      color:#fff;
+      --color:#fff;
+    }
+  }
 }

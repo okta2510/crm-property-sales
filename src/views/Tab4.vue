@@ -18,7 +18,7 @@
             <span class="email">budi.handoko@gmail.com</span>
           </div>
         </div>
-        <ion-item mode="md" class="reset-class" href="/dashboard" routerDirection="forward">
+        <ion-item mode="md" class="reset-class" href="/profile/edit" routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">

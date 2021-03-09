@@ -18,7 +18,7 @@
             <ion-list mode="ios">
               <ion-item>
                 <ion-label position="stacked">Urutkan Berdasarkan</ion-label>
-                <ion-select value="1" ok-text="Pilih" cancel-text="Batal">
+                <ion-select value="1" ok-text="Pilih" cancel-text="Tutup">
                   <ion-select-option value="1">Terbaru</ion-select-option>
                   <ion-select-option value="2">Harga Tertinggi</ion-select-option>
                   <ion-select-option value="3">Harga Terendah</ion-select-option>
@@ -49,7 +49,7 @@
             <ion-list mode="ios">
               <ion-item>
                 <ion-label position="stacked">Tipe Property</ion-label>
-                <ion-select value="brown" ok-text="Pilih" cancel-text="Batal">
+                <ion-select value="brown" ok-text="Pilih" cancel-text="Tutup">
                   <ion-select-option value="brown">Rumah</ion-select-option>
                   <ion-select-option value="blonde">Apartemen</ion-select-option>
                   <ion-select-option value="black">Ruko</ion-select-option>

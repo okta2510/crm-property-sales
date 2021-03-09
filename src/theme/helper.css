@@ -2329,3 +2329,10 @@ a.text-dark:hover, a.text-dark:focus {
 .mb-30 {
   margin-bottom: 30px;
 }
+
+.ion-no-padding-start {
+  --padding-start:0;
+}
+.ion-no-padding-end {
+  --padding-end:0;
+}

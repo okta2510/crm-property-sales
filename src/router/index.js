@@ -61,6 +61,16 @@ const routes = [
     name: 'Marketing Add',
     component: () => import('@/views/MarketingAdd.vue')
   },
+  {
+    path: '/listing/add',
+    name: 'Listing Add',
+    component: () => import('@/views/ListingAdd.vue')
+  },
+  {
+    path: '/profile/edit',
+    name: 'profile Edit',
+    component: () => import('@/views/ProfileEdit.vue')
+  },
   // {
   //   path: '/marketing',
   //   name: 'Marketing',
