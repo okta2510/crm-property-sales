@@ -233,7 +233,7 @@ export default defineComponent({
     const router = useRouter();
     const slides = ref();
     const slideOpts = {
-      initialSlide: 1,
+      initialSlide: 0,
       speed: 400
     };
 

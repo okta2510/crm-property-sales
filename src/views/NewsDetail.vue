@@ -10,7 +10,7 @@
       headerClass="header-detail"
       v-on:modalClick="null">
     </HeaderPage>
-    <ion-content class="ion-padding min-height-100 ion-no-padding-start ion-no-padding-end pb-200 ">
+    <ion-content class="ion-padding min-height-100 pb-200 ">
       <div class="news-detail">
         <ion-grid class="ion-no-padding ion-no-padding-top ion-no-padding-bottom">
           <ion-row>

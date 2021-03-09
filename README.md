@@ -25,3 +25,7 @@ ionic cap sync
 ```
 ionic cap open android
 ```
+
+###genereate icon and splash image
+
+https://dalezak.medium.com/generate-app-icon-and-splash-screen-images-for-ionic-framework-using-capacitor-e1f8c6ef0fd4

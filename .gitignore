@@ -30,4 +30,7 @@ npm-debug.log*
 /plugins
 /www
 
-	cb-web-ssr-config/
+cb-web-ssr-config/
+
+android/**
+ios/**

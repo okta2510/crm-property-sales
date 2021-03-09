@@ -13,6 +13,7 @@
     "lint": "vue-cli-service lint",
     "ionic:build": "vue-cli-service build",
     "ionic:serve": "vue-cli-service serve",
+    "resources": "cordova-res ios && cordova-res android && node scripts/resources.js",
     "buildall": "vue-cli-service build && rm -rf android && ionic cap add android && ionic cap copy"
   },
   "dependencies": {
@@ -41,6 +42,7 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0-0",
     "@vue/test-utils": "^2.0.0-0",
+    "cordova-res": "^0.15.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
     "sass-loader": "^10.1.1",
