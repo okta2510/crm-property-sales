@@ -34,3 +34,5 @@ cb-web-ssr-config/
 
 android/**
 ios/**
+resources/android/**
+resources/ios/**
