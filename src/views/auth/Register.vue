@@ -108,12 +108,12 @@
                         </ion-item>
                       </div>
 
-                      <div class="mt-3 text-right">
-                        <ion-button name="selanjutnya" type="submit" class="clear-button">
-                        Selanjutnya 
+                        <div class="mt-3 text-right">
+                          <ion-button name="selanjutnya" type="submit" class="clear-button">
+                          Selanjutnya 
                           <ion-icon :icon="chevronForward"></ion-icon>
-                        </ion-button>
-                      </div>
+                          </ion-button>
+                        </div>
                       </form>
                     </div>
                 </ion-slide>
@@ -184,7 +184,27 @@
 </template>
 <script>
 import axios from 'axios';
-import {IonPage, IonContent, IonToolbar, IonTitle, IonButtons, IonSlides, IonSlide, IonTextarea, IonInput, IonDatetime, toastController} from '@ionic/vue'
+import {
+  IonPage,
+  IonContent,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonSlides,
+  IonSlide,
+  IonTextarea,
+  IonInput,
+  IonDatetime,
+  toastController,
+  IonIcon,
+  IonButton,
+  IonHeader,
+  IonLabel,
+  IonItem,
+  IonGrid,
+  IonRow,
+  IonCol
+} from '@ionic/vue'
 import { useRouter } from 'vue-router'
 import { ref, defineComponent } from 'vue';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
@@ -267,7 +287,7 @@ export default defineComponent({
       ktpPhoto,
       profilePhoto,
       takePhoto,
-      camera 
+      camera
     };
   },
   data: function () {
@@ -291,7 +311,9 @@ export default defineComponent({
       member_id : null,
       rePassword: null,
       password: null,
-      mail_address: null
+      mail_address: null,
+      phone_second: null,
+      phone_third: null
     }
   },
   ionViewWillEnter() {
@@ -344,7 +366,24 @@ export default defineComponent({
     }
   },
   components: {
-    IonPage, IonContent, IonToolbar, IonTitle, IonButtons, IonSlides, IonSlide
+    IonPage,
+    IonContent,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonSlides,
+    IonSlide,
+    IonIcon,
+    IonButton,
+    IonHeader,
+    IonLabel,
+    IonItem,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonInput,
+    IonDatetime,
+    IonTextarea
   },
   methods: {
     onSubmit: function () {

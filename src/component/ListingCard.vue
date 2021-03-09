@@ -7,7 +7,7 @@
     class="list-item"
     :class="classProps"
     >
-      <ion-card mode="ios" @click="router.push(`/listing/${item}`)">
+      <ion-card mode="ios" :href="`/listing/${item}`">
         <div class="wrap-image">
           <ul>
             <li>
