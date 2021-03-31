@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "myApp",
+  "appName": "PIINTU",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",
@@ -9,5 +9,11 @@
       "launchShowDuration": 0
     }
   },
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://54.179.9.67:8000/api"
+    }
+  ],
   "cordova": {}
 }

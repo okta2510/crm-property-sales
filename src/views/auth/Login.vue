@@ -153,6 +153,11 @@ export default {
       axios.post(this.API_LOGIN, {
           "username": self.username,
           "password": self.password
+      }, {
+        proxy: {
+          host: 'localhost',
+          port: 3000
+        }
       })
       .then(response => {
         // set local info

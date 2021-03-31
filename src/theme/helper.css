@@ -2291,13 +2291,13 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .pb-200 {
-  padding-bottom: 200px;
-  --padding-bottom:200px;
+  padding-bottom: 200px !important;
+  --padding-bottom:200px !important;
 }
 
 .pb-100 {
-  padding-bottom: 100px;
-  --padding-bottom: 100px;
+  padding-bottom: 100px !important;
+  --padding-bottom: 100px !important;
 }
 
 .list-unstyled {
@@ -2328,6 +2328,9 @@ a.text-dark:hover, a.text-dark:focus {
 
 .mb-30 {
   margin-bottom: 30px;
+}
+.mb-40 {
+  margin-bottom: 40px;
 }
 
 .ion-no-padding-start {

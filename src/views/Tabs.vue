@@ -12,7 +12,7 @@
           <ion-label>Listing</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="add">
+        <ion-tab-button tab="add" class="hidden-tab">
           <ion-label>add</ion-label>
         </ion-tab-button>
 
@@ -27,9 +27,9 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-    <ion-fab class="fab-button-custom" vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab class="fab-button-custom ios" vertical="bottom" horizontal="center" slot="fixed">
       <ion-fab-button href="/listing/add">
-        <ion-icon :icon='add'></ion-icon>
+        <ion-icon :icon="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
     <SideMenu></SideMenu>

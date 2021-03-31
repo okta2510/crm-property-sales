@@ -7,14 +7,14 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && resources",
+    "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "ionic:build": "vue-cli-service build",
     "ionic:serve": "vue-cli-service serve",
     "resources": "cordova-res ios && cordova-res android && node scripts/resources.js",
-    "buildall": "vue-cli-service build && rm -rf android && ionic cap add android && ionic cap copy"
+    "test": "ionic build && ionic cap copy && ionic cap sync"
   },
   "dependencies": {
     "@capacitor/android": "^2.4.6",
@@ -32,6 +32,7 @@
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
+    "@capacitor-community/http": "^0.3.0",
     "@capacitor/cli": "2.4.6",
     "@ionic/pwa-elements": "^3.0.2",
     "@vue/cli-plugin-babel": "~4.5.0",

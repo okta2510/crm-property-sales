@@ -10,7 +10,7 @@
       v-on:modalClick="null">
     </HeaderPage>
     <ion-header class="ion-no-padding">
-      <ion-toolbar class="bg-grey ion-no-padding">
+      <ion-toolbar class="bg-grey ion-no-padding ios-handled ios">
           <SearchBar
         v-on:searchEnter="getNews"
         searchType="Berita"

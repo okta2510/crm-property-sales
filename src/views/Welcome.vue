@@ -56,7 +56,7 @@ export default {
     directPage(res) {
       setTimeout(()=>{
         res ? this.router.push('/dashboard') : this.router.push('/login')
-      },5000)
+      },3000)
     },
     getLoggedUser: async function (key) {
       await getLocal(key).then((res)=>{

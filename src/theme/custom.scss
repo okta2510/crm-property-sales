@@ -287,17 +287,35 @@ ion-item.segment-handled {
 ion-segment {
   --background: #F3F3F3;
 }
-ion-segment-button::part(indicator-background) {
-  --background-color: #456B80;
-  background-color: #456B80;
-}
+
+
 ion-segment-button {
   color:#BDBDBD;
   --color:#BDBDBD;
-  &.segment-button-checked {
-    --color:#fff;
-    color:#fff;
+  --color-checked: #fff;
+  --color-focused: #fff;
+  --background-checked: #00A79D;
+  --background-focused: #00A79D;
+  --indicator-color: #00A79D;
+  --indicator-box-shadow: #00A79D;
+  &::part(indicator-background) {
+    --background: transparent;
+    background-color: transparent;
   }
+  // &::part(indicator) {
+  //   --color:#fff;
+  //     color:#fff;
+  //     --background-checked: #456B80;
+  //     --background: #456B80;
+  //     background-color: #456B80;
+  // }
+  &.segment-button-checked {
+    &::part(native) {
+      --color:#fff;
+        color:#fff;
+    }
+  }
+  
 }
 
 ion-select::part(text) {
@@ -527,6 +545,9 @@ ion-select::part(text) {
     text-transform: uppercase;
     letter-spacing: 5%;
     font-size: 10px;
+    &.hidden-tab {
+      visibility: hidden;
+    }
     &.tab-selected{
       color:#00A79D;
     }
@@ -559,10 +580,10 @@ ion-select::part(text) {
   ion-slides {
     --bullet-background: #00A79D;
     --bullet-background-active: #00A79D;
-    background-color: #00A79D;
+    background-color: #000;
   }
   .search-dashboard {
-    padding-top: 15px;
+    padding-top: 5px;
     padding-bottom: 15px;
     ion-icon {
       --color:#D7D7D7;
@@ -724,13 +745,22 @@ ion-modal.modal-component {
   }
 }
 
+.slider-feature {
+  .swiper-slide img {
+    min-height: 220px;
+    min-width: 80%;
+    -o-object-fit: fill;
+    object-fit: fill;
+  }
+}
+
 .wrap-toggle-slide, .wrap-card-news, .wrap-list-transactions {
   ion-segment {
     width: 180px;
     margin: 0 auto 20px;
   }
   .swiper-slide img {
-    height: initial;
+    min-height: initial;
   }
   .card-header-info {
     .seeMore {
@@ -784,6 +814,144 @@ ion-modal.modal-component {
   .pubid {
     color:#456B80;
     font-size: 12px;
+  }
+}
+
+.component-listing-list {
+  .item-row {
+    padding:10px 0;
+  }
+  .wrap-image {
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+    img {
+      display: block;
+    }
+    .feature-img {
+      width: 100%;
+    }
+    ul {
+      position: relative;
+      padding-left: 0;
+      list-style: none;
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      font-size: 0;
+      li {
+        padding: 0 8px;
+        color:#00A79D;
+        display: inline-block;
+        width: auto;
+        font-size: 12px;
+        line-height: auto;
+        &:first-child {
+          padding-left: 0;
+        }
+        img, span {
+          height: 14px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        img {
+          max-height: 200px;
+          padding-right: 8px;
+        }
+      }
+    }
+  }
+  ion-item {
+    display: block;
+    --padding-start:0;
+    --padding-end:0;
+    --inner-padding-end: 0px;
+    padding: 0;
+  }
+  ion-col.content-info {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .date {
+    font-size: 10px;
+    color:#000;
+    line-height: 15px;
+    margin-bottom: 3px;
+  }
+  .title {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: bold;
+
+    margin-bottom: 5px;
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+  }
+  .price {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+  }
+  .wrap-feature-img {
+    position: relative;
+    font-size:0;
+    .wrap-chips {
+      position: absolute;
+      left: 0;
+      font-size: 0;
+      top:0;
+      width: 100%;
+      text-align: left;
+      padding: 5px;
+      ion-chip {
+        display: inline-block;
+        padding: 0 8px;
+        height: 16px;
+        margin: 0 3px 5px 0px;
+        ion-label {
+          height: 16px;
+          font-size: 10px;
+          line-height: 16px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  .wrap-agent-info {
+    position: relative;
+    text-align: right;
+    margin-bottom: -10px;
+    color:#456B80;
+    font-size: 10px;
+    line-height: 10px;
+    padding-top: 5px;
+
+    .profile {
+      width: 32px;
+      height: 32px;
+      border-radius: 32px;
+      -webkit-border-radius: 32px;
+      background: no-repeat center center initial; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      position: absolute;
+      right:12px;
+      top:0;
+    }
+    .top-section {
+      padding-right: 50px;
+      font-weight: bold;
+      padding-bottom: 3px;
+    }
+    .bottom-section {
+      background-color: #F3F3F3;
+      padding-right: 50px;
+      padding-bottom: 10px;
+      padding-top: 3px;
+    }
   }
 }
 
@@ -1107,11 +1275,99 @@ ion-header.main.logged.bg-light ion-toolbar{
     --padding-top: 15px;
     &::part(native) {
       background-color: transparent;
-      --background-color: transparent;
+      --background: transparent;
     }
     ion-select::part(text) {
       color:#fff;
       --color:#fff;
     }
   }
+}
+
+.ios ion-content {
+  padding-bottom: 200px!important;
+  --padding-bottom: 200px!important;
+}
+.ios ion-toolbar.ios-handled {
+  padding:0 16px;
+}
+
+// override
+ion-chip.custom {
+  &.ion-color-warning {
+    --background-color: #FFCA41;
+    background-color: #FFCA41;
+  }
+  &.ion-color-success {
+    --background-color: #00A79D;
+    background-color: #00A79D;
+  }
+  &.ion-color-light {
+    --background-color: #fff;
+    background-color: #fff;
+  }
+  ion-label {
+    &.ion-color-secondary {
+      color:#456B80;
+    }
+  }
+}
+
+/* 2532x1170 pixels at 460ppi iPhone 12 and iPhone 12 Pro */
+@media only screen 
+and (device-width: 390px) 
+and (device-height: 844px) 
+and (-webkit-device-pixel-ratio: 3) {
+  .ios ion-fab {
+    bottom: 50px;
+  }
+  
+}
+
+
+/* 2778x1284 pixels at 458ppi iPhone 12 Pro Max*/
+@media only screen 
+and (device-width: 428px) 
+and (device-height: 926px) 
+and (-webkit-device-pixel-ratio: 3) {
+  .ios ion-fab {
+    bottom: 50px;
+  }
+  
+}
+
+
+/* 1792x828px at 326ppi iPhone 11*/
+@media only screen 
+and (device-width: 414px) 
+and (device-height: 896px) 
+and (-webkit-device-pixel-ratio: 2) {
+  .ios ion-fab {
+    bottom: 50px;
+  }
+  
+}
+
+
+/* 2436x1125px at 458ppi iPhone 11 Pro*/
+@media only screen 
+and (device-width: 375px) 
+and (device-height: 812px) 
+and (-webkit-device-pixel-ratio: 3) {
+  .ios ion-fab {
+    bottom: 50px;
+  }
+  
+}
+
+
+/* 2688x1242px at 458ppi iPhone 11 Pro Max*/
+@media only screen 
+and (device-width: 414px) 
+and (device-height: 896px) 
+and (-webkit-device-pixel-ratio: 3) {
+  .ios ion-fab {
+    bottom: 50px;
+  }
+  
 }

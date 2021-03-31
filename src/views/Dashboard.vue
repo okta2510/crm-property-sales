@@ -1,8 +1,8 @@
 <template>
   <ion-page class="dashboard-page">
-    <ion-content class="min-height-100 ion-no-padding-start ion-no-padding-end pb-100">
-      <!-- <div id="container-page-dashboard"> -->
-        <div class="header ion-padding-start ion-padding-end ion-padding-top">
+    <ion-header class="ion-no-padding ion-no-border">
+      <ion-toolbar class="ion-no-padding">
+        <div class="header ion-padding-start ion-padding-end ion-padding-top ion-padding-bottom">
           <ion-grid class="ion-no-padding">
             <ion-row class="ion-align-items-center">
               <ion-col>
@@ -17,8 +17,12 @@
             </ion-row>
           </ion-grid>
         </div>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="min-height-100 ion-no-padding-start ion-no-padding-end pb-200 ios">
+      <!-- <div id="container-page-dashboard"> -->
         <ion-toolbar class="toolbar-search-dashboard">
-          <div class="search-dashboard ion-padding">
+          <div class="search-dashboard ion-padding ion-no-padding-top">
             <div class="input-search input-icon-left">
                 <ion-icon :icon="search"></ion-icon>
                 <input type="text" v-model="queryString" v-on:keyup="searchingQuery" placeholder="Ketik Pencarian...">
@@ -38,17 +42,17 @@
           </ion-slide>
         </ion-slides>
 
-        <div class="wrap-toggle-slide">
+        <div class="wrap-toggle-slide mb-40">
           <div class="text-center">
             <ion-segment
               mode="ios"
-              value="primary"
+              :value="listingType"
               swipeGesture="true">
-              <ion-segment-button value="primary" @click="toggleSliderListing('primary')">
-                <ion-label>Primary</ion-label>
-              </ion-segment-button>
               <ion-segment-button value="other" @click="toggleSliderListing('other')">
                 <ion-label>Lainnya</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="primary" @click="toggleSliderListing('primary')">
+                <ion-label>Primary</ion-label>
               </ion-segment-button>
             </ion-segment>
           </div>
@@ -64,7 +68,13 @@
             </ion-row>
           </ion-grid>
 
-          <ion-slides v-if="listingType === 'primary'" class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
+          <ListingDashboardList
+              :result="listingType === 'primary' ? primaryResults : otherResults"
+              classProps=""
+              :listingType="listingType"
+              ></ListingDashboardList>
+              
+          <!-- <ion-slides v-show="listingType === 'primary'" class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
             <ion-slide
             v-for="(item, index) in primaryResults"
             :key="index">
@@ -84,7 +94,7 @@
               classProps=""
               ></ListingDashboardCard>
             </ion-slide>
-          </ion-slides> 
+          </ion-slides>  -->
         </div>
 
         <div class="wrap-card-news">
@@ -109,24 +119,6 @@
             </ion-slide>
           </ion-slides> 
         </div>
-
-        <div class="wrap-list-transactions">
-          <ion-grid class="ion-padding-start ion-padding-end card-header-info">
-            <ion-row class="ion-align-items-center">
-              <ion-col class="ion-no-padding">
-                <h3 class="my-0 title">Transaksi Saya</h3>
-              </ion-col>
-              <ion-col class="ion-no-padding text-right">
-                <span @click="router.replace('/transaction')" class="seeMore">Lihat Semua</span>
-                <!-- <a href="/transaction" class="seeMore">Lihat Semua</a> -->
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <TransactionItems
-          :result="transactions"
-          classProps=""
-          ></TransactionItems>
-        </div>
       <!-- </div> -->
 
     </ion-content>
@@ -148,7 +140,8 @@ import {
   modalController,
   IonLabel,
   IonSegment,
-  IonSegmentButton
+  IonSegmentButton,
+  IonHeader
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import {
@@ -156,9 +149,8 @@ import {
   notificationsOutline
 } from 'ionicons/icons';
 import ModalNotification from '@/component/ModalNotification.vue'
-import ListingDashboardCard from '@/component/ListingDashboardCard.vue'
+import ListingDashboardList from '@/component/ListingDashboardList.vue'
 import NewsDashboardCard from '@/component/NewsDashboardCard.vue'
-import TransactionItems from '@/component/TransactionItems.vue'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -177,9 +169,9 @@ export default defineComponent({
     IonLabel,
     IonSegment,
     IonSegmentButton,
-    ListingDashboardCard,
+    ListingDashboardList,
     NewsDashboardCard,
-    TransactionItems
+    IonHeader
   },
   data: function () {
     return {
@@ -187,7 +179,7 @@ export default defineComponent({
       primaryResults: [1,2,3,4,5],
       otherResults: [3,2,1,5,4],
       transactions: [1,2,3,4,5],
-      listingType: 'primary'
+      listingType: 'other'
     }
   },
   setup() {
