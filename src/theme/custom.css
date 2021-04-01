@@ -826,46 +826,6 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
 .component-listing-list .item-row {
   padding: 10px 0;
 }
-.component-listing-list .wrap-image {
-  margin-bottom: 10px;
-  text-align: center;
-  position: relative;
-}
-.component-listing-list .wrap-image img {
-  display: block;
-}
-.component-listing-list .wrap-image .feature-img {
-  width: 100%;
-}
-.component-listing-list .wrap-image ul {
-  position: relative;
-  padding-left: 0;
-  list-style: none;
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  font-size: 0;
-}
-.component-listing-list .wrap-image ul li {
-  padding: 0 8px;
-  color: #00A79D;
-  display: inline-block;
-  width: auto;
-  font-size: 12px;
-  line-height: auto;
-}
-.component-listing-list .wrap-image ul li:first-child {
-  padding-left: 0;
-}
-.component-listing-list .wrap-image ul li img, .component-listing-list .wrap-image ul li span {
-  height: 14px;
-  display: inline-block;
-  vertical-align: middle;
-}
-.component-listing-list .wrap-image ul li img {
-  max-height: 200px;
-  padding-right: 8px;
-}
 .component-listing-list ion-item {
   display: block;
   --padding-start:0;
@@ -952,6 +912,47 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
   padding-right: 50px;
   padding-bottom: 10px;
   padding-top: 3px;
+}
+
+.component-size-info {
+  margin-bottom: 10px;
+  text-align: center;
+  position: relative;
+}
+.component-size-info img {
+  display: block;
+}
+.component-size-info .feature-img {
+  width: 100%;
+}
+.component-size-info ul {
+  position: relative;
+  padding-left: 0;
+  list-style: none;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  font-size: 0;
+}
+.component-size-info ul li {
+  padding: 0 8px;
+  color: #00A79D;
+  display: inline-block;
+  width: auto;
+  font-size: 12px;
+  line-height: auto;
+}
+.component-size-info ul li:first-child {
+  padding-left: 0;
+}
+.component-size-info ul li img, .component-size-info ul li span {
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.component-size-info ul li img {
+  max-height: 200px;
+  padding-right: 8px;
 }
 
 .component-marketing .img-logo {
@@ -1081,10 +1082,10 @@ ion-item.reset-class {
   font-weight: 500;
 }
 .news-detail .date, .listing-detail .date {
-  color: #6A6A6A;
-  font-size: 14px;
-  line-height: 18px;
-  margin-bottom: 10px;
+  color: #000;
+  font-size: 11px;
+  line-height: 13px;
+  margin-bottom: 5px;
 }
 .news-detail .feature-img, .listing-detail .feature-img {
   margin-bottom: 5px;
@@ -1103,10 +1104,10 @@ ion-item.reset-class {
   line-height: 20px;
 }
 .news-detail .price, .listing-detail .price {
-  font-weight: bolder;
-  font-size: 24px;
-  line-height: 28px;
-  color: #00A79D;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 25px;
+  color: #000;
 }
 .news-detail .pubid, .listing-detail .pubid {
   color: #304B57;
@@ -1134,6 +1135,45 @@ ion-item.reset-class {
   font-weight: bold;
   font-size: 16px;
   line-height: 20px;
+}
+.news-detail .wrap-agent-info, .listing-detail .wrap-agent-info {
+  position: relative;
+  text-align: right;
+  margin-bottom: -10px;
+  color: #456B80;
+  font-size: 10px;
+  line-height: 10px;
+  padding-top: 5px;
+}
+.news-detail .wrap-agent-info .profile, .listing-detail .wrap-agent-info .profile {
+  width: 52px;
+  height: 52px;
+  border-radius: 52px;
+  -webkit-border-radius: 52px;
+  background: no-repeat center center initial;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  right: 0px;
+  top: 0;
+}
+.news-detail .wrap-agent-info .top-section, .listing-detail .wrap-agent-info .top-section {
+  padding-right: 58px;
+  font-weight: bold;
+  padding-bottom: 0px;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000;
+}
+.news-detail .wrap-agent-info .bottom-section, .listing-detail .wrap-agent-info .bottom-section {
+  padding-right: 58px;
+  padding-bottom: 10px;
+  padding-top: 3px;
+  font-size: 10px;
+  line-height: 12px;
+  color: #00A79D;
 }
 
 .share-media span {

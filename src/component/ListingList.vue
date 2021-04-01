@@ -3,7 +3,7 @@
     <ion-item
     v-for="(item, index) in result"
     :key="index"
-    @click="router.push(`/transaction/${item}`)"
+    @click="router.push(`/listing/${item}`)"
     class="list-item"
     :class="classProps"
     >
@@ -33,7 +33,7 @@
             <span class="d-block w-100 title">
               Termurah di jatiasih, bisa cicil 24x dengan bunga yang fantastis
             </span>
-            <div class="wrap-image">
+            <div class="component-size-info">
               <ul class="text-left">
                 <li>
                   <img height="14" src="/assets/icon/icon-area-size.png">
@@ -84,7 +84,7 @@ import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: 'ListingDashboardList',
+  name: 'ListingList',
   components: {
     IonItem,
     IonLabel,

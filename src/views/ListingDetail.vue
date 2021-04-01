@@ -15,17 +15,64 @@
         <ion-grid class="ion-no-padding ion-no-padding-top ion-no-padding-bottom">
           <ion-row>
             <ion-col>
+              <div class="wrap-chips">
+                <ion-chip class="custom label-shadow" color="success">
+                  <ion-label color="light">Dijual</ion-label>
+                </ion-chip>
+                <!-- <ion-chip class="custom label-shadow" color="warning">
+                  <ion-label color="dark">Disewa</ion-label>
+                </ion-chip> -->
+              </div>
               <h1 class="title mt-0">
                 For sale kemang minimalis private lift & swimming pool
               </h1>
+              <div class="component-size-info">
+                <ul class="text-left">
+                  <li>
+                    <img height="14" src="/assets/icon/icon-area-size.png">
+                    <span>180</span>
+                  </li>
+                  <li>
+                    <img height="14" src="/assets/icon/icon-building-size.png">
+                    <span>250</span>
+                  </li>
+                  <li>
+                    <img height="14" src="/assets/icon/icon-bed-size.png">
+                    <span>4</span>
+                  </li>
+                  <li>
+                    <img height="14" src="/assets/icon/icon-bath-size.png">
+                    <span>2</span>
+                  </li>
+                </ul>
+              </div>
               <img class="feature-img" :src="`/assets/img-sample${(parseInt(route.params.id))}.jpg`" />
-              <span class="price d-block">
-                Rp. 9.900.000.000
-              </span>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="7">
+                    <span class="date d-block">
+                      2020-11-05 10:00
+                    </span>
+                    <span class="price d-block">
+                      Rp. 9.900.000.000
+                    </span>
+                  </ion-col>
+                  <ion-col size="5">
+                    <div class="wrap-agent-info">
+                      <div class="profile" style="background-image: url(/assets/agent-photo.png)"></div>
+                      <div class="top-section">James Harden</div>
+                      <div class="bottom-section">Raywhite Sunter</div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
               <article class="pt-4">
                 <div class="form-group">
                   <span class="d-block form-label">Alamat</span>
                   <span class="d-block value">Jl. Mawar indah blok CC 43, jakarta Selatan</span>
+                </div>
+                <div class="form-group">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126907.08036858666!2d106.73203906191657!3d-6.283931256097716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1ec2422b0b3%3A0x39a0d0fe47404d02!2sSouth%20Jakarta%2C%20South%20Jakarta%20City%2C%20Jakarta!5e0!3m2!1sen!2sid!4v1617249753662!5m2!1sen!2sid" width="" class="w-100" height="180" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Komisi</span>
@@ -115,7 +162,9 @@ import {
   modalController,
   IonGrid,
   IonRow,
-  IonCol
+  IonCol,
+  IonChip,
+  IonLabel
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
@@ -129,7 +178,9 @@ export default defineComponent({
     HeaderPage,
     IonGrid,
     IonRow,
-    IonCol
+    IonCol,
+    IonChip,
+    IonLabel
   },
   data: function() {
     return {

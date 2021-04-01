@@ -68,11 +68,11 @@
             </ion-row>
           </ion-grid>
 
-          <ListingDashboardList
+          <ListingList
               :result="listingType === 'primary' ? primaryResults : otherResults"
               classProps=""
               :listingType="listingType"
-              ></ListingDashboardList>
+              ></ListingList>
               
           <!-- <ion-slides v-show="listingType === 'primary'" class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
             <ion-slide
@@ -149,7 +149,7 @@ import {
   notificationsOutline
 } from 'ionicons/icons';
 import ModalNotification from '@/component/ModalNotification.vue'
-import ListingDashboardList from '@/component/ListingDashboardList.vue'
+import ListingList from '@/component/ListingList.vue'
 import NewsDashboardCard from '@/component/NewsDashboardCard.vue'
 import { useRouter } from 'vue-router'
 
@@ -169,7 +169,7 @@ export default defineComponent({
     IonLabel,
     IonSegment,
     IonSegmentButton,
-    ListingDashboardList,
+    ListingList,
     NewsDashboardCard,
     IonHeader
   },

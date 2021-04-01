@@ -33,11 +33,11 @@
             </ion-segment>
           </div>
 
-          <ListingDashboardList
+          <ListingList
               :result="results"
               classProps=""
               :listingType="listingType"
-              ></ListingDashboardList>
+              ></ListingList>
         </div>
       </div>
     </ion-content>
@@ -58,7 +58,7 @@ import {
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
-import ListingDashboardList from '@/component/ListingDashboardList.vue'
+import ListingList from '@/component/ListingList.vue'
 import SearchBar from '@/component/SearchBar.vue'
 
 export default defineComponent({
@@ -66,7 +66,7 @@ export default defineComponent({
     IonContent,
     IonPage,
     HeaderPage,
-    ListingDashboardList,
+    ListingList,
     SearchBar,
     IonHeader,
     IonToolbar,
