@@ -178,7 +178,6 @@ export default defineComponent({
       queryString: null,
       primaryResults: [1,2,3,4,5],
       otherResults: [3,2,1,5,4],
-      transactions: [1,2,3,4,5],
       listingType: 'other'
     }
   },

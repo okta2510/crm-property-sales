@@ -2,13 +2,18 @@
   <ion-page class="logged">
     <HeaderPage
       title="Marketing Tools"
-      urlPage="/marketing/add"
-      urlText="Pesan"
-      modalText="Filter"
+      urlPage=""
+      urlText=""
+      modalText=""
       v-on:modalClick="closeModal">
     </HeaderPage>
     <ion-content class="ion-padding min-height-100 ion-no-padding-start ion-no-padding-end pb-100">
       <div id="container-page2">
+        <div class="px-3">
+          <ion-button color="medium" class="w-100" @click="router.push('/marketing/add')">
+            Pesan Baru
+          </ion-button>
+        </div>
         <MarketingItems
         :result="results"
         classProps=""
@@ -28,6 +33,7 @@ import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
 import MarketingItems from '@/component/MarketingItems.vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -44,7 +50,10 @@ export default defineComponent({
     }
   },
   setup() {
-    return {}
+    const router = useRouter();
+    return {
+      router
+    }
   },
   ionViewWillEnter() {
   },

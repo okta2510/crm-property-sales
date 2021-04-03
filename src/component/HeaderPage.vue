@@ -17,7 +17,7 @@
         </ion-button>
       </ion-buttons>
 
-      <ion-buttons slot="end"  class="filter-button btn-function on-no-margin">
+      <ion-buttons slot="end" v-if="modalText || urlText"  class="filter-button btn-function on-no-margin">
         <ion-button v-if="urlPage" class="clear-button" :href="urlPage" icon-only>
           <span>{{urlText || 'text'}}</span>
         </ion-button>

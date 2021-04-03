@@ -290,10 +290,10 @@ ion-segment {
 
 
 ion-segment-button {
-  color:#BDBDBD;
   --color:#BDBDBD;
   --color-checked: #fff;
-  --color-focused: #fff;
+  --color-focused: #BDBDBD;
+  --color-hover: #BDBDBD;
   --background-checked: #00A79D;
   --background-focused: #00A79D;
   --indicator-color: #00A79D;
@@ -310,9 +310,8 @@ ion-segment-button {
   //     background-color: #456B80;
   // }
   &.segment-button-checked {
-    &::part(native) {
+    ion-label {
       --color:#fff;
-        color:#fff;
     }
   }
   
@@ -540,11 +539,17 @@ ion-select::part(text) {
     height:20px;
     margin-bottom: 5px;
   }
+
+  a,a:hover,a:focus,a:active {
+    color:#00A79D;
+  }
   ion-tab-button {
     color: #304B57;
     text-transform: uppercase;
     letter-spacing: 5%;
     font-size: 10px;
+    --color-hover: #00A79D;
+    --color-focused: #00A79D;
     &.hidden-tab {
       visibility: hidden;
     }

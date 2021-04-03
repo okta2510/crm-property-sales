@@ -342,10 +342,10 @@ ion-segment {
 }
 
 ion-segment-button {
-  color: #BDBDBD;
   --color:#BDBDBD;
   --color-checked: #fff;
-  --color-focused: #fff;
+  --color-focused: #BDBDBD;
+  --color-hover: #BDBDBD;
   --background-checked: #00A79D;
   --background-focused: #00A79D;
   --indicator-color: #00A79D;
@@ -355,9 +355,8 @@ ion-segment-button::part(indicator-background) {
   --background: transparent;
   background-color: transparent;
 }
-ion-segment-button.segment-button-checked::part(native) {
+ion-segment-button.segment-button-checked ion-label {
   --color:#fff;
-  color: #fff;
 }
 
 ion-select::part(text) {
@@ -572,11 +571,16 @@ ion-select::part(text) {
   height: 20px;
   margin-bottom: 5px;
 }
+.ion-tabs-custom ion-tab-bar a, .ion-tabs-custom ion-tab-bar a:hover, .ion-tabs-custom ion-tab-bar a:focus, .ion-tabs-custom ion-tab-bar a:active {
+  color: #00A79D;
+}
 .ion-tabs-custom ion-tab-bar ion-tab-button {
   color: #304B57;
   text-transform: uppercase;
   letter-spacing: 5%;
   font-size: 10px;
+  --color-hover: #00A79D;
+  --color-focused: #00A79D;
 }
 .ion-tabs-custom ion-tab-bar ion-tab-button.hidden-tab {
   visibility: hidden;

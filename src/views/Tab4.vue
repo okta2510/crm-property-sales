@@ -32,6 +32,20 @@
             </ion-row>
           </ion-grid>
         </ion-item>
+        <ion-item mode="md" class="reset-class" href="/transaction" routerDirection="forward">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="9">
+                <ion-label>
+                  Transaksi Saya
+                </ion-label>
+              </ion-col>
+              <ion-col size="3" class="text-right">
+                <ion-icon :icon="chevronForward"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
         <div class="text-center button-wrap px-3">
           <ion-button color="danger w-100 ion-no-margin" @click="router.push('/logout')">
             Keluar
