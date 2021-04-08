@@ -1103,7 +1103,12 @@ ion-item.reset-class {
     }
   }
   .button-wrap {
-    margin-top: 130px;
+    margin-top: 40px;
+    margin-bottom: 50px;
+    ion-button {
+      --inline-padding-start: 50px;
+      --inline-padding-end: 50px;
+    }
   }
 }
 

@@ -32,7 +32,7 @@
         <ion-icon :icon="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
-    <SideMenu></SideMenu>
+    <!-- <SideMenu></SideMenu> -->
   </ion-page>
 </template>
 
@@ -63,7 +63,7 @@ import {
 
 } from 'ionicons/icons';
 import { defineComponent } from 'vue';
-import SideMenu from '@/component/SideMenu'
+// import SideMenu from '@/component/SideMenu'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -80,8 +80,8 @@ export default defineComponent({
     IonLabel,
     IonIcon,
     IonFab,
-    IonFabButton,
-    SideMenu
+    IonFabButton
+    // SideMenu
   },
   setup() {
     const beforeTabChange = () => {

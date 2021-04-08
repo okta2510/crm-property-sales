@@ -182,8 +182,8 @@ import {
 } from '@ionic/vue';
 import { ref, defineComponent } from 'vue';
 import { camera } from 'ionicons/icons';
-const { Camera } = Plugins;
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+const { Camera } = Plugins;
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
@@ -213,9 +213,10 @@ export default defineComponent({
     const takePhoto = async () => {
       const image = await Camera.getPhoto({
         quality: 90,
-        allowEditing: true,
+        // allowEditing: false,
         resultType: CameraResultType.Base64,
-        source: CameraSource.Prompt
+        source: CameraSource.Photos,
+        saveToGallery: true
       });
       console.log(image)
       let url = `data:image/${image.format};base64, ${image.base64String}`

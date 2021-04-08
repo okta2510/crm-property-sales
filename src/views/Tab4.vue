@@ -15,7 +15,7 @@
           </div>
           <div class="text">
             <span class="name">Budi Handoko</span>
-            <span class="email">budi.handoko@gmail.com</span>
+            <span class="email">Professional Real Estate Agent</span>
           </div>
         </div>
         <ion-item mode="md" class="reset-class" href="/profile/edit" routerDirection="forward">
@@ -23,7 +23,21 @@
             <ion-row>
               <ion-col size="9">
                 <ion-label>
-                  Ubah Info Profile
+                  Edit Profile
+                </ion-label>
+              </ion-col>
+              <ion-col size="3" class="text-right">
+                <ion-icon :icon="chevronForward"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item mode="md" class="reset-class" href="#" routerDirection="forward">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="9">
+                <ion-label>
+                  Rewards Saya
                 </ion-label>
               </ion-col>
               <ion-col size="3" class="text-right">
@@ -38,6 +52,34 @@
               <ion-col size="9">
                 <ion-label>
                   Transaksi Saya
+                </ion-label>
+              </ion-col>
+              <ion-col size="3" class="text-right">
+                <ion-icon :icon="chevronForward"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+         <ion-item mode="md" class="reset-class" href="/tab2" routerDirection="forward">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="9">
+                <ion-label>
+                  Listing Saya
+                </ion-label>
+              </ion-col>
+              <ion-col size="3" class="text-right">
+                <ion-icon :icon="chevronForward"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+         <ion-item mode="md" class="reset-class" href="#" routerDirection="forward">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="9">
+                <ion-label>
+                  Points Saya
                 </ion-label>
               </ion-col>
               <ion-col size="3" class="text-right">

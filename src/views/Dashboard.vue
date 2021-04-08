@@ -153,6 +153,7 @@ import ListingList from '@/component/ListingList.vue'
 import NewsDashboardCard from '@/component/NewsDashboardCard.vue'
 import { useRouter } from 'vue-router'
 
+
 export default defineComponent({
   name: 'Dashboard',
   components: {

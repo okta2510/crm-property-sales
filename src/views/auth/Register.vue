@@ -248,9 +248,10 @@ export default defineComponent({
     const takePhoto = async (state) => {
       const image = await Camera.getPhoto({
         quality: 90,
-        allowEditing: true,
+        // allowEditing: true,
         resultType: CameraResultType.Base64,
-        source: CameraSource.Prompt
+        source: CameraSource.Prompt,
+        saveToGallery: true
       });
       console.log(image)
       let url = `data:image/${image.format};base64, ${image.base64String}`
@@ -331,12 +332,12 @@ export default defineComponent({
   mounted() {
   },
   watch: {
-    ktpPhoto: async function (val) {
-      this.npwp_file = val
-    },
-    profilePhoto: async function (val) {
-      this.profile_picture = val;
-    },
+    // ktpPhoto: async function (val) {
+    //   this.npwp_file = val
+    // },
+    // profilePhoto: async function (val) {
+    //   this.profile_picture = val;
+    // },
   },
   computed: {
      API_REGISTER: function () {
@@ -353,8 +354,8 @@ export default defineComponent({
         pob: this.pob,
         ktp: this.ktp,
         npwp: this.npwp,
-        npwp_file: this.npwp_file,
-        profile_picture: this.profile_picture,
+        npwp_file: this.ktpPhoto,
+        profile_picture: this.profilePhoto,
         bank: this.bank,
         bank_branch: this.bank_branch,
         account_number: this.account_number,
