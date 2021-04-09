@@ -9,7 +9,7 @@
                 <img src="/assets/logo-logged.svg" />
               </ion-col>
               <ion-col class="text-right">
-              <div class="btn-notification" @click="openModal">
+              <div class="btn-notification cursor-pointer" @click="openModal">
                   <ion-icon :icon="notificationsOutline"></ion-icon>
                   <ion-badge color="danger">2</ion-badge>
                 </div>

@@ -7,7 +7,7 @@
       modalText=""
       backText="Kembali"
       backUrl="/tab2"
-      headerClass="header-detail"
+      headerClass="header-detail no-shadow border-bottom"
       v-on:modalClick="null">
     </HeaderPage>
     <ion-content class="ion-padding min-height-100 pb-200 ">
@@ -59,7 +59,7 @@
                   </ion-col>
                   <ion-col size="5">
                     <div class="wrap-agent-info">
-                      <div class="profile" style="background-image: url(/assets/agent-photo.png)"></div>
+                      <div @click="goTo('/agent/123')"  class="profile cursor-pointer" style="background-image: url(/assets/agent-photo.png)"></div>
                       <div class="top-section">James Harden</div>
                       <div class="bottom-section">Raywhite Sunter</div>
                     </div>
@@ -169,7 +169,7 @@ import {
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -191,8 +191,8 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    console.log(route.params.id)
-    return {route}
+    const router = useRouter();
+    return {route, router}
   },
   ionViewWillEnter() {
   },
@@ -207,6 +207,9 @@ export default defineComponent({
   mounted() {
   },
   methods: {
+    goTo (url) {
+      window.location.href = url
+    },
     getListing (queryString) {
       queryString ?  this.results = [1] :  this.results = [1,2,3,4,5]
     },

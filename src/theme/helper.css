@@ -2286,8 +2286,8 @@ a.text-dark:hover, a.text-dark:focus {
   padding-top: 0;
 }
 .ion-no-padding-bottom {
-  --padding-top: 0;
-  padding-top: 0;
+  --padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 .pb-200 {
@@ -2326,12 +2326,34 @@ a.text-dark:hover, a.text-dark:focus {
   background-color:transparent;
 }
 
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+
 .mb-30 {
   margin-bottom: 30px;
 }
 .mb-40 {
   margin-bottom: 40px;
 }
+
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+.mt-40 {
+  margin-top: 40px;
+}
+
 
 .ion-no-padding-start {
   --padding-start:0;
@@ -2344,4 +2366,38 @@ a.text-dark:hover, a.text-dark:focus {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+}
+.cursor-pointer:hover,
+.cursor-pointer:focus,
+.cursor-pointer:active {
+  cursor: pointer;
+}
+
+.min-w-300 {
+  min-width: 300px;
+}
+@media (max-width: 360px) {
+  .min-w-300 {
+    min-width: initial;
+    width: 100%;
+  }
+}
+
+.no-shadow::after {
+  content: none!important;
+}
+.no-shadow {
+  box-shadow: none!important;
+  --webkit-box-shadow: none!important;
+  --moz-box-shadow: none!important;
+}
+
+.border-bottom {
+  border-bottom: solid 1px #D7D7D7!important;
+}
+.border-top {
+  border-top: solid 1px #D7D7D7!important;
+}
+.padding-0 {
+  padding: none;
 }

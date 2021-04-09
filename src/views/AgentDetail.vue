@@ -1,20 +1,23 @@
 <template>
   <ion-page class="logged">
     <HeaderPage
-      title="Profile saya"
+      title="Profil Agent"
       urlPage=""
       urlText=""
       modalText=""
+      backText="Kembali"
+      backUrl="/tab2"
+      headerClass="header-detail no-shadow border-bottom"
       v-on:modalClick="null">
     </HeaderPage>
     <ion-content class="min-height-100 ion-no-padding-start ion-no-padding-end pb-100">
       <div class="my-account">
         <div class="profile-info">
           <div class="thumbnail-photo">
-            <img src="/assets/user-profile.png"/>
+            <img src="/assets/agent-photo.png"/>
           </div>
           <div class="text">
-            <span class="name">Budi Handoko</span>
+            <span class="name">James Harden</span>
             <span class="email">Professional Real Estate Agent</span>
             <ul class="star-rating mb-20">
               <li class="">
@@ -35,82 +38,70 @@
             </ul>
           </div>
         </div>
-        <ion-item mode="md" class="reset-class" href="/profile/edit" routerDirection="forward">
-          <ion-grid>
-            <ion-row>
-              <ion-col size="9">
-                <ion-label>
-                  Ubah Profile
-                </ion-label>
+
+        <div class="agent-records">
+          <ion-grid class="ion-no-padding">
+            <ion-row class="info-records">
+              <ion-col size="6" class="ion-no-padding-top ion-no-padding-bottom text-center">
+                <div class="wrap-box">
+                  <span class="number">
+                    230
+                  </span>
+                  <span class="text">
+                    Total Listing
+                  </span>
+                </div>
               </ion-col>
-              <ion-col size="3" class="text-right">
-                <ion-icon :icon="chevronForward"></ion-icon>
+              <ion-col size="6" class="ion-no-padding-top ion-no-padding-bottom text-center">
+                <div class="wrap-box">
+                  <span class="number">
+                    113
+                  </span>
+                  <span class="text">
+                   Terjual / Tersewa
+                  </span>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="mt-30 mb-30 text-center">
+                <ion-button rel="noreferrer" target="_blank" href="https://wa.me/+6281300998893" size="medium" color="medium mx-auto min-w-300 ion-no-margin">
+                  <strong>Chat James</strong>
+                  <ion-ripple-effect></ion-ripple-effect>
+                </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
-        </ion-item>
-        <ion-item mode="md" class="reset-class" href="#" routerDirection="forward">
-          <ion-grid>
-            <ion-row>
-              <ion-col size="9">
-                <ion-label>
-                  Reward Saya
-                </ion-label>
-              </ion-col>
-              <ion-col size="3" class="text-right">
-                <ion-icon :icon="chevronForward"></ion-icon>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-        <ion-item mode="md" class="reset-class" href="/transaction" routerDirection="forward">
-          <ion-grid>
-            <ion-row>
-              <ion-col size="9">
-                <ion-label>
-                  Transaksi Saya
-                </ion-label>
-              </ion-col>
-              <ion-col size="3" class="text-right">
-                <ion-icon :icon="chevronForward"></ion-icon>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-         <ion-item mode="md" class="reset-class" href="/tab2" routerDirection="forward">
-          <ion-grid>
-            <ion-row>
-              <ion-col size="9">
-                <ion-label>
-                  Listing Saya
-                </ion-label>
-              </ion-col>
-              <ion-col size="3" class="text-right">
-                <ion-icon :icon="chevronForward"></ion-icon>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-         <ion-item mode="md" class="reset-class" href="#" routerDirection="forward">
-          <ion-grid>
-            <ion-row>
-              <ion-col size="9">
-                <ion-label>
-                  Point Saya
-                </ion-label>
-              </ion-col>
-              <ion-col size="3" class="text-right">
-                <ion-icon :icon="chevronForward"></ion-icon>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-        <div class="text-center button-wrap px-3">
-          <ion-button size="medium" color="danger min-w-300 mx-auto ion-no-margin" @click="router.push('/logout')">
-            <strong>Keluar</strong>
-            <ion-ripple-effect></ion-ripple-effect>
-          </ion-button>
         </div>
+        <ul class="border-top list-award">
+            <li class="title text-center">
+              Rewards
+            </li>
+            <li>
+              <span class="title-date d-block">2019</span>
+              <ul>
+                <li>TOP 1 by unit transaction</li>
+                <li>TOP 10 by KPR periode 2021</li>
+                <li>TOP 3 by Gross Closed Commission periode 2021</li>
+              </ul>
+            </li>
+            <li>
+              <span class="title-date d-block">2019</span>
+              <ul>
+                <li>TOP 1 by unit transaction</li>
+                <li>TOP 10 by KPR periode 2021</li>
+                <li>TOP 3 by Gross Closed Commission periode 2021</li>
+              </ul>
+            </li>
+            <li>
+              <span class="title-date d-block">2019</span>
+              <ul>
+                <li>TOP 1 by unit transaction</li>
+                <li>TOP 10 by KPR periode 2021</li>
+                <li>TOP 3 by Gross Closed Commission periode 2021</li>
+              </ul>
+            </li>
+          </ul>
       </div>
     </ion-content>
   </ion-page>
@@ -124,9 +115,9 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonLabel,
+  // IonLabel,
   IonIcon,
-  IonItem,
+  // IonItem,
   IonButton,
   IonRippleEffect
 } from '@ionic/vue';
@@ -144,15 +135,15 @@ export default defineComponent({
     IonGrid,
     IonRow,
     IonCol,
-    IonLabel,
+    // IonLabel,
     IonIcon,
-    IonItem,
+    // IonItem,
     IonButton,
     IonRippleEffect
   },
   data: function() {
     return {
-      titlePage: 'Profile Page',
+      titlePage: 'Agent Detail',
       currentModal: null,
       results: [1,2,3,4,5]
     }

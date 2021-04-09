@@ -47,6 +47,11 @@ const routes = [
     component: () => import('@/views/ListingDetail.vue')
   },
   {
+    path: '/agent/:id',
+    name: 'Agent Detail',
+    component: () => import('@/views/AgentDetail.vue')
+  },
+  {
     path: '/transaction/:id',
     name: 'Transaction Detail',
     component: () => import('@/views/TransactionDetail.vue')

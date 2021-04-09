@@ -292,6 +292,7 @@ ion-header.main.logged ion-title {
 }
 ion-header.main.logged {
   box-shadow: 0px 5px 10px #00000020;
+  z-index: 11;
 }
 ion-header.main.logged ion-toolbar {
   --background: #00A79D;
@@ -302,6 +303,9 @@ ion-header.main.logged ion-toolbar {
 ion-header.main.logged ion-toolbar button, ion-header.main.logged ion-toolbar ion-button, ion-header.main.logged ion-toolbar span {
   --color:#fff;
   color: #fff;
+}
+ion-header.main.logged.header-detail {
+  z-index: 11;
 }
 ion-header.main.logged.header-detail ion-toolbar {
   --background: #fff;
@@ -335,6 +339,12 @@ ion-item.segment-handled {
 ion-item.segment-handled ion-label.label {
   overflow: visible;
   display: block;
+}
+
+ion-button.ion-color-danger {
+  --background: #E83D66;
+  --background-activated: #E83D66;
+  --background-focused: #E83D66;
 }
 
 ion-segment {
@@ -573,6 +583,10 @@ ion-select::part(text) {
 }
 .ion-tabs-custom ion-tab-bar a, .ion-tabs-custom ion-tab-bar a:hover, .ion-tabs-custom ion-tab-bar a:focus, .ion-tabs-custom ion-tab-bar a:active {
   color: #00A79D;
+}
+.ion-tabs-custom ion-tab-bar *:hover, .ion-tabs-custom ion-tab-bar *:focus {
+  color: #00A79D;
+  --color:#00A79D;
 }
 .ion-tabs-custom ion-tab-bar ion-tab-button {
   color: #304B57;
@@ -1049,7 +1063,7 @@ ion-item.reset-class {
 }
 
 .my-account .profile-info {
-  padding: 30px 15px;
+  padding: 30px 16px;
   text-align: center;
 }
 .my-account .profile-info .thumbnail-photo {
@@ -1079,6 +1093,15 @@ ion-item.reset-class {
 .my-account .button-wrap ion-button {
   --inline-padding-start: 50px;
   --inline-padding-end: 50px;
+}
+
+ion-button[size=medium] {
+  height: 42px;
+  line-height: 42px;
+}
+ion-button[size=medium] button {
+  height: 42px;
+  line-height: 42px;
 }
 
 .news-detail, .listing-detail {
@@ -1259,6 +1282,7 @@ ion-header.main.logged.bg-light ion-toolbar {
   --background: #fff;
   color: #00A79D;
   --color: #00A79D;
+  z-index: 11;
 }
 ion-header.main.logged.bg-light ion-toolbar ion-button {
   color: #00A79D;
@@ -1276,6 +1300,9 @@ ion-header.main.logged.bg-light ion-toolbar ion-button {
 .form-logged {
   padding-top: 30px;
   --padding-top: 30px;
+}
+.form-logged ion-item {
+  --background:transparent;
 }
 .form-logged .native-textarea {
   padding-top: 0;
@@ -1317,6 +1344,89 @@ ion-chip.custom.ion-color-light {
 }
 ion-chip.custom ion-label.ion-color-secondary {
   color: #456B80;
+}
+
+.star-rating {
+  list-style: none;
+  padding-left: 0;
+  margin: 5px 0 0;
+}
+.star-rating li {
+  display: inline-block;
+}
+.star-rating li ion-icon {
+  color: #ddd;
+}
+.star-rating li.filled ion-icon {
+  color: #FFCA41;
+}
+
+.list-award {
+  margin-top: 0;
+  padding-top: 20px;
+  padding-left: 16px;
+  padding-right: 16px;
+  list-style: none;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 28px;
+}
+.list-award .title {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  color: #456B80;
+  margin-bottom: 20px;
+}
+.list-award .title-date {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 8px;
+}
+.list-award > li {
+  margin-bottom: 20px;
+}
+.list-award > li:last-child {
+  margin-bottom: 30px;
+}
+.list-award ul {
+  padding-left: 20px;
+}
+
+.agent-records {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.agent-records .info-records .wrap-box {
+  background-color: #F3F3F3;
+}
+.agent-records .wrap-box {
+  background-color: #F3F3F3;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.agent-records .wrap-box span {
+  display: block;
+}
+.agent-records .wrap-box .number {
+  font-size: 28px;
+  line-height: 28px;
+  color: #456B80;
+  font-weight: bold;
+}
+.agent-records .wrap-box .text {
+  font-size: 14px;
+  line-height: 16px;
+  color: #ACACAC;
+}
+.agent-records ion-row {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+.agent-records ion-col {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 /* 2532x1170 pixels at 460ppi iPhone 12 and iPhone 12 Pro */

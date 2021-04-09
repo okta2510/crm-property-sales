@@ -9,9 +9,9 @@
     </HeaderPage>
     <ion-content class="ion-padding min-height-100 ion-no-padding-start ion-no-padding-end pb-100">
       <div id="container-page2">
-        <div class="px-3">
-          <ion-button color="medium" class="w-100" @click="router.push('/marketing/add')">
-            Pesan Baru
+        <div class="px-3 mb-3 text-center">
+          <ion-button color="medium" size="medium" class="min-w-300 mx-auto" @click="router.push('/marketing/add')">
+            <strong>Pesan Baru</strong>
           </ion-button>
         </div>
         <MarketingItems

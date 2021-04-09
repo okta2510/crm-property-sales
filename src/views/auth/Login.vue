@@ -45,6 +45,7 @@
                   expand="block"
                   type="submit">
                     <strong>Masuk</strong>
+                     <ion-ripple-effect></ion-ripple-effect>
                   </ion-button>
                   <p class="text-center small-text-1">
                     <span>Belum Punya Akun?</span> <router-link to="/register" class="text-light">Daftarkan Saya</router-link>
@@ -65,7 +66,23 @@
 </template>
 <script>
 import axios from 'axios';
-import {IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, toastController, IonHeader, IonFooter} from '@ionic/vue'
+import {
+  IonPage,
+  IonContent,
+  IonToolbar,
+  IonTitle,
+  IonGrid,
+  IonInput,
+  IonItem,
+  IonButton,
+  IonRow,
+  IonCol,
+  IonLabel,
+  toastController,
+  IonHeader,
+  IonFooter,
+  IonRippleEffect
+} from '@ionic/vue'
 import { add } from 'ionicons/icons';
 import { setLocal, getLocal, removeLocal } from '@/services/storage'
 import { useRouter } from 'vue-router'
@@ -73,7 +90,20 @@ import { useRouter } from 'vue-router'
 export default {
   name: 'Login',
   components: {
-    IonPage, IonContent, IonToolbar, IonTitle, IonGrid, IonInput, IonItem, IonButton, IonRow, IonCol, IonLabel, IonHeader, IonFooter
+    IonPage,
+    IonContent,
+    IonToolbar,
+    IonTitle,
+    IonGrid,
+    IonInput,
+    IonItem,
+    IonButton,
+    IonRow,
+    IonCol,
+    IonLabel,
+    IonHeader,
+    IonFooter,
+    IonRippleEffect
   },
   setup() {
     const router = useRouter();

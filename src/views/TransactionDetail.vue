@@ -7,7 +7,7 @@
       modalText=""
       backText="Kembali"
       backUrl="/transaction"
-      headerClass="header-detail"
+      headerClass="header-detail no-shadow border-bottom"
       v-on:modalClick="null">
     </HeaderPage>
     <ion-content class="ion-padding min-height-100 pb-200 ">

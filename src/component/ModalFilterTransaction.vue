@@ -1,5 +1,5 @@
 <template>
-  <ion-header class="main" mode="md">
+  <ion-header class="main no-shadow border-bottom" mode="md">
     <ion-toolbar class="ion-align-items-center">
       <ion-buttons slot="end" class="ion-no-margin">
             <ion-button class="clear-button" @click="dismissModal">
@@ -111,7 +111,7 @@
             <ion-button
             color="medium"
             size="large"
-            class="ios md mt-5"
+            class="ios md mt-5 min-w-300 mx-auto"
             expand="block"
             type="submit">
               <strong>Terapkan</strong>

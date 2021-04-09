@@ -40,7 +40,9 @@ import './theme/helper.css';
 import './theme/custom.css';
 
 defineCustomElements(window);
-screen.orientation.lock('portrait')
+if (!navigator.xr && self.isMobile && screen.orientation && screen.orientation.lock) {
+  screen.orientation.lock('portrait');
+}
 const app = createApp(App)
   .use(IonicVue)
   .use(router);

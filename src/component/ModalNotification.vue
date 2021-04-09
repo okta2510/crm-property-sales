@@ -1,5 +1,5 @@
 <template>
-  <ion-header class="main" mode="md">
+  <ion-header class="main border-bottom no-shadow" mode="md">
     <ion-toolbar class="ion-align-items-center">
       <ion-buttons slot="end" class="on-no-margin">
             <ion-button class="clear-button" @click="closeAction">

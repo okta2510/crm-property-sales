@@ -3,7 +3,6 @@
     <ion-item
     v-for="(item, index) in result"
     :key="index"
-    @click="router.push(`/listing/${item}`)"
     class="list-item"
     :class="classProps"
     >
@@ -23,14 +22,14 @@
                     <ion-label color="secondary">Rumah</ion-label>
                   </ion-chip>
                </div>
-               <img class="feature-img" :src="`/assets/img-sample${item}.jpg`" />
+               <img @click="router.push(`/listing/${item}`)" class="feature-img cursor-pointer" :src="`/assets/img-sample${item}.jpg`" />
              </div>
           </ion-col>
           <ion-col class='content-info' size="7">
             <span class="d-block w-100 date">
             2020-11-05 10:00
             </span>
-            <span class="d-block w-100 title">
+            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item}`)">
               Termurah di jatiasih, bisa cicil 24x dengan bunga yang fantastis
             </span>
             <div class="component-size-info">
@@ -59,7 +58,7 @@
           </ion-col>
           <ion-col size="12" v-if="listingType === 'other'">
             <div class="wrap-agent-info">
-              <div class="profile" style="background-image: url(/assets/agent-photo.png)"></div>
+              <div class="profile cursor-pointer" @click="goTo('/agent/123')" style="background-image: url(/assets/agent-photo.png)"></div>
               <div class="top-section">James Harden</div>
               <div class="bottom-section">Raywhite Sunter</div>
             </div>
@@ -125,6 +124,9 @@ export default defineComponent({
   mounted() {
   },
   methods: {
+    goTo (url) {
+      window.location.href = url
+    }
   }
 });
 </script>

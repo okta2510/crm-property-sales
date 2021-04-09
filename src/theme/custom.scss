@@ -235,6 +235,7 @@ ion-header {
   }
   &.main.logged {
     box-shadow: 0px 5px 10px #00000020;
+    z-index: 11;
     ion-toolbar {
       --background: #00A79D;
       --color:#fff;
@@ -247,6 +248,7 @@ ion-header {
     }
   }
   &.main.logged.header-detail {
+    z-index: 11;
     ion-toolbar {
       --background: #fff;
       --color:#000000;
@@ -282,6 +284,12 @@ ion-item.segment-handled {
     overflow: visible;
     display: block;;
   }
+}
+
+ion-button.ion-color-danger {
+  --background: #E83D66;
+  --background-activated: #E83D66;
+  --background-focused: #E83D66;
 }
 
 ion-segment {
@@ -542,6 +550,12 @@ ion-select::part(text) {
 
   a,a:hover,a:focus,a:active {
     color:#00A79D;
+  }
+  * {
+    &:hover,&:focus {
+      color:#00A79D;
+      --color:#00A79D;
+    }
   }
   ion-tab-button {
     color: #304B57;
@@ -1077,7 +1091,7 @@ ion-item.reset-class {
 }
 .my-account {
   .profile-info {
-    padding: 30px 15px;
+    padding: 30px 16px;
     text-align: center;
     .thumbnail-photo {
       margin-bottom: 10px;
@@ -1109,6 +1123,14 @@ ion-item.reset-class {
       --inline-padding-start: 50px;
       --inline-padding-end: 50px;
     }
+  }
+}
+ion-button[size=medium] {
+  height: 42px;
+  line-height: 42px;
+  button {
+    height: 42px;
+    line-height: 42px;
   }
 }
 
@@ -1296,6 +1318,7 @@ ion-header.main.logged.bg-light ion-toolbar{
   --background: #fff;
   color: #00A79D;
   --color: #00A79D;
+  z-index: 11;
 
   ion-button {
     color: #00A79D;
@@ -1316,6 +1339,9 @@ ion-header.main.logged.bg-light ion-toolbar{
 .form-logged {
   padding-top: 30px;
   --padding-top: 30px;
+  ion-item {
+    --background:transparent;
+  }
   .native-textarea {
     padding-top: 0;
   }
@@ -1362,6 +1388,93 @@ ion-chip.custom {
     &.ion-color-secondary {
       color:#456B80;
     }
+  }
+}
+
+.star-rating {
+  list-style: none;
+  padding-left: 0;
+  margin: 5px 0 0;
+  li {
+    display: inline-block;
+    ion-icon {
+      color:#ddd;
+    }
+    &.filled ion-icon{
+      color:#FFCA41;
+    }
+  }
+}
+
+.list-award {
+  margin-top: 0;
+  padding-top: 20px;
+  padding-left: 16px;
+  padding-right: 16px;
+  list-style: none;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 28px;
+  .title {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    color:#456B80;
+    margin-bottom: 20px;
+  }
+  .title-date {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    margin-bottom: 8px;
+  }
+  & > li {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 30px;
+    }
+  }
+  ul {
+    padding-left: 20px;
+  }
+}
+
+
+.agent-records {
+  padding-left: 16px;
+  padding-right: 16px;
+  .info-records {
+    .wrap-box {
+      background-color: #F3F3F3;
+    }
+  }
+  
+  .wrap-box {
+    background-color: #F3F3F3;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    span {
+      display: block;
+    }
+    .number {
+      font-size: 28px;
+      line-height: 28px;
+      color: #456B80;
+      font-weight: bold;
+    }
+    .text {
+      font-size: 14px;
+      line-height: 16px;
+      color: #ACACAC;
+    }
+  }
+  ion-row {
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  ion-col {
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
 
