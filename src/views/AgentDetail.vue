@@ -65,7 +65,7 @@
             </ion-row>
             <ion-row>
               <ion-col size="12" class="mt-30 mb-30 text-center">
-                <ion-button rel="noreferrer" target="_blank" href="https://wa.me/+6281300998893" size="medium" color="medium mx-auto min-w-300 ion-no-margin">
+                <ion-button target="_blank" href="https://api.whatsapp.com/send?phone=+6281280029291" size="medium" color="medium mx-auto min-w-300 ion-no-margin">
                   <strong>Chat James</strong>
                   <ion-ripple-effect></ion-ripple-effect>
                 </ion-button>

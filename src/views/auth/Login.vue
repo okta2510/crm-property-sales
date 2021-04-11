@@ -191,16 +191,21 @@ export default {
       })
       .then(response => {
         // set local info
-        setLocal('userInfo', response.data)
-        // set remember me
-        if(this.rememberMe) {
-          setLocal('lastLogged', {
-            remember: this.rememberMe,
-            username: this.username,
-            password: this.password
-          })
+        if (Object.keys(response.data).length > 0 && response.data.token) {
+          setLocal('userInfo', response.data)
+          // set remember me
+          if(this.rememberMe) {
+            setLocal('lastLogged', {
+              remember: this.rememberMe,
+              username: this.username,
+              password: this.password
+            })
+          } else {
+            removeLocal('lastLogged')
+          }
         } else {
-          removeLocal('lastLogged')
+          self.openToast('Login Error' + JSON.stringify(response), 10000, 'danger')
+          self.signingIn = false
         }
 
         this.router.push('/dashboard')
