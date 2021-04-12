@@ -63,6 +63,11 @@
                       <div class="top-section">James Harden</div>
                       <div class="bottom-section">Raywhite Sunter</div>
                     </div>
+
+                    <ion-button target="_blank" href="https://api.whatsapp.com/send?phone=+6281280029291" size="small" color="medium w-100 ion-no-margin mt-3">
+                      <strong>Chat James</strong>
+                      <ion-ripple-effect></ion-ripple-effect>
+                    </ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>

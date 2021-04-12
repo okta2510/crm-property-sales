@@ -49,7 +49,7 @@
               :value="listingType"
               swipeGesture="true">
               <ion-segment-button value="other" @click="toggleSliderListing('other')">
-                <ion-label>Lainnya</ion-label>
+                <ion-label>Secondary</ion-label>
               </ion-segment-button>
               <ion-segment-button value="primary" @click="toggleSliderListing('primary')">
                 <ion-label>Primary</ion-label>

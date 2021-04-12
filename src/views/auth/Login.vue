@@ -204,7 +204,7 @@ export default {
             removeLocal('lastLogged')
           }
         } else {
-          self.openToast('Login Error' + JSON.stringify(response), 10000, 'danger')
+          // self.openToast('Login Error' + JSON.stringify(response), 5000, 'danger')
           self.signingIn = false
         }
 
