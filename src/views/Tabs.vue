@@ -9,7 +9,7 @@
 
         <ion-tab-button tab="tab2" href="/tab2">
           <ion-icon :icon="readerOutline" />
-          <ion-label>Listing</ion-label>
+          <ion-label>Listing Saya</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="add" class="hidden-tab">
@@ -18,7 +18,7 @@
 
         <ion-tab-button tab="tab3" href="/tab3">
           <ion-icon :icon="barChartOutline" />
-          <ion-label>Marketing</ion-label>
+          <ion-label>Marketing Tools</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="tab4" href="/tab4">
