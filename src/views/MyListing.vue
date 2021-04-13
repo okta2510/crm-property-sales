@@ -1,9 +1,11 @@
 <template>
   <ion-page class="logged">
     <HeaderPage
-      title="Semua Listing"
+      title="Listing Saya"
       urlPage=""
       urlText=""
+       backText="Kembali"
+      backUrl="/tab4"
       modalText="Filter"
       v-on:modalClick="openModal">
     </HeaderPage>
@@ -19,20 +21,6 @@
     <ion-content class="min-height-100 ion-no-padding-start ion-no-padding-end pb-200">
       <div id="container-page-listing">
         <div class="wrap-toggle-slide mb-40">
-          <div class="text-center">
-            <ion-segment
-              mode="ios"
-              :value="listingType"
-              swipeGesture="true">
-              <ion-segment-button value="other" @click="toggleSliderListing('other')">
-                <ion-label>Secondary</ion-label>
-              </ion-segment-button>
-              <ion-segment-button value="primary" @click="toggleSliderListing('primary')">
-                <ion-label>Primary</ion-label>
-              </ion-segment-button>
-            </ion-segment>
-          </div>
-
           <ListingList
               :result="results"
               classProps=""
@@ -50,10 +38,7 @@ import {
   IonPage,
   modalController,
   IonHeader,
-  IonToolbar,
-  IonSegment,
-  IonLabel,
-  IonSegmentButton
+  IonToolbar
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
@@ -69,10 +54,7 @@ export default defineComponent({
     ListingList,
     SearchBar,
     IonHeader,
-    IonToolbar,
-    IonSegment,
-    IonLabel,
-    IonSegmentButton
+    IonToolbar
   },
   data: function() {
     return {
@@ -80,7 +62,7 @@ export default defineComponent({
       currentModal: null,
       otherResults: [3,2,1,5,4],
       primaryResults: [1,2,3,4],
-      listingType: 'other',
+      listingType: 'primary',
       results: []
     }
   },

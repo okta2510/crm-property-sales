@@ -77,7 +77,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-         <ion-item mode="md" class="reset-class" href="/tab2" routerDirection="forward">
+         <ion-item mode="md" class="reset-class" href="/my-listing" routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
