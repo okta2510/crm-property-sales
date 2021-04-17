@@ -138,7 +138,6 @@ export default {
   created() {
   },
   mounted() {
-    this.getShip2()
   },
   data: function() {
     return {
@@ -201,45 +200,33 @@ export default {
     onSubmit: function () {
       let self = this
       this.signingIn = true
+
+      // set local info
       this.rememberMeSave()
+
       axios.post(this.API_LOGIN, {
           "username": self.username,
           "password": self.password
       }, {
          headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
           'Accept': "application/json"
         },
         mode:"cors"
       })
       .then(response => {
-        // set local info
         if (Object.keys(response.data).length > 0 && response.data.token) {
           setLocal('userInfo', response.data)
+          self.openToast('Login Success', 5000, 'success')
         } else {
-          // self.openToast('Login Error' + JSON.stringify(response), 5000, 'danger')
+          self.openToast('Error, response data empty', 5000, 'danger')
         }
         self.signingIn = false
         this.router.push('/dashboard')
       }).catch(function (err) {
         // handle err`
         console.log(err);
-          self.openToast(err.response.data ? err.response.data.detail : 'Login Error', 5000, 'danger')
+        self.openToast('Login Error', 5000, 'danger')
          self.signingIn = false
-      })
-    },
-    getShip2: function() {
-       axios.get('http://54.179.9.67:8000/api/v1/consumer/article/list', {
-        headers: {
-          Authorization: 'PIINTU eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJhaGFAZTQyMzEyZC5jb20iLCJleHAiOjE2MjIxMTkxMDAsImVtYWlsIjoiYWhhQGU0MjMxMmQuY29tIiwib3JpZ19pYXQiOjE2MTg2NjMxMDB9.mXDQfB-AtFUQAoJAssTbV4ldJN1WskvyJToJ1c-jz2w',
-          'Content-Type': "multipart/form-data",
-          'Accept': "application/json"
-        },
-        mode:"cors"
-      }).then(response => {
-        alert(JSON.stringify(response))
-      }).catch(function (err) {
-        alert(JSON.stringify(err))
       })
     },
     resetState() {
