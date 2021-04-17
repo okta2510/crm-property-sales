@@ -14,7 +14,7 @@
                   <h1 class="text-center title mt-2 mb-1">Selamat Datang</h1>
                   <span class="d-block text-center">Silahkan Isi Form Dibawah</span>
                 </div>
-                <form v-on:submit.prevent="onSubmit2" class="mt-4 form-custom">
+                <form v-on:submit.prevent="onSubmit" class="mt-4 form-custom">
                   <div class="input-wrap">
                     <ion-item class="md">
                       <ion-label color="medium" position="stacked">Nomor Ponsel</ion-label>
@@ -66,7 +66,7 @@
 </template>
 <script>
 import axios from 'axios';
-import { HTTP } from '@ionic-native/http';
+// import { HTTP } from '@ionic-native/http';
 import {
   IonPage,
   IonContent,
@@ -87,6 +87,9 @@ import {
 import { add } from 'ionicons/icons';
 import { setLocal, getLocal, removeLocal } from '@/services/storage'
 import { useRouter } from 'vue-router'
+import '@capacitor-community/http';
+import { Plugins } from '@capacitor/core';
+// import { resolveComponent } from '@vue/runtime-core';
 
 export default {
   name: 'Login',
@@ -108,7 +111,7 @@ export default {
   },
   setup() {
     const router = useRouter();
-    const http = HTTP
+    const { Http } = Plugins;
     const getLoggedUser = async function () {
        await getLocal('userInfo').then((res)=>{
         res ? router.push('/dashboard') : router.push('/login')
@@ -119,7 +122,7 @@ export default {
     getLoggedUser()
 
     return {
-      add, router, http
+      add, router, Http
     }
   },
   ionViewWillEnter() {
@@ -135,6 +138,7 @@ export default {
   created() {
   },
   mounted() {
+    this.getShip2()
   },
   data: function() {
     return {
@@ -179,65 +183,79 @@ export default {
     });
       return toast.present();
     },
+    rememberMeSave: function() {
+      // set remember me
+      if(this.rememberMe) {
+        setLocal('lastLogged', {
+          remember: this.rememberMe,
+          username: this.username,
+          password: this.password
+        })
+      } else {
+        removeLocal('lastLogged')
+      }
+    },
     onSubmit: function () {
       let self = this
       this.signingIn = true
-      axios.post(this.API_LOGIN, {
+      this.rememberMeSave()
+      axios.post('http://54.179.9.67:8000'+this.API_LOGIN, {
           "username": self.username,
           "password": self.password
-      }, {
-        proxy: {
-          host: 'http://54.179.9.67',
-          port: 8000
-        }
-      })
+      }, {})
       .then(response => {
         // set local info
         if (Object.keys(response.data).length > 0 && response.data.token) {
           setLocal('userInfo', response.data)
-          // set remember me
-          if(this.rememberMe) {
-            setLocal('lastLogged', {
-              remember: this.rememberMe,
-              username: this.username,
-              password: this.password
-            })
-          } else {
-            removeLocal('lastLogged')
-          }
         } else {
           // self.openToast('Login Error' + JSON.stringify(response), 5000, 'danger')
-          self.signingIn = false
         }
-
+        self.signingIn = false
         this.router.push('/dashboard')
       }).catch(function (err) {
-        // handle err
+        // handle err`
         console.log(err);
           self.openToast(err.response.data ? err.response.data.detail : 'Login Error', 5000, 'danger')
          self.signingIn = false
       })
     },
-    onSubmit2: function () {
+    getShip: function() {
+      //  axios.post(this.API_LOGIN, {
+      //     password: "qweqweqwe",
+      //     username: "+6281210161816"
+      // }, {}).then(response => {
+      //   alert(JSON.stringify(response))
+      // }).catch(function (err) {
+      //   alert(JSON.stringify(err))
+      // })
       let self = this
-      this.http.post('http://54.179.9.67:8000', {
-          "username": self.username,
-          "password": self.password
-      }, {})
-      .then(data => {
-          alert('success')
-          console.log(data.status);
-          console.log(data.data); // data received by server
-          console.log(data.headers);
-
-        })
-        .catch(error => {
-          alert('error')
-          console.log(error.status);
-          console.log(error.error); // error message as string
-          console.log(error.headers);
-
-        });
+      this.Http.request({
+        method: 'POST',
+        url: 'http://54.179.9.67:8000'+self.API_LOGIN,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://54.179.9.67:8000'
+        },
+        data: {
+          password: "qweqweqwe",
+          username: "+6281210161816"
+        }
+      }).then(response => {
+        alert(JSON.stringify(response))
+      }).catch(function (err) {
+        alert(JSON.stringify(err))
+      });
+    },
+    getShip2: function() {
+       axios.get('http://54.179.9.67:8000/api/v1/consumer/article/list', {
+        headers: {
+          Authorization: 'PIINTU eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJhaGFAZTQyMzEyZC5jb20iLCJleHAiOjE2MjIxMTkxMDAsImVtYWlsIjoiYWhhQGU0MjMxMmQuY29tIiwib3JpZ19pYXQiOjE2MTg2NjMxMDB9.mXDQfB-AtFUQAoJAssTbV4ldJN1WskvyJToJ1c-jz2w'
+        }
+      }).then(response => {
+        alert(JSON.stringify(response))
+      }).catch(function (err) {
+        alert(JSON.stringify(err))
+      })
     },
     resetState() {
       this.username = null
