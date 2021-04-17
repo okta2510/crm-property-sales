@@ -14,7 +14,7 @@
                   <h1 class="text-center title mt-2 mb-1">Selamat Datang</h1>
                   <span class="d-block text-center">Silahkan Isi Form Dibawah</span>
                 </div>
-                <form v-on:submit.prevent="onSubmit" class="mt-4 form-custom">
+                <form v-on:submit.prevent="onSubmit2" class="mt-4 form-custom">
                   <div class="input-wrap">
                     <ion-item class="md">
                       <ion-label color="medium" position="stacked">Nomor Ponsel</ion-label>
@@ -66,6 +66,7 @@
 </template>
 <script>
 import axios from 'axios';
+import { HTTP } from '@ionic-native/http';
 import {
   IonPage,
   IonContent,
@@ -107,6 +108,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const http = HTTP
     const getLoggedUser = async function () {
        await getLocal('userInfo').then((res)=>{
         res ? router.push('/dashboard') : router.push('/login')
@@ -117,7 +119,7 @@ export default {
     getLoggedUser()
 
     return {
-      add, router
+      add, router, http
     }
   },
   ionViewWillEnter() {
@@ -185,8 +187,8 @@ export default {
           "password": self.password
       }, {
         proxy: {
-          host: 'localhost',
-          port: 3000
+          host: 'http://54.179.9.67',
+          port: 8000
         }
       })
       .then(response => {
@@ -215,6 +217,27 @@ export default {
           self.openToast(err.response.data ? err.response.data.detail : 'Login Error', 5000, 'danger')
          self.signingIn = false
       })
+    },
+    onSubmit2: function () {
+      let self = this
+      this.http.post('http://54.179.9.67:8000', {
+          "username": self.username,
+          "password": self.password
+      }, {})
+      .then(data => {
+          alert('success')
+          console.log(data.status);
+          console.log(data.data); // data received by server
+          console.log(data.headers);
+
+        })
+        .catch(error => {
+          alert('error')
+          console.log(error.status);
+          console.log(error.error); // error message as string
+          console.log(error.headers);
+
+        });
     },
     resetState() {
       this.username = null
