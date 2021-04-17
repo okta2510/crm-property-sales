@@ -207,7 +207,7 @@ export default {
           "password": self.password
       }, {
          headers: {
-          'Content-Type': "multipart/form-data",
+          'Content-Type': 'application/x-www-form-urlencoded',
           'Accept': "application/json"
         },
         mode:"cors"
