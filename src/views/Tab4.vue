@@ -14,7 +14,9 @@
             <img src="/assets/user-profile.png"/>
           </div>
           <div class="text">
-            <span class="name">Budi Handoko</span>
+            <span class="name">
+              {{userDetail ? userDetail.account_holder : '-name-'}}
+            </span>
             <span class="email">Professional Real Estate Agent</span>
             <ul class="star-rating mb-20">
               <li class="">
@@ -132,6 +134,7 @@ import {
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
+import { getLocal } from '@/services/storage'
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
 import { chevronForward, star } from 'ionicons/icons'
 import { useRouter } from 'vue-router'
@@ -154,7 +157,8 @@ export default defineComponent({
     return {
       titlePage: 'Profile Page',
       currentModal: null,
-      results: [1,2,3,4,5]
+      results: [1,2,3,4,5],
+      userDetail: null
     }
   },
   setup() {
@@ -174,10 +178,20 @@ export default defineComponent({
   ionViewDidLeave() {
   },
   created() {
+    this.getUserInfo()
   },
   mounted() {
   },
   methods: {
+    getUserInfo: async function () {
+      await getLocal('userInfo').then((res)=>{
+        if(res) {
+          this.userDetail = res.user
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
     goTo(path){
       window.location.href = path
     },

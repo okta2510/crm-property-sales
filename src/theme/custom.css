@@ -242,12 +242,24 @@ ion-toast {
   --border-width: 1px;
 }
 ion-toast.ion-color-success {
-  --ion-color-success: #2dd36f;
-  --ion-color-success-rgb: 45, 211, 111;
+  --ion-color-success: #00A668;
   --ion-color-success-contrast: #ffffff;
-  --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #28ba62 !important;
-  --ion-color-success-tint: #42d77d !important;
+  --ion-color-success-shade: #00955e !important;
+  --ion-color-success-tint: #1aaf77 !important;
+}
+ion-toast.ion-color-warning {
+  --ion-color-warning: #edf04b;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-shade: #d5d844 !important;
+  --ion-color-warning-tint: #eff25d !important;
+  color: #828415;
+}
+ion-toast.ion-color-danger {
+  --ion-color-danger: #FF3364;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-shade: #e62e5a !important;
+  --ion-color-danger-tint: #ff4774 !important;
+  color: #fff;
 }
 
 ion-toast.custom-toast .toast-content {
@@ -953,7 +965,7 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
   font-size: 0;
 }
 .component-size-info ul li {
-  padding: 0 8px;
+  padding: 0 4px;
   color: #00A79D;
   display: inline-block;
   width: auto;
@@ -1330,9 +1342,11 @@ ion-header.main.logged.bg-light ion-toolbar ion-button {
   padding: 0 16px;
 }
 
-ion-chip.custom.ion-color-warning {
+ion-chip.custom.ion-color-warning, ion-chip.custom.ion-color-warning * {
   --background-color: #FFCA41;
   background-color: #FFCA41;
+  color: #000;
+  --color:#000;
 }
 ion-chip.custom.ion-color-success {
   --background-color: #00A79D;

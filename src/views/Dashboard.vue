@@ -97,7 +97,7 @@
           </ion-slides>  -->
         </div>
 
-        <div class="wrap-card-news">
+        <div class="wrap-card-news" v-if="articleList && articleList.length > 0">
           <ion-grid class="ion-padding-start ion-padding-end card-header-info">
             <ion-row class="ion-align-items-center">
               <ion-col class="ion-no-padding">
@@ -110,7 +110,7 @@
           </ion-grid>
           <ion-slides class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
             <ion-slide
-            v-for="(item, index) in otherResults"
+            v-for="(item, index) in articleList"
             :key="index">
               <NewsDashboardCard
               :detail="item"
@@ -126,6 +126,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import {
   IonContent,
   IonPage,
@@ -152,6 +153,7 @@ import ModalNotification from '@/component/ModalNotification.vue'
 import ListingList from '@/component/ListingList.vue'
 import NewsDashboardCard from '@/component/NewsDashboardCard.vue'
 import { useRouter } from 'vue-router'
+import { getLocal } from '@/services/storage'
 
 
 export default defineComponent({
@@ -177,9 +179,11 @@ export default defineComponent({
   data: function () {
     return {
       queryString: null,
-      primaryResults: [1,2,3,4,5],
-      otherResults: [3,2,1,5,4],
-      listingType: 'other'
+      primaryResults: [],
+      otherResults: [],
+      articleList: [],
+      listingType: 'other',
+      userToken: null
     }
   },
   setup() {
@@ -208,9 +212,35 @@ export default defineComponent({
       router
     }
   },
-  created() {
+  computed: {
+     API_HOST: function () {
+      return 'http://54.179.9.67:8000'
+    },
+    API_NEWS: function () {
+      return this.API_HOST+'/api/v1/consumer/article/list'
+    },
+    API_SECONDARY: function () {
+      return this.API_HOST+'/api/v1/consumer/listing/secondary'
+    },
+    API_PRIMARY: function () {
+      return this.API_HOST+'/api/v1/consumer/listing/primary'
+    }
+  },
+  created: async function () {
+    await this.getUserInfo()
+    this.getArticles()
+    this.getListing()
   },
   methods: {
+    getUserInfo: async function () {
+      await getLocal('userInfo').then((res)=>{
+        if(res) {
+          this.userToken = res.token
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
     logScrollStart: function() {
        console.log('start scroll')
     },
@@ -226,6 +256,49 @@ export default defineComponent({
     },
     searchingQuery: function () {
       //searching
+    },
+    getListing: function () {
+      let self = this
+      axios.get(this.API_SECONDARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.otherResults = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
+
+      axios.get(this.API_PRIMARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.primaryResults = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    getArticles: function () {
+      let self = this
+      axios.get(this.API_NEWS,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.articleList = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
     },
     async openModal() {
       const modal = await modalController

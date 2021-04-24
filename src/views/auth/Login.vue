@@ -171,14 +171,15 @@ export default {
         console.log(err)
       })
     },
-    async openToast(message='empty toast', duration=2000, color='default') {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
         let toast = await toastController
           .create({
             message: message,
             duration: duration,
             animated: true,
             cssClass: 'custom-toast',
-            color: color
+            color: color,
+            position: position
           })
         toast.onDidDismiss(() => {
       console.log('Dismissed toast');
@@ -216,7 +217,7 @@ export default {
       .then(response => {
         if (Object.keys(response.data).length > 0 && response.data.token) {
           setLocal('userInfo', response.data)
-          self.openToast('Login Success', 5000, 'success')
+          self.openToast('Login Success', 3000, 'success', 'top')
         } else {
           self.openToast('Error, response data empty', 5000, 'danger')
         }

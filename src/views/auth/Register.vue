@@ -18,7 +18,7 @@
           <ion-row>
             <ion-col size-md="4" size-xs="10" offset-md="4" offset-xs="1">
               <div class="heading-page text-center">
-                <h1 class="text-center title mt-0 mb-1">Buat Akun</h1>
+                <h1 class="text-center title mt-0 mb-1" @click="printPayload">Buat Akun</h1>
                 <span class="d-block text-center">Lengkapi form dibawah untuk lanjut</span>
               </div>
 
@@ -37,7 +37,7 @@
                             </ion-button>
                             <img :src="profilePhoto" />
                           </div>
-                            <input type="text" class="not-displayed" v-model="profile_picture" required>
+                            <input type="text" class="not-displayed" v-model="profilePhoto" required>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nama Lengkap</ion-label>
@@ -86,10 +86,9 @@
                           class="text-left"
                           min="1970-01"
                           max="2000"
-                          v-model="dob"
                           :value="dob"
                           type="date"
-                          @ionChange="dob = formattingDate($event.target.value, 'YYYY-MM-DD')"
+                          @ionChange="formattingDate($event.target.value, 'YYYY-MM-DD')"
                           name="date"
                           display-format="MMMM DD, YYYY"
                           month-short-names="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, des"
@@ -141,7 +140,7 @@
                                 </ion-button>
                                 <img :src="ktpPhoto" />
                               </div>
-                               <input type="text" class="not-displayed" v-model="npwp_file" required>
+                               <input type="text" class="not-displayed" v-model="ktpPhoto" required>
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Bank</ion-label>
@@ -160,7 +159,7 @@
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Nama di Rekening</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="Nama di Rekening" type="text" v-model="account_holder" :value="account_holder" required>
+                              <ion-input id="nomor_rekening" placeholder="" autocapitalize="off" title="Nama di Rekening" type="text" v-model="account_holder" :value="account_holder" required>
                               </ion-input>
                             </ion-item>
                           </div>
@@ -207,7 +206,7 @@ import {
 } from '@ionic/vue'
 import { useRouter } from 'vue-router'
 import { ref, defineComponent } from 'vue';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { Plugins, CameraResultType,  CameraSource} from '@capacitor/core';
 import { chevronBack, chevronForward, camera } from 'ionicons/icons';
 import { getLocal } from '@/services/storage'
 import moment from 'moment';
@@ -225,7 +224,7 @@ export default defineComponent({
     const getLoggedUser = async function () {
        await getLocal('userInfo').then((res)=>{
         res ? router.push('/dashboard') : null
-        console.log(res)
+        // console.log(res)
       }).catch((err)=>{
         console.log(err)
       })
@@ -253,7 +252,7 @@ export default defineComponent({
         source: CameraSource.Prompt,
         saveToGallery: true
       });
-      console.log(image)
+
       let url = `data:image/${image.format};base64, ${image.base64String}`
       if (state === 'ktp') {
         ktpPhoto.value = url;
@@ -332,16 +331,13 @@ export default defineComponent({
   mounted() {
   },
   watch: {
-    // ktpPhoto: async function (val) {
-    //   this.npwp_file = val
-    // },
-    // profilePhoto: async function (val) {
-    //   this.profile_picture = val;
-    // },
   },
   computed: {
+    API_HOST: function () {
+      return 'http://54.179.9.67:8000'
+    },
      API_REGISTER: function () {
-      return '/api/v1/consumer/member/register'
+      return this.API_HOST+'/api/v1/consumer/member/register'
     },
     payload() {
       return {
@@ -349,6 +345,8 @@ export default defineComponent({
         name: this.name,
         display_name: this.display_name,
         phone: this.phone,
+        phone_second: this.phone_second,
+        phone_third: this.phone_third,
         email: this.email,
         address: this.address,
         pob: this.pob,
@@ -360,8 +358,8 @@ export default defineComponent({
         bank_branch: this.bank_branch,
         account_number: this.account_number,
         account_holder: this.account_holder,
-        member_id : this.member_id,
-        mail_address: this.mail_addresss,
+        member_id : '#',
+        mail_address: this.address,
         password: this.password
       }
     }
@@ -396,6 +394,11 @@ export default defineComponent({
         self.router.push('/login')
         self.resetState()
         self.signingIn = false
+      }, {
+         headers: {
+          'Accept': "application/json"
+        },
+        mode:"cors"
       }).catch((err) => {
         // handle err
         console.log(err.response)
@@ -404,25 +407,28 @@ export default defineComponent({
       })
     },
     async openToast(message='openToast', duration=2000, color='default') {
-        let toast = await toastController
-          .create({
-            message: message,
-            duration: duration,
-            animated: true,
-            cssClass: 'custom-toast',
-            color: color
-          })
+      let toast = await toastController
+        .create({
+          message: message,
+          duration: duration,
+          animated: true,
+          cssClass: 'custom-toast',
+          color: color
+        })
         toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
+          console.log('Dismissed toast');
+        });
       return toast.present();
     },
     formattingDate(val, format) {
-      return moment(val).format(format)
+      this.dob = moment(val).format(format)
     },
     next: function () {
       this.disableSwap(false)
       this.goNext()
+    },
+    printPayload() {
+      console.log(this.payload)
     },
     resetState() {
       this.dob = null,
