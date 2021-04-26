@@ -60,7 +60,7 @@
           <ion-grid class="ion-padding-start ion-padding-end card-header-info">
             <ion-row class="ion-align-items-center">
               <ion-col class="ion-no-padding">
-                <h3 class="my-0 title">Listing {{listingType === 'primary' ? 'Primary' : 'Lainnya'}}</h3>
+                <h3 class="my-0 title">Listing {{listingType === 'primary' ? 'Primary' : 'Secondary'}}</h3>
               </ion-col>
               <ion-col class="ion-no-padding text-right">
                 <span @click="router.replace('/tab2')" class="seeMore">Lihat Semua</span>
