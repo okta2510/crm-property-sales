@@ -887,6 +887,12 @@ ion-modal.modal-component {
   .wrap-feature-img {
     position: relative;
     font-size:0;
+    text-align: center;
+    background-color: #333;
+    img {
+      max-height: 180px;
+      margin: 0 auto;
+    }
     .wrap-chips {
       position: absolute;
       left: 0;
@@ -931,6 +937,7 @@ ion-modal.modal-component {
       position: absolute;
       right:12px;
       top:0;
+      background-color: #B8C3C9;
     }
     .top-section {
       padding-right: 50px;
@@ -1219,6 +1226,7 @@ ion-button[size=medium] {
     font-size: 10px;
     line-height: 10px;
     padding-top: 5px;
+    min-height: 62px;
 
     .profile {
       width: 52px;
@@ -1233,6 +1241,7 @@ ion-button[size=medium] {
       position: absolute;
       right:0px;
       top:0;
+      background-color: #B8C3C9;
     }
     .top-section {
       padding-right: 58px;

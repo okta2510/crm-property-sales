@@ -40,7 +40,7 @@ export default defineComponent({
   computed: {
     newValue: function () {
       let number = this.value
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator)
+      return number && number > 0 ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator) : '-'
     }
   },
   methods: {

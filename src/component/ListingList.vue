@@ -24,7 +24,7 @@
           </ion-col>
           <ion-col class='content-info' size="7">
             <span class="d-block w-100 date">
-            {{formattingDate(item.created, 'YYYY-MM-DD HH:mm') || 'dd/mm/yyyy'}}
+            {{formattingDate(item.created, 'YYYY-MM-DD HH:mm') || 'YYYY-MM-DD HH:mm'}}
             </span>
             <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item.id}`)">
               {{item.name || 'title listing'}}
@@ -33,19 +33,31 @@
               <ul class="text-left">
                 <li>
                   <img height="14" src="/assets/icon/icon-area-size.png">
-                  <span>{{ item.surface_area || 'none'}}</span>
+                  <span>
+                    <PrintValue
+                    :value="item.surface_area"/>
+                  </span>
                 </li>
                 <li>
                   <img height="14" src="/assets/icon/icon-building-size.png">
-                  <span>{{ item.building_area || 'none'}}</span>
+                  <span>
+                    <PrintValue
+                    :value="item.building_area"/>
+                  </span>
                 </li>
                 <li>
                   <img height="14" src="/assets/icon/icon-bed-size.png">
-                  <span>{{ item.bedroom || 'none'}}</span>
+                  <span>
+                    <PrintValue
+                    :value="item.bedroom"/>
+                  </span>
                 </li>
                 <li>
                   <img height="14" src="/assets/icon/icon-bath-size.png">
-                  <span>{{ item.bathroom || 'none'}}</span>
+                  <span>
+                    <PrintValue
+                    :value="item.bathroom"/>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -57,7 +69,7 @@
           </ion-col>
           <ion-col size="12" v-if="listingType === 'other'">
             <div class="wrap-agent-info">
-              <div class="profile cursor-pointer" @click="goTo('/agent/123')" style="background-image: url(/assets/agent-photo.png)"></div>
+              <div class="profile cursor-pointer" @click="goTo('/agent/123')" style="background-image: url(/assets/agent-empty.png)"></div>
               <div class="top-section">{{ item.contact_name_for_marketing_contract || 'Agent Name'}}</div>
               <div class="bottom-section">
                 {{ item.agency_name|| 'Agency Name'}}
