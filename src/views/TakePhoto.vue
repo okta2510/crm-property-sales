@@ -38,7 +38,7 @@ export default defineComponent({
     const takePhoto = async () => {
       const image = await Camera.getPhoto({
         quality: 90,
-        allowEditing: true,
+        // allowEditing: true,
         resultType: CameraResultType.Uri
       });
 

@@ -1,7 +1,15 @@
 {
-  "name": "myApp",
+  "name": "PIINTU",
+  "type": "ionic-vue",
   "integrations": {
     "capacitor": {}
   },
+  "proxies": [
+    {
+      "path": "^/api",
+      "proxyUrl": "http://54.179.9.67:8000",
+      "changeOrigin": "true"
+    }
+  ],
   "type": "vue"
 }

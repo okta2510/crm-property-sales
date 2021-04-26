@@ -29,3 +29,11 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+
+cb-web-ssr-config/
+
+android/**
+ios/**
+resources/android/**
+resources/ios/**
+.gradle

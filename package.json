@@ -2,6 +2,9 @@
   "name": "myApp",
   "version": "0.0.1",
   "private": true,
+  "proxy": {
+    "^/api": "http://54.179.9.67:8000"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -9,19 +12,34 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "ionic:build": "vue-cli-service build",
-    "ionic:serve": "vue-cli-service serve"
+    "ionic:serve": "vue-cli-service serve",
+    "resources": "cordova-res ios && cordova-res android && node scripts/resources.js",
+    "test": "ionic build && ionic cap copy && ionic cap sync"
   },
   "dependencies": {
     "@capacitor/android": "^2.4.6",
     "@capacitor/core": "2.4.6",
     "@capacitor/ios": "^2.4.6",
+    "@ionic-native/http": "^5.32.1",
+    "@ionic-native/screen-orientation": "^5.32.0",
+    "@ionic-native/splash-screen": "^5.31.1",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
+    "axios": "^0.21.1",
+    "cordova-plugin-advanced-http": "^3.1.0",
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-screen-orientation": "^3.0.2",
+    "cordova-plugin-splashscreen": "^6.0.0",
     "core-js": "^3.6.5",
+    "es6-promise-plugin": "^4.2.2",
+    "jquery": "^3.5.1",
+    "moment": "^2.29.1",
     "vue": "^3.0.0-0",
+    "vue-resource": "^1.5.2",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
+    "@capacitor-community/http": "^0.3.0",
     "@capacitor/cli": "2.4.6",
     "@ionic/pwa-elements": "^3.0.2",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -32,6 +50,7 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0-0",
     "@vue/test-utils": "^2.0.0-0",
+    "cordova-res": "^0.15.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
     "sass-loader": "^10.1.1",
