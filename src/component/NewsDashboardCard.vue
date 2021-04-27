@@ -5,7 +5,7 @@
     class="list-item"
     :class="classProps"
     >
-      <ion-card mode="ios" class="mb-3" :href="`/berita/${detail.slug}`">
+      <ion-card mode="ios" class="mb-3" :href="`/berita/${detail.id}`">
         <div class="wrap-image">
           <img class="feature-img" :src="detail.thumbnail || `/assets/empty-image-square.png`" />
         </div>
