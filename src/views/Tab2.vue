@@ -107,7 +107,7 @@ export default defineComponent({
   ionViewDidEnter() {
   },
   ionViewDidLeave() {
-    this.results = [1,2,3,4,5]
+    this.results =  this.listingType === 'primary' ? [...this.primaryResults] : [...this.otherResults]
     this.currentModal = null
   },
   created: async function () {

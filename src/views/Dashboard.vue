@@ -32,7 +32,7 @@
           </div>
         </ion-toolbar>
         
-        <ion-slides class="slider-feature mb-4" pager="false" mode="ios" :options="slideFeatureOpts">
+        <ion-slides v-if="bannerList && bannerList.length > 0" class="slider-feature mb-4" pager="false" mode="ios" :options="slideFeatureOpts">
           <ion-slide v-for="(item, index_banner) in bannerList" :key="index_banner">
             <img :src="item.banner || 'assets/empty-image-slider.jpg'"/>
           </ion-slide>

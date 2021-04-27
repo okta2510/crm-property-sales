@@ -11,7 +11,7 @@
       <div class="my-account">
         <div class="profile-info">
           <div class="thumbnail-photo">
-            <img src="/assets/user-profile.png"/>
+            <img :src="userDetail.profile_picture || '/assets/agent-empty.png'"/>
           </div>
           <div class="text">
             <span class="name">
@@ -65,7 +65,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-item mode="md" class="reset-class" href="/transaction" routerDirection="forward">
+        <ion-item mode="md" class="reset-class"  routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -93,7 +93,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-         <ion-item mode="md" class="reset-class" href="#" routerDirection="forward">
+         <ion-item mode="md" class="reset-class">
           <ion-grid>
             <ion-row>
               <ion-col size="9">

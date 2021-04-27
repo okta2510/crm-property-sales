@@ -785,6 +785,12 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
   font-size: 12px;
   line-height: 18px;
 }
+.modal-notification ion-content ion-item .empty-text {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  color: #ACACAC;
+}
 .modal-notification ion-content ion-item.readed .title, .modal-notification ion-content ion-item.readed .desc {
   color: #868686;
 }

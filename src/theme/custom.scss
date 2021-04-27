@@ -767,6 +767,12 @@ ion-modal.modal-component {
         font-size: 12px;
         line-height: 18px;
       }
+      .empty-text {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 500;
+        color:#ACACAC;
+      }
       &.readed {
         .title,.desc {
           color:#868686;

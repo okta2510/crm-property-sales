@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap-listing wrap-content component-listing-list mx-0">
+  <div class="wrap-listing wrap-content component-listing-list mx-0" v-if="result && result.length > 0">
     <ion-item
     v-for="(item, index) in result"
     :key="index"
@@ -67,9 +67,9 @@
                preText="Rp."></PrintValue>
             </span>
           </ion-col>
-          <ion-col size="12" v-if="listingType === 'other'">
+          <ion-col size="12" v-if="listingType === 'other' && item.user">
             <div class="wrap-agent-info">
-              <div class="profile cursor-pointer" @click="goTo('/agent/123')" style="background-image: url(/assets/agent-empty.png)"></div>
+              <div class="profile cursor-pointer" @click="goTo('/agent/'+item.user.id)" :style="`background-image: url(${item.user.profile_picture || '/assets/agent-empty.png'})`"></div>
               <div class="top-section">{{ item.contact_name_for_marketing_contract || 'Agent Name'}}</div>
               <div class="bottom-section">
                 {{ item.agency_name|| 'Agency Name'}}
