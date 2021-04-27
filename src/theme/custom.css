@@ -785,6 +785,12 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
   font-size: 12px;
   line-height: 18px;
 }
+.modal-notification ion-content ion-item .empty-text {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  color: #ACACAC;
+}
 .modal-notification ion-content ion-item.readed .title, .modal-notification ion-content ion-item.readed .desc {
   color: #868686;
 }
@@ -887,6 +893,12 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
 .component-listing-list .wrap-feature-img {
   position: relative;
   font-size: 0;
+  text-align: center;
+  background-color: #333;
+}
+.component-listing-list .wrap-feature-img img {
+  max-height: 180px;
+  margin: 0 auto;
 }
 .component-listing-list .wrap-feature-img .wrap-chips {
   position: absolute;
@@ -931,6 +943,7 @@ ion-modal.modal-component .form-custom .label-stacked.sc-ion-label-md-h {
   position: absolute;
   right: 12px;
   top: 0;
+  background-color: #B8C3C9;
 }
 .component-listing-list .wrap-agent-info .top-section {
   padding-right: 50px;
@@ -1188,6 +1201,7 @@ ion-button[size=medium] button {
   font-size: 10px;
   line-height: 10px;
   padding-top: 5px;
+  min-height: 62px;
 }
 .news-detail .wrap-agent-info .profile, .listing-detail .wrap-agent-info .profile {
   width: 52px;
@@ -1202,6 +1216,7 @@ ion-button[size=medium] button {
   position: absolute;
   right: 0px;
   top: 0;
+  background-color: #B8C3C9;
 }
 .news-detail .wrap-agent-info .top-section, .listing-detail .wrap-agent-info .top-section {
   padding-right: 58px;

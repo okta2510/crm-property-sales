@@ -17,6 +17,11 @@
         <span class="desc">Silahkan lakukan verifikasi pada email anda</span>
       </ion-label>
     </ion-item>
+    <ion-item v-if="!notifications || notifications.length === 0" >
+       <ion-label>
+        <span class="empty-text text-center">- Tidak ada notifikasi -</span>
+      </ion-label>
+    </ion-item>
   </ion-content>
 </template>
 
