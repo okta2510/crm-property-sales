@@ -34,3 +34,16 @@ npm run resources
 ###genereate icon and splash image
 
 https://dalezak.medium.com/generate-app-icon-and-splash-screen-images-for-ionic-framework-using-capacitor-e1f8c6ef0fd4
+
+
+
+step1>
+add android:usesCleartextTraffic="true" line in AndroidManifest.xml like:
+
+<application
+...
+android:usesCleartextTraffic="true"> // add this line
+...
+step2>
+Delete all debug folder from your android folder..
+https://github.com/facebook/react-native/issues/25244

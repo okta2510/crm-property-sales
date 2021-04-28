@@ -11,7 +11,9 @@
               <ion-col class="text-right">
               <div class="btn-notification cursor-pointer" @click="openModal">
                   <ion-icon :icon="notificationsOutline"></ion-icon>
-                  <ion-badge color="danger">2</ion-badge>
+                  <ion-badge color="danger" v-if="countNotif && countNotif.unread > 0">
+                    {{countNotif.unread || 0}}
+                  </ion-badge>
                 </div>
               </ion-col>
             </ion-row>
@@ -30,15 +32,9 @@
           </div>
         </ion-toolbar>
         
-        <ion-slides class="slider-feature mb-4" pager="false" mode="ios" :options="slideFeatureOpts">
-          <ion-slide>
-            <img src="/assets/slider-sample1.jpg"/>
-          </ion-slide>
-          <ion-slide>
-            <img src="/assets/slider-sample2.jpg"/>
-          </ion-slide>
-          <ion-slide>
-            <img src="/assets/slider-sample3.jpg"/>
+        <ion-slides v-if="bannerList && bannerList.length > 0" class="slider-feature mb-4" pager="false" mode="ios" :options="slideFeatureOpts">
+          <ion-slide v-for="(item, index_banner) in bannerList" :key="index_banner">
+            <img :src="item.banner || 'assets/empty-image-slider.jpg'"/>
           </ion-slide>
         </ion-slides>
 
@@ -60,7 +56,7 @@
           <ion-grid class="ion-padding-start ion-padding-end card-header-info">
             <ion-row class="ion-align-items-center">
               <ion-col class="ion-no-padding">
-                <h3 class="my-0 title">Listing {{listingType === 'primary' ? 'Primary' : 'Lainnya'}}</h3>
+                <h3 class="my-0 title">Listing {{listingType === 'primary' ? 'Primary' : 'Secondary'}}</h3>
               </ion-col>
               <ion-col class="ion-no-padding text-right">
                 <span @click="router.replace('/tab2')" class="seeMore">Lihat Semua</span>
@@ -97,7 +93,7 @@
           </ion-slides>  -->
         </div>
 
-        <div class="wrap-card-news">
+        <div class="wrap-card-news" v-if="articleList && articleList.length > 0">
           <ion-grid class="ion-padding-start ion-padding-end card-header-info">
             <ion-row class="ion-align-items-center">
               <ion-col class="ion-no-padding">
@@ -110,8 +106,8 @@
           </ion-grid>
           <ion-slides class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
             <ion-slide
-            v-for="(item, index) in otherResults"
-            :key="index">
+            v-for="(item, index_news) in articleList"
+            :key="index_news">
               <NewsDashboardCard
               :detail="item"
               classProps=""
@@ -126,6 +122,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import {
   IonContent,
   IonPage,
@@ -152,6 +149,7 @@ import ModalNotification from '@/component/ModalNotification.vue'
 import ListingList from '@/component/ListingList.vue'
 import NewsDashboardCard from '@/component/NewsDashboardCard.vue'
 import { useRouter } from 'vue-router'
+import { getLocal } from '@/services/storage'
 
 
 export default defineComponent({
@@ -177,9 +175,13 @@ export default defineComponent({
   data: function () {
     return {
       queryString: null,
-      primaryResults: [1,2,3,4,5],
-      otherResults: [3,2,1,5,4],
-      listingType: 'other'
+      primaryResults: [],
+      otherResults: [],
+      articleList: [],
+      bannerList: [],
+      countNotif: null,
+      listingType: 'other',
+      userToken: null
     }
   },
   setup() {
@@ -208,24 +210,144 @@ export default defineComponent({
       router
     }
   },
-  created() {
+  computed: {
+     API_HOST: function () {
+      return 'http://54.179.9.67:8000/api/v1/consumer'
+    },
+    API_BANNER: function () {
+      return this.API_HOST+'/article/banner'
+    },
+    API_NEWS: function () {
+      return this.API_HOST+'/article/list'
+    },
+    API_SECONDARY: function () {
+      return this.API_HOST+'/listing/secondary'
+    },
+    API_PRIMARY: function () {
+      return this.API_HOST+'/listing/primary'
+    },
+    API_NOTIF_COUNT: function () {
+      return this.API_HOST+'/notification/user/counter'
+    }
+  },
+  created: async function () {
+    await this.getUserInfo()
+    this.getArticles()
+    this.getListing()
+    this.getBanner()
+    this.getCount()
   },
   methods: {
-    logScrollStart: function() {
-       console.log('start scroll')
+    getUserInfo: async function () {
+      await getLocal('userInfo').then((res)=>{
+        if(res) {
+          this.userToken = res.token
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
     },
-    logScrollEnd: function() {
-      console.log('end scroll')
-    },
-    logScrolling: function(val) {
-      console.log(val)
-    },
+    // logScrollStart: function() {
+    //    console.log('start scroll')
+    // },
+    // logScrollEnd: function() {
+    //   console.log('end scroll')
+    // },
+    // logScrolling: function(val) {
+    //   console.log(val)
+    // },
     toggleSliderListing: function(val) {
       this.listingType = val
       console.log(val)
     },
     searchingQuery: function () {
       //searching
+    },
+    getBanner: function () {
+      let self = this
+      axios.get(this.API_BANNER,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.bannerList = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
+
+      axios.get(this.API_PRIMARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.primaryResults = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    getListing: function () {
+      let self = this
+      axios.get(this.API_SECONDARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.otherResults = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
+
+      axios.get(this.API_PRIMARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.primaryResults = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    getArticles: function () {
+      let self = this
+      axios.get(this.API_NEWS,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.articleList = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    getCount: function () {
+      let self = this
+      axios.get(this.API_NOTIF_COUNT,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.countNotif = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
     },
     async openModal() {
       const modal = await modalController
@@ -247,6 +369,9 @@ export default defineComponent({
     },
     closeModal() {
       this.currentModal.dismiss()
+      if (this.countNotif && this.countNotif.unread > 0) {
+        this.getCount()
+      }
     }
   }
 });

@@ -175,12 +175,24 @@ ion-button.ios  {
 
 ion-toast {
   &.ion-color-success {
-    --ion-color-success: #2dd36f;
-    --ion-color-success-rgb: 45, 211, 111;
+    --ion-color-success: #00A668;
     --ion-color-success-contrast: #ffffff;
-    --ion-color-success-contrast-rgb: 255, 255, 255;
-    --ion-color-success-shade: #28ba62 !important;
-    --ion-color-success-tint: #42d77d !important;
+    --ion-color-success-shade: #00955e !important;
+    --ion-color-success-tint: #1aaf77 !important;
+  }
+  &.ion-color-warning {
+    --ion-color-warning: #edf04b;
+    --ion-color-warning-contrast: #ffffff;
+    --ion-color-warning-shade: #d5d844 !important;
+    --ion-color-warning-tint: #eff25d !important;
+    color: #828415;
+  }
+  &.ion-color-danger {
+    --ion-color-danger: #FF3364;
+    --ion-color-danger-contrast: #ffffff;
+    --ion-color-danger-shade: #e62e5a !important;
+    --ion-color-danger-tint: #ff4774 !important;
+    color: #fff;
   }
   --border-color: #fff;
   --border-radius: 0px;
@@ -755,6 +767,12 @@ ion-modal.modal-component {
         font-size: 12px;
         line-height: 18px;
       }
+      .empty-text {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 500;
+        color:#ACACAC;
+      }
       &.readed {
         .title,.desc {
           color:#868686;
@@ -875,6 +893,12 @@ ion-modal.modal-component {
   .wrap-feature-img {
     position: relative;
     font-size:0;
+    text-align: center;
+    background-color: #333;
+    img {
+      max-height: 180px;
+      margin: 0 auto;
+    }
     .wrap-chips {
       position: absolute;
       left: 0;
@@ -919,6 +943,7 @@ ion-modal.modal-component {
       position: absolute;
       right:12px;
       top:0;
+      background-color: #B8C3C9;
     }
     .top-section {
       padding-right: 50px;
@@ -953,7 +978,7 @@ ion-modal.modal-component {
       width: 100%;
       font-size: 0;
       li {
-        padding: 0 8px;
+        padding: 0 4px;
         color:#00A79D;
         display: inline-block;
         width: auto;
@@ -1207,6 +1232,7 @@ ion-button[size=medium] {
     font-size: 10px;
     line-height: 10px;
     padding-top: 5px;
+    min-height: 62px;
 
     .profile {
       width: 52px;
@@ -1221,6 +1247,7 @@ ion-button[size=medium] {
       position: absolute;
       right:0px;
       top:0;
+      background-color: #B8C3C9;
     }
     .top-section {
       padding-right: 58px;
@@ -1372,9 +1399,11 @@ ion-header.main.logged.bg-light ion-toolbar{
 
 // override
 ion-chip.custom {
-  &.ion-color-warning {
+  &.ion-color-warning, &.ion-color-warning * {
     --background-color: #FFCA41;
     background-color: #FFCA41;
+    color:#000;
+    --color:#000;
   }
   &.ion-color-success {
     --background-color: #00A79D;

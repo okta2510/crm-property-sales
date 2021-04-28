@@ -5,18 +5,21 @@
     class="list-item"
     :class="classProps"
     >
-      <ion-card mode="ios" class="mb-3" :href="`/berita/${detail}`">
+      <ion-card mode="ios" class="mb-3" :href="`/berita/${detail.id}`">
         <div class="wrap-image">
-          <img class="feature-img" :src="`/assets/img-sample${detail}.jpg`" />
+          <img class="feature-img" :src="detail.thumbnail || `/assets/empty-image-square.png`" />
         </div>
         <ion-card-header>
           <div class="wrap-header">
-            <ion-card-subtitle>Feb 22, 2021</ion-card-subtitle>
-            <ion-card-title>Rumah Minimalis</ion-card-title>
+            <ion-card-subtitle>{{formattingDate(detail.created, 'MMM DD, YYYY') || 'MMM DD, YYYY'}}</ion-card-subtitle>
+            <ion-card-title>{{ detail.title || '-'}}</ion-card-title>
           </div>
         </ion-card-header>
-        <ion-card-content>
-          Kawasan industri merupakan sub sektor properti yang mencatatkan kinerja sangat baik saat situasi pandemi Covid-19.
+        <ion-card-content v-if="detail.content">
+          {{ limitContent(detail.content) }}
+        </ion-card-content>
+        <ion-card-content v-else>
+          -
         </ion-card-content>
       </ion-card>
     </ion-item>
@@ -34,6 +37,7 @@ import {
 } from '@ionic/vue';
 import { useRouter } from 'vue-router'
 import { defineComponent } from 'vue';
+import moment from 'moment';
 
 export default defineComponent({
   name: 'NewsDashboardCard',
@@ -53,9 +57,9 @@ export default defineComponent({
   },
   props: {
     detail: {
-      type: Number,
+      type: Object,
       default: function () {
-        return 1
+        return {}
       },
       required: true
     },
@@ -67,6 +71,22 @@ export default defineComponent({
   mounted() {
   },
   methods: {
+    formattingDate(val, format) {
+      return moment(val).format(format)
+    },
+    limitContent: function (string) {
+      let newString = ''
+      if (this.detail.content.split(" ").length > 15) {
+        this.detail.content.split(" ").forEach((element, index) => {
+          if (15 > index) {
+            newString = newString + element + ' '
+          }
+        });
+        return newString + '...'
+      } else {
+        return string
+      }
+    }
   }
 });
 </script>

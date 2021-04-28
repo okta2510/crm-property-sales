@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { 
   IonContent,
   IonPage,
@@ -60,6 +61,7 @@ import { defineComponent } from 'vue';
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
 import ListingList from '@/component/ListingList.vue'
 import SearchBar from '@/component/SearchBar.vue'
+import { getLocal } from '@/services/storage'
 
 export default defineComponent({
   components: {
@@ -78,10 +80,21 @@ export default defineComponent({
     return {
       titlePage: 'My Listing',
       currentModal: null,
-      otherResults: [3,2,1,5,4],
-      primaryResults: [1,2,3,4],
+      otherResults: [],
+      primaryResults: [],
       listingType: 'other',
       results: []
+    }
+  },
+  computed: {
+    API_HOST: function () {
+      return 'http://54.179.9.67:8000/api/v1/consumer'
+    },
+    API_SECONDARY: function () {
+      return this.API_HOST+'/listing/secondary'
+    },
+    API_PRIMARY: function () {
+      return this.API_HOST+'/listing/primary'
     }
   },
   setup() {
@@ -94,11 +107,13 @@ export default defineComponent({
   ionViewDidEnter() {
   },
   ionViewDidLeave() {
-    this.results = [1,2,3,4,5]
+    this.results =  this.listingType === 'primary' ? [...this.primaryResults] : [...this.otherResults]
     this.currentModal = null
   },
-  created() {
-    this.results = [...this.otherResults]
+  created: async function () {
+    await this.getUserInfo()
+    // this.results = [...this.otherResults]
+    this.getListing()
   },
   mounted() {
   },
@@ -108,8 +123,43 @@ export default defineComponent({
     }
   },
   methods: {
-    getListing (queryString) {
-      queryString ?  this.results = [1] :  this.results = [1,2,3,4,5]
+    getUserInfo: async function () {
+      await getLocal('userInfo').then((res)=>{
+        if(res) {
+          this.userToken = res.token
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
+    getListing: function () {
+      let self = this
+      axios.get(this.API_SECONDARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.otherResults = response.data
+        self.results = self.otherResults
+      }).catch(function (err) {
+        console.log(err)
+      })
+
+      axios.get(this.API_PRIMARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.primaryResults = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
     },
     toggleSliderListing: function(val) {
       this.listingType = val

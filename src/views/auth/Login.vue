@@ -138,7 +138,6 @@ export default {
   created() {
   },
   mounted() {
-    this.getShip2()
   },
   data: function() {
     return {
@@ -149,8 +148,11 @@ export default {
     }
   },
   computed: {
+    API_HOST: function () {
+      return 'http://54.179.9.67:8000'
+    },
     API_LOGIN: function () {
-      return '/api/v1/consumer/member/login'
+      return this.API_HOST+'/api/v1/consumer/member/login'
     },
     isNotEmpty: function () {
       return this.username && this.password
@@ -169,14 +171,15 @@ export default {
         console.log(err)
       })
     },
-    async openToast(message='empty toast', duration=2000, color='default') {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
         let toast = await toastController
           .create({
             message: message,
             duration: duration,
             animated: true,
             cssClass: 'custom-toast',
-            color: color
+            color: color,
+            position: position
           })
         toast.onDidDismiss(() => {
       console.log('Dismissed toast');
@@ -198,63 +201,33 @@ export default {
     onSubmit: function () {
       let self = this
       this.signingIn = true
+
+      // set local info
       this.rememberMeSave()
-      axios.post('http://54.179.9.67:8000'+this.API_LOGIN, {
+
+      axios.post(this.API_LOGIN, {
           "username": self.username,
           "password": self.password
-      }, {})
+      }, {
+         headers: {
+          'Accept': "application/json"
+        },
+        mode:"cors"
+      })
       .then(response => {
-        // set local info
         if (Object.keys(response.data).length > 0 && response.data.token) {
           setLocal('userInfo', response.data)
+          self.openToast('Login Success', 3000, 'success', 'top')
         } else {
-          // self.openToast('Login Error' + JSON.stringify(response), 5000, 'danger')
+          self.openToast('Error, response data empty', 5000, 'danger')
         }
         self.signingIn = false
         this.router.push('/dashboard')
       }).catch(function (err) {
         // handle err`
         console.log(err);
-          self.openToast(err.response.data ? err.response.data.detail : 'Login Error', 5000, 'danger')
+        self.openToast('Login Error', 5000, 'danger')
          self.signingIn = false
-      })
-    },
-    getShip: function() {
-      //  axios.post(this.API_LOGIN, {
-      //     password: "qweqweqwe",
-      //     username: "+6281210161816"
-      // }, {}).then(response => {
-      //   alert(JSON.stringify(response))
-      // }).catch(function (err) {
-      //   alert(JSON.stringify(err))
-      // })
-      let self = this
-      this.Http.request({
-        method: 'POST',
-        url: 'http://54.179.9.67:8000'+self.API_LOGIN,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://54.179.9.67:8000'
-        },
-        data: {
-          password: "qweqweqwe",
-          username: "+6281210161816"
-        }
-      }).then(response => {
-        alert(JSON.stringify(response))
-      }).catch(function (err) {
-        alert(JSON.stringify(err))
-      });
-    },
-    getShip2: function() {
-       axios.get('http://54.179.9.67:8000/api/v1/consumer/article/list', {
-        headers: {
-          Authorization: 'PIINTU eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJhaGFAZTQyMzEyZC5jb20iLCJleHAiOjE2MjIxMTkxMDAsImVtYWlsIjoiYWhhQGU0MjMxMmQuY29tIiwib3JpZ19pYXQiOjE2MTg2NjMxMDB9.mXDQfB-AtFUQAoJAssTbV4ldJN1WskvyJToJ1c-jz2w'
-        }
-      }).then(response => {
-        alert(JSON.stringify(response))
-      }).catch(function (err) {
-        alert(JSON.stringify(err))
       })
     },
     resetState() {

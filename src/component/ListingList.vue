@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap-listing wrap-content component-listing-list mx-0">
+  <div class="wrap-listing wrap-content component-listing-list mx-0" v-if="result && result.length > 0">
     <ion-item
     v-for="(item, index) in result"
     :key="index"
@@ -11,56 +11,69 @@
         <ion-row class="ion-align-items-top">
           <ion-col class='ion-no-padding text-right' size="5">
              <div class="wrap-feature-img">
-               <div class="wrap-chips">
-                  <ion-chip class="custom" color="success">
-                    <ion-label color="light">Dijual</ion-label>
+               <div class="wrap-chips text-capitalize">
+                  <ion-chip class="custom" :color="item.type_listing.includes('jual') ? 'success' : 'warning'" v-if="item.type_listing">
+                    <ion-label color="light">{{ item.type_listing.includes('jual') ? 'Dijual' : 'Disewa' }}</ion-label>
                   </ion-chip>
-                  <!-- <ion-chip class="custom" color="warning">
-                    <ion-label color="dark">Disewa</ion-label>
-                  </ion-chip> -->
-                  <ion-chip class="custom" color="light">
-                    <ion-label color="secondary">Rumah</ion-label>
+                  <ion-chip class="custom" color="light" v-if="item.property_type">
+                    <ion-label color="secondary">{{item.property_type}}</ion-label>
                   </ion-chip>
                </div>
-               <img @click="router.push(`/listing/${item}`)" class="feature-img cursor-pointer" :src="`/assets/img-sample${item}.jpg`" />
+               <img @click="router.push(`/listing/${item.id}`)" class="feature-img cursor-pointer" :src="item.image || `/assets/empty-image-square.png`" />
              </div>
           </ion-col>
           <ion-col class='content-info' size="7">
             <span class="d-block w-100 date">
-            2020-11-05 10:00
+            {{formattingDate(item.created, 'YYYY-MM-DD HH:mm') || 'YYYY-MM-DD HH:mm'}}
             </span>
-            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item}`)">
-              Termurah di jatiasih, bisa cicil 24x dengan bunga yang fantastis
+            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item.id}`)">
+              {{item.name || 'title listing'}}
             </span>
             <div class="component-size-info">
               <ul class="text-left">
                 <li>
                   <img height="14" src="/assets/icon/icon-area-size.png">
-                  <span>180</span>
+                  <span>
+                    <PrintValue
+                    :value="item.surface_area"/>
+                  </span>
                 </li>
                 <li>
                   <img height="14" src="/assets/icon/icon-building-size.png">
-                  <span>250</span>
+                  <span>
+                    <PrintValue
+                    :value="item.building_area"/>
+                  </span>
                 </li>
                 <li>
                   <img height="14" src="/assets/icon/icon-bed-size.png">
-                  <span>4</span>
+                  <span>
+                    <PrintValue
+                    :value="item.bedroom"/>
+                  </span>
                 </li>
                 <li>
                   <img height="14" src="/assets/icon/icon-bath-size.png">
-                  <span>2</span>
+                  <span>
+                    <PrintValue
+                    :value="item.bathroom"/>
+                  </span>
                 </li>
               </ul>
             </div>
             <span class="d-block w-100 price">
-               Rp. 12.000.000.000
+               <PrintValue
+               :value="item.price"
+               preText="Rp."></PrintValue>
             </span>
           </ion-col>
-          <ion-col size="12" v-if="listingType === 'other'">
+          <ion-col size="12" v-if="listingType === 'other' && item.user">
             <div class="wrap-agent-info">
-              <div class="profile cursor-pointer" @click="goTo('/agent/123')" style="background-image: url(/assets/agent-photo.png)"></div>
-              <div class="top-section">James Harden</div>
-              <div class="bottom-section">Raywhite Sunter</div>
+              <div class="profile cursor-pointer" @click="goTo('/agent/'+item.user.id)" :style="`background-image: url(${item.user.profile_picture || '/assets/agent-empty.png'})`"></div>
+              <div class="top-section">{{ item.contact_name_for_marketing_contract || 'Agent Name'}}</div>
+              <div class="bottom-section">
+                {{ item.agency_name|| 'Agency Name'}}
+              </div>
             </div>
           </ion-col>
         </ion-row>
@@ -81,6 +94,8 @@ import {
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router'
+import PrintValue from '@/component/PrintValue.vue'
+import moment from 'moment';
 
 export default defineComponent({
   name: 'ListingList',
@@ -90,7 +105,8 @@ export default defineComponent({
     IonChip,
     IonRow,
     IonCol,
-    IonGrid
+    IonGrid,
+    PrintValue
   },
   setup(){
     const router = useRouter();
@@ -124,6 +140,9 @@ export default defineComponent({
   mounted() {
   },
   methods: {
+    formattingDate(val, format) {
+      return moment(val).format(format)
+    },
     goTo (url) {
       window.location.href = url
     }
