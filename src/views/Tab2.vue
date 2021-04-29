@@ -142,7 +142,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.otherResults = response.data
+        self.otherResults = response.data.results
         self.results = self.otherResults
       }).catch(function (err) {
         console.log(err)
@@ -156,7 +156,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.primaryResults = response.data
+        self.primaryResults = response.data.results
       }).catch(function (err) {
         console.log(err)
       })

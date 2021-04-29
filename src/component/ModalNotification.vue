@@ -10,7 +10,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-no-padding">
-    <ion-item v-for="(item, index) in notifications" :key="index" class="readed">
+    <ion-item v-for="(item, index) in notifications" :key="index" :class="!item.readed ? '' : 'readed'">
       <ion-label>
         <span class="date">2020-11-05 10:00</span>
         <span class="title">Reset Password request</span>
@@ -59,7 +59,7 @@ export default defineComponent({
   data() {
     return {
       userToken: null,
-      notifications: [1,2,3],
+      notifications: [],
       userInfo: null
     }
   },
@@ -68,7 +68,13 @@ export default defineComponent({
     this.getNotif()
   },
   beforeUnmount() {
-    this.setReadNotif()
+    if (this.notifications.length > 0) {
+      this.notifications.forEach(el => {
+        if(el.readed === false) {
+          this.setReadNotif(el.id)
+        }
+      })
+    }
   },
   computed: {
      API_HOST: function () {
@@ -78,7 +84,7 @@ export default defineComponent({
       return this.API_HOST+'/api/v1/consumer/notification/user'
     },
     API_NOTIF_READ: function () {
-      return this.API_NOTIF+'/'+this.userInfo.id
+      return this.API_NOTIF+'/'
     }
   },
   methods: {
@@ -102,14 +108,14 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.notifications = response.data || [1,2]
+        self.notifications = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
     },
-    setReadNotif: function () {
+    setReadNotif: function (id) {
       let self = this
-      axios.get(this.API_NOTIF_READ,{
+      axios.get(this.API_NOTIF_READ+id+'/set_readed',{
          headers: {
           'Accept': "application/json",
           'Authorization': 'PIINTU '+ self.userToken
@@ -124,10 +130,6 @@ export default defineComponent({
       console.log('Segment changed', ev);
     },
     dismissModal() {
-      this.closeAction()
-    },
-    onSetFilter() {
-      alert('filter set')
       this.closeAction()
     }
   } 
