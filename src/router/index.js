@@ -95,6 +95,7 @@ const routes = [
       },
       {
         path: '/tab2',
+        props: true,
         component: () => import('@/views/Tab2.vue')
       },
       {

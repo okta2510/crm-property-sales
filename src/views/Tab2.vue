@@ -10,9 +10,9 @@
     <ion-header class="ion-no-padding">
       <ion-toolbar class="ion-no-padding ios-handled ios">
           <SearchBar
-        v-on:searchEnter="getListing"
+        v-on:searchEnter="onUpdateParams"
         searchType="Listing"
-        :listResults="results"
+        :listResults="selectedList.results"
         ></SearchBar>
       </ion-toolbar>
     </ion-header>
@@ -33,11 +33,29 @@
             </ion-segment>
           </div>
 
-          <ListingList
-              :result="results"
-              classProps=""
-              :listingType="listingType"
-              ></ListingList>
+          <KeepAlive>
+            <div>
+            <ListingList
+                v-show="listingType === 'primary'"
+                :result="selectedList.results"
+                classProps=""
+                :listingType="listingType"
+                ></ListingList>
+
+            <ListingList
+                v-show="listingType === 'other'"
+                :result="selectedList.results"
+                classProps=""
+                :listingType="listingType"
+                ></ListingList>
+            </div>
+          </KeepAlive>
+
+          <div class="text-center mt-20" v-if="selectedList && selectedList.next">
+            <ion-button color="medium" size="medium" class="min-w-300 mx-auto" @click="nextPage">
+              <strong>Muat Lebih</strong>
+            </ion-button>
+          </div>
         </div>
       </div>
     </ion-content>
@@ -46,6 +64,7 @@
 
 <script>
 import axios from 'axios';
+import { useRoute, useRouter } from 'vue-router'
 import { 
   IonContent,
   IonPage,
@@ -54,10 +73,11 @@ import {
   IonToolbar,
   IonSegment,
   IonLabel,
-  IonSegmentButton
+  IonSegmentButton,
+  IonButton
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
-import { defineComponent } from 'vue';
+import { defineComponent, KeepAlive } from 'vue';
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
 import ListingList from '@/component/ListingList.vue'
 import SearchBar from '@/component/SearchBar.vue'
@@ -74,16 +94,33 @@ export default defineComponent({
     IonToolbar,
     IonSegment,
     IonLabel,
-    IonSegmentButton
+    IonSegmentButton,
+    IonButton,
+    KeepAlive
   },
   data: function() {
     return {
       titlePage: 'My Listing',
       currentModal: null,
-      otherResults: [],
-      primaryResults: [],
+      otherResults: {},
+      primaryResults: {},
       listingType: 'other',
-      results: []
+      selectedList: {},
+      params: {
+        size: 10,
+        sort: 'created',
+        pagination: 1,
+        order: 'desc'
+      }
+    }
+  },
+  setup() {
+    const route = useRoute()
+    const router = useRouter()
+
+    return {
+      route,
+      router
     }
   },
   computed: {
@@ -97,8 +134,10 @@ export default defineComponent({
       return this.API_HOST+'/listing/primary'
     }
   },
-  setup() {
-    return {}
+  watch: {
+    listingType: function(val) {
+      this.selectedList = val === 'primary' ? {...this.primaryResults} : {...this.otherResults}
+    }
   },
   ionViewWillEnter() {
   },
@@ -107,22 +146,38 @@ export default defineComponent({
   ionViewDidEnter() {
   },
   ionViewDidLeave() {
-    this.results =  this.listingType === 'primary' ? [...this.primaryResults] : [...this.otherResults]
+    this.selectedList =  this.listingType === 'primary' ? {...this.primaryResults} : {...this.otherResults}
     this.currentModal = null
   },
   created: async function () {
     await this.getUserInfo()
-    // this.results = [...this.otherResults]
-    this.getListing()
+    this.refreshQuery()
+    // this.selectedList = [...this.otherResults]
+    this.getListing(this.params)
+  },
+  beforeUpdate: function () {
+    if (Object.keys(this.route.query).length === 0) {
+      this.refreshQuery()
+    }
   },
   mounted() {
   },
-  watch: {
-    listingType: function(val) {
-      this.results = val === 'primary' ? [...this.primaryResults] : [...this.otherResults]
-    }
-  },
   methods: {
+    nextPage: function () {
+      if (this.selectedList.next) {
+        this.router.push({
+          query: {...this.params, ...{
+            pagination: this.selectedList.next
+          }}
+        })
+        this.getListing()
+      }
+    },
+    refreshQuery: function () {
+      this.router.push({
+        query: this.params
+      })
+    },
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{
         if(res) {
@@ -132,38 +187,17 @@ export default defineComponent({
         console.log(err)
       })
     },
-    getListing: function () {
-      let self = this
-      axios.get(this.API_SECONDARY,{
-         headers: {
-          'Accept': "application/json",
-          'Authorization': 'PIINTU '+ self.userToken
-
-        },
-        mode:"cors"
-      }).then(response => {
-        self.otherResults = response.data.results
-        self.results = self.otherResults
-      }).catch(function (err) {
-        console.log(err)
-      })
-
-      axios.get(this.API_PRIMARY,{
-         headers: {
-          'Accept': "application/json",
-          'Authorization': 'PIINTU '+ self.userToken
-
-        },
-        mode:"cors"
-      }).then(response => {
-        self.primaryResults = response.data.results
-      }).catch(function (err) {
-        console.log(err)
-      })
-    },
     toggleSliderListing: function(val) {
       this.listingType = val
-      console.log(val)
+    },
+    onUpdateParams: function(obj={}) {
+      if(Object.keys(obj).length > 0) {
+        let newParams = {...this.route.query, ...obj}
+        this.router.push({
+          query: newParams
+        })
+        this.getListing(newParams, true)
+      }
     },
     async openModal() {
       const modal = await modalController
@@ -177,7 +211,9 @@ export default defineComponent({
           animated: true,
           componentProps: {
             title: 'Filter Pencarian',
-            closeAction: this.closeModal
+            closeAction: this.closeModal,
+            updateParams: this.onUpdateParams,
+            currentParams: this.route.query
           },
         })
       this.currentModal = modal
@@ -185,6 +221,48 @@ export default defineComponent({
     },
     closeModal() {
       this.currentModal.dismiss()
+    },
+    getListing: async function (params, filterChanged = false) {
+      let self = this
+      await axios.get(this.API_SECONDARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+        },
+        'params': params,
+        mode:"cors"
+      }).then(response => {
+        if (self.route.query.pagination == 1 || filterChanged) {
+          self.otherResults = response.data
+        } else if (!this.otherResults || this.listingType === 'other'){
+          let newResults = {...response.data}
+          newResults.results = [...self.otherResults.results, ...newResults.results]
+          self.otherResults = newResults
+        }
+      }).catch(function (err) {
+        console.log(err)
+      })
+
+      await axios.get(this.API_PRIMARY,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        if (self.route.query.pagination == 1 || filterChanged) {
+          self.primaryResults = response.data
+        } else if (!this.primaryResults || this.listingType === 'primary'){
+          let newResults = {...response.data}
+          newResults.results = [...self.primaryResults.results, ...newResults.results]
+          self.primaryResults = newResults
+        }
+      }).catch(function (err) {
+        console.log(err)
+      })
+
+      this.selectedList =  this.listingType === 'primary' ? {...this.primaryResults} : {...this.otherResults}
     }
   }
 });
