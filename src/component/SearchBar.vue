@@ -64,7 +64,7 @@ export default defineComponent({
         self.$emit('searchEnter', {
           'search': self.queryString
         })
-      }, 2000)
+      }, 1500)
     }
   }
 });

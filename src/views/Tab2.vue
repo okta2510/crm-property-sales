@@ -170,7 +170,7 @@ export default defineComponent({
             pagination: this.selectedList.next
           }}
         })
-        this.getListing()
+        this.getListing(this.route.query)
       }
     },
     refreshQuery: function () {
