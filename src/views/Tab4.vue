@@ -11,27 +11,27 @@
       <div class="my-account">
         <div class="profile-info">
           <div class="thumbnail-photo">
-            <img :src="userDetail.profile_picture || '/assets/agent-empty.png'"/>
+            <img :src="userDetail ? userDetail.profile_picture : '/assets/agent-empty.png'"/>
           </div>
           <div class="text">
             <span class="name">
               {{userDetail ? userDetail.account_holder : '-name-'}}
             </span>
             <span class="email">Professional Real Estate Agent</span>
-            <ul class="star-rating mb-20">
-              <li class="">
+            <ul class="star-rating mb-20" v-if="userDetail">
+              <li :class="userDetail.rating > 4 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="">
+              <li :class="userDetail.rating > 3 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="userDetail.rating > 2 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="userDetail.rating > 1 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="userDetail.rating > 0 ? 'filled' : ''">
                 <ion-icon class="filled" :icon="star"></ion-icon>
               </li>
             </ul>

@@ -115,9 +115,9 @@ export default defineComponent({
     }
   },
   watch: {
-    listingType: function(val) {
-      console.log(val)
-    }
+    // listingType: function(val) {
+    //   console.log(val)
+    // }
   },
   props: {
     listingType: {

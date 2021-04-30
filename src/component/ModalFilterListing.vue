@@ -18,24 +18,24 @@
             <ion-list mode="ios">
               <ion-item>
                 <ion-label position="stacked">Urutkan Berdasarkan</ion-label>
-                <ion-select value="1" ok-text="Pilih" cancel-text="Tutup">
-                  <ion-select-option value="1">Terbaru</ion-select-option>
-                  <ion-select-option value="2">Harga Tertinggi</ion-select-option>
-                  <ion-select-option value="3">Harga Terendah</ion-select-option>
-                  <ion-select-option value="4">Luas Tanah - Besar</ion-select-option>
-                  <ion-select-option value="5">Luas Tanah - Kecil</ion-select-option>
-                  <ion-select-option value="6">Luas Bangunan - Besar</ion-select-option>
-                  <ion-select-option value="7">Luas Bangunan - Kecil</ion-select-option>
+                <ion-select :value="sort" ok-text="Pilih" cancel-text="Tutup" @ionChange="sortChanged($event)">
+                  <ion-select-option value="created">Terbaru</ion-select-option>
+                  <ion-select-option value="max_price">Harga Tertinggi</ion-select-option>
+                  <ion-select-option value="min_price">Harga Terendah</ion-select-option>
+                  <ion-select-option value="max_area">Luas Tanah - Besar</ion-select-option>
+                  <ion-select-option value="min_area">Luas Tanah - Kecil</ion-select-option>
+                  <ion-select-option value="max_building">Luas Bangunan - Besar</ion-select-option>
+                  <ion-select-option value="min_building">Luas Bangunan - Kecil</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-list>
 
 
             <ion-item class="md segment-handled" lines="none">
-               <ion-label position="stacked">Tipe Property</ion-label>
+               <ion-label position="stacked">Tipe Transaksi</ion-label>
             </ion-item>
             <ion-segment @ionChange="segmentChanged($event)" 
-              value="dijual"
+              :value="tipe_transaksi || 'dijual'"
               class="mb-2"
               swipeGesture="true">
                 <ion-segment-button value="dijual">
@@ -49,11 +49,11 @@
             <ion-list mode="ios">
               <ion-item>
                 <ion-label position="stacked">Tipe Property</ion-label>
-                <ion-select value="brown" ok-text="Pilih" cancel-text="Tutup">
-                  <ion-select-option value="brown">Rumah</ion-select-option>
-                  <ion-select-option value="blonde">Apartemen</ion-select-option>
-                  <ion-select-option value="black">Ruko</ion-select-option>
-                  <ion-select-option value="red">Kavling</ion-select-option>
+                <ion-select :value="tipe_property" ok-text="Pilih" cancel-text="Tutup" @ionChange="typePropChanged($event)">
+                  <ion-select-option value="rumah">Rumah</ion-select-option>
+                  <ion-select-option value="apartemen">Apartemen</ion-select-option>
+                  <ion-select-option value="ruko">Ruko</ion-select-option>
+                  <ion-select-option value="kavling">Kavling</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-list>
@@ -79,24 +79,60 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ModalFilterListing',
+  components: { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonSegment, IonSegmentButton, IonLabel, IonItem, IonCol, IonRow, IonGrid, IonSelect, IonSelectOption, IonList },
   props: {
     title: { type: String, default: 'Modal Tittle' },
+    currentParams: { type: Object, default: function () {
+      return null
+    }},
+    updateParams: { type: Function },
     closeAction: { type: Function },
   },
   data() {
     return {
+      sort: '',
+      tipe_transaksi: '',
+      tipe_property: ''
     }
   },
-  components: { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonSegment, IonSegmentButton, IonLabel, IonItem, IonCol, IonRow, IonGrid, IonSelect, IonSelectOption, IonList },
+  computed: {
+    params: function () {
+      let query = {}
+      let obj = {
+        order: this.order,
+        sort: this.sort,
+        tipe_transaksi: this.tipe_transaksi,
+        tipe_property: this.tipe_property
+      }
+      for (let [key, value] of Object.entries(obj)) {
+        if (value) {
+          query[key] = value
+        }
+      }
+      return query
+    }
+  },
+  created: function () {
+    let { sort, tipe_transaksi, tipe_property } = this.currentParams
+    this.sort = sort || ''
+    this.tipe_transaksi = tipe_transaksi || ''
+    this.tipe_property = tipe_property || ''
+  },
   methods: {
-    segmentChanged(ev) {
-      console.log('Segment changed', ev);
+    sortChanged(val) {
+      this.sort = val.target.value
+    },
+    typePropChanged(val) {
+      this.tipe_property = val.target.value
+    },
+    segmentChanged(val) {
+      this.tipe_transaksi = val.target.value
     },
     dismissModal() {
       this.closeAction()
     },
     onSetFilter() {
-      alert('filter set')
+      this.updateParams(this.params)
       this.closeAction()
     }
   } 

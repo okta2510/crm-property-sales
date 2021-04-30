@@ -286,7 +286,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.primaryResults = response.data
+        self.primaryResults = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
@@ -301,7 +301,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.otherResults = response.data
+        self.otherResults = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
@@ -314,7 +314,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.primaryResults = response.data
+        self.primaryResults = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
@@ -329,7 +329,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.articleList = response.data
+        self.articleList = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
@@ -344,7 +344,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.countNotif = response.data
+        self.countNotif = response.data.results
       }).catch(function (err) {
         console.log(err)
       })

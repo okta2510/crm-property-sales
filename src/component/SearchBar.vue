@@ -37,6 +37,7 @@ export default defineComponent({
     this.queryString = ''
   },
   props: {
+    searchEnter: { type: Function },
     listResults: {
       type: Array,
       default: function () {
@@ -60,8 +61,10 @@ export default defineComponent({
       let self = this
       clearTimeout(this.timeOut)
       this.timeOut =  setTimeout(function() {
-        self.$emit('searchEnter', self.queryString)
-      }, 2000)
+        self.$emit('searchEnter', {
+          'search': self.queryString
+        })
+      }, 1500)
     }
   }
 });
