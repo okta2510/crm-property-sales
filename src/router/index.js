@@ -83,6 +83,7 @@ const routes = [
   // },
   {
     path: '/dashboard/',
+    props: true,
     component: () => import('@/views/Tabs.vue'),
     children: [
       {
@@ -91,6 +92,7 @@ const routes = [
       },
       {
         path: '/tab1',
+        props: true,
         component: () => import('@/views/Dashboard.vue')
       },
       {
@@ -100,10 +102,12 @@ const routes = [
       },
       {
         path: '/tab3',
+        props: true,
         component: () => import('@/views/Tab3.vue')
       },
       {
         path: '/tab4',
+        props: true,
         component: () => import('@/views/Tab4.vue')
       },
     ]

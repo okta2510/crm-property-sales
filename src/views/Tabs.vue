@@ -2,12 +2,12 @@
   <ion-page id="main-content">
      <ion-tabs class="ion-tabs-custom" id="main-content">
       <ion-tab-bar slot="bottom">
-         <ion-tab-button tab="tab1" href="/tab1">
+         <ion-tab-button tab="tab1" href="tab1">
           <ion-icon :icon="home" />
           <ion-label>Beranda</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab2" href="/tab2">
+        <ion-tab-button tab="tab2" href="tab2">
           <ion-icon :icon="readerOutline" />
           <ion-label>Semua Listing</ion-label>
         </ion-tab-button>
@@ -16,12 +16,12 @@
           <ion-label>add</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab3" href="/tab3">
+        <ion-tab-button tab="tab3" href="tab3">
           <ion-icon :icon="barChartOutline" />
           <ion-label>Marketing Tools</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab4" href="/tab4">
+        <ion-tab-button tab="tab4" href="tab4">
           <ion-icon :icon="person" />
           <ion-label>Profil</ion-label>
         </ion-tab-button>
@@ -38,11 +38,7 @@
 
 <script>
 import {
-  // IonContent,
-  // IonHeader,
   IonPage,
-  // IonTitle,
-  // IonToolbar,
   IonTabs,
   IonTabButton,
   IonTabBar,
@@ -63,17 +59,12 @@ import {
 
 } from 'ionicons/icons';
 import { defineComponent } from 'vue';
-// import SideMenu from '@/component/SideMenu'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'Tabs',
   components: {
-    // IonContent,
-    // IonHeader,
     IonPage,
-    // IonTitle,
-    // IonToolbar,
     IonTabs,
     IonTabButton,
     IonTabBar,
@@ -90,7 +81,9 @@ export default defineComponent({
     const afterTabChange = () => {
       // do something after tab change
     }
-    const router = useRouter();
+    const router = useRouter()
+    const route = useRoute()
+
     return {
       calendar,
       personCircle,
@@ -99,6 +92,7 @@ export default defineComponent({
       add,
       triangle,
       router,
+      route,
       home,
       person,
       barChartOutline,

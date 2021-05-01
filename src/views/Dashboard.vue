@@ -181,7 +181,8 @@ export default defineComponent({
       bannerList: [],
       countNotif: null,
       listingType: 'other',
-      userToken: null
+      userToken: null,
+      timeOut: null
     }
   },
   setup() {
@@ -237,6 +238,14 @@ export default defineComponent({
     this.getBanner()
     this.getCount()
   },
+  ionViewWillEnter() {
+  },
+  ionViewWillLeave() {
+  },
+  ionViewDidEnter() {
+  },
+  ionViewDidLeave() {
+  },
   methods: {
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{
@@ -261,7 +270,11 @@ export default defineComponent({
       console.log(val)
     },
     searchingQuery: function () {
-      //searching
+      let self = this
+      clearTimeout(this.timeOut)
+      this.timeOut =  setTimeout(function() {
+        window.location = `/tab2?search=${self.queryString}`;
+      }, 1500)
     },
     getBanner: function () {
       let self = this

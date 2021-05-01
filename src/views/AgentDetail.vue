@@ -125,7 +125,9 @@ import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
 import { chevronForward, star } from 'ionicons/icons'
-import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+import { getLocal } from '@/services/storage'
+import axios from 'axios';
 
 export default defineComponent({
   components: {
@@ -145,15 +147,23 @@ export default defineComponent({
     return {
       titlePage: 'Agent Detail',
       currentModal: null,
-      results: [1,2,3,4,5]
+      detailInfo: {}
     }
   },
   setup() {
-    const router = useRouter();
+    const route = useRoute();
     return {
-      router,
+      route,
       chevronForward,
       star
+    }
+  },
+  computed: {
+    API_HOST: function () {
+      return 'http://54.179.9.67:8000/api/v1/consumer'
+    },
+    API_DETAIL: function () {
+      return this.API_HOST+'/listing/secondary/'+this.route.params.id+'/agent_listing'
     }
   },
   ionViewWillEnter() {
@@ -164,7 +174,9 @@ export default defineComponent({
   },
   ionViewDidLeave() {
   },
-  created() {
+  created: async function () {
+     await this.getUserInfo()
+     this.getDetail()
   },
   mounted() {
   },
@@ -172,8 +184,29 @@ export default defineComponent({
     goTo(path){
       window.location.href = path
     },
-    getListing (queryString) {
-      queryString ?  this.results = [1] :  this.results = [1,2,3,4,5]
+    getUserInfo: async function () {
+      await getLocal('userInfo').then((res)=>{
+        if(res) {
+          this.userToken = res.token
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
+    getDetail: function () {
+      let self = this
+      axios.get(this.API_DETAIL,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.detailInfo = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
     },
     async openModal() {
       const modal = await modalController

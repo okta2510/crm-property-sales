@@ -26,7 +26,7 @@
             <span class="d-block w-100 date">
             {{formattingDate(item.created, 'YYYY-MM-DD HH:mm') || 'YYYY-MM-DD HH:mm'}}
             </span>
-            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item.id}`)">
+            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item.user.id}`)">
               {{item.name || 'title listing'}}
             </span>
             <div class="component-size-info">
