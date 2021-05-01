@@ -81,6 +81,9 @@
     </div>
     </ion-item>
   </div>
+  <div v-else class="text-center component-empty">
+    <span class="content">- Data Kosong -</span>
+  </div>
 </template>
 
 <script>
