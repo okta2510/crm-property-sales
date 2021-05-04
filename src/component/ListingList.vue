@@ -19,14 +19,14 @@
                     <ion-label color="secondary">{{item.property_type}}</ion-label>
                   </ion-chip>
                </div>
-               <img @click="router.push(`/listing/${item.id}`)" class="feature-img cursor-pointer" :src="item.image || `/assets/empty-image-square.png`" />
+               <img @click="router.push(`/listing/${item.id}?type=${listingType}`)" class="feature-img cursor-pointer" :src="item.image || `/assets/empty-image-square.png`" />
              </div>
           </ion-col>
           <ion-col class='content-info' size="7">
             <span class="d-block w-100 date">
             {{formattingDate(item.created, 'YYYY-MM-DD HH:mm') || 'YYYY-MM-DD HH:mm'}}
             </span>
-            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item.user.id}`)">
+            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item.id}?type=${listingType}`)">
               {{item.name || 'title listing'}}
             </span>
             <div class="component-size-info">
@@ -70,9 +70,9 @@
           <ion-col size="12" v-if="listingType === 'other' && item.user">
             <div class="wrap-agent-info">
               <div class="profile cursor-pointer" @click="goTo('/agent/'+item.user.id)" :style="`background-image: url(${item.user.profile_picture || '/assets/agent-empty.png'})`"></div>
-              <div class="top-section">{{ item.contact_name_for_marketing_contract || 'Agent Name'}}</div>
-              <div class="bottom-section">
-                {{ item.agency_name|| 'Agency Name'}}
+              <div class="top-section text-capitalize">{{ item.contact_name_for_marketing_contract || 'Agent Name'}}</div>
+              <div class="bottom-section text-capitalize">
+                {{ item.user.agency_name|| 'Agency Name'}}
               </div>
             </div>
           </ion-col>

@@ -41,42 +41,42 @@
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nama Lengkap</ion-label>
-                          <ion-input name="full_name" id="full_name" placeholder="" autocapitalize="off" title="nama lengkap" type="text" v-model="name" :value="name" required>
+                          <ion-input name="full_name" id="full_name" placeholder="" autocapitalize="off" title="nama lengkap" type="text" v-model="name" value="" required>
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nama Publik</ion-label>
-                          <ion-input id="nama_publik" placeholder="" autocapitalize="off" title="nama publik" type="text" v-model="display_name" :value="display_name" required>
+                          <ion-input id="nama_publik" placeholder="" autocapitalize="off" title="nama publik" type="text" v-model="display_name" value="" required>
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">No HP (Primary)</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" :value="phone" v-model="phone" required>
+                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" value="" v-model="phone" required>
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nomor ke - 2</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" v-model="phone_second" :value="phone_second">
+                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" v-model="phone_second" value="">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nomor ke - 3</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" v-model="phone_third" :value="phone_third">
+                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" v-model="phone_third" value="">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Email</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="email" v-model="email" :value="email" required>
+                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="email" v-model="email" value="" required>
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Password</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="password" v-model="password" :value="password" required>
+                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="password" v-model="password" value="" required>
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Ketik Ulang Password</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="password" v-model="rePassword" :value="rePassword" required>
+                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="password" v-model="rePassword" value="" required>
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
@@ -97,7 +97,7 @@
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Tempat Kelahiran</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" v-model="pob" :value="pob" required>
+                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" v-model="pob" value="" required>
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
@@ -124,12 +124,12 @@
                           <div class="input-wrap mb-4">
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Nomor KTP</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="no ktp" type="text" minlength="16" maxlength="16" v-model="ktp" :value="ktp" required>
+                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="no ktp" type="text" minlength="16" maxlength="16" v-model="ktp" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Nomor NPWP</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="no npwp" type="text" minlength="15" maxlength="15" v-model="npwp" :value="npwp" required>
+                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="no npwp" type="text" minlength="15" maxlength="15" v-model="npwp" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md photo">
@@ -144,22 +144,22 @@
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Bank</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="bank name" type="text" v-model="bank" :value="bank" required>
+                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="bank name" type="text" v-model="bank" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Cabang</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="cabang bank" type="text" v-model="bank_branch" :value="bank_branch" required>
+                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="cabang bank" type="text" v-model="bank_branch" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">No Rekening</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="No Rekening" type="text" v-model="account_number" :value="account_number" required>
+                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="No Rekening" type="text" v-model="account_number" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Nama di Rekening</ion-label>
-                              <ion-input id="nomor_rekening" placeholder="" autocapitalize="off" title="Nama di Rekening" type="text" v-model="account_holder" :value="account_holder" required>
+                              <ion-input id="nomor_rekening" placeholder="" autocapitalize="off" title="Nama di Rekening" type="text" v-model="account_holder" value="" required>
                               </ion-input>
                             </ion-item>
                           </div>
