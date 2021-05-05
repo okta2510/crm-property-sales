@@ -72,6 +72,11 @@ const routes = [
     component: () => import('@/views/ListingAdd.vue')
   },
   {
+    path: '/listing/edit/:id',
+    name: 'Listing Edit',
+    component: () => import('@/views/ListingEdit.vue')
+  },
+  {
     path: '/profile/edit',
     name: 'profile Edit',
     component: () => import('@/views/ProfileEdit.vue')

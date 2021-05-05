@@ -546,6 +546,10 @@ ion-select::part(text) {
         line-height: 18px;
         color:#000;
       }
+      .link {
+        font-size: 14px;
+        line-height: 14px;
+      }
     }
   }
 
@@ -933,6 +937,13 @@ ion-modal.modal-component {
     font-size: 12px;
     line-height: 16px;
     font-weight: 500;
+  }
+  .link {
+    font-size: 14px;
+    line-height: 14px;
+    a {
+      color:#00A79D;
+    }
   }
   .wrap-feature-img {
     position: relative;

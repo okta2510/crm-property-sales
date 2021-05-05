@@ -9,6 +9,11 @@
         <form v-on:submit.prevent="submitPayload" class="form-custom logged">
           <div class="input-wrap mb-0">
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <ion-label color="medium" position="stacked">Nama Property</ion-label>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="texts" value="" v-model="name" required>
+              </ion-input>
+            </ion-item>
+            <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Alamat Listing</ion-label>
               <ion-textarea rows="3" cols="20" id="" placeholder="" autocapitalize="off" title="" value="" v-model="address" required>
               </ion-textarea>
@@ -29,6 +34,7 @@
                 <ion-select-option value="dijual">Dijual</ion-select-option>
                 <ion-select-option value="disewa">Disewa</ion-select-option>
               </ion-select>
+              <input type="text" class="not-displayed" :value="type_listing" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
@@ -44,6 +50,7 @@
                 <ion-select-option value="apartment">Apartement</ion-select-option>
                 <ion-select-option value="kavling">Kavling</ion-select-option>
               </ion-select>
+              <input type="text" class="not-displayed" :value="property_type" required>
             </ion-item>
             
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
@@ -90,32 +97,51 @@
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Properti Menghadap ke arah</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" value="" v-model="property_heading" required>
-              </ion-input>
+              <ion-select value="" v-model="property_heading" ok-text="Pilih" cancel-text="Tutup">
+                <ion-select-option value="timur">Timur</ion-select-option>
+                <ion-select-option value="tenggara">Tenggara</ion-select-option>
+                <ion-select-option value="selatan">Selatan</ion-select-option>
+                <ion-select-option value="barat daya">Barat Daya</ion-select-option>
+                <ion-select-option value="barat">Barat</ion-select-option>
+                <ion-select-option value="barat laut">Barat Laut</ion-select-option>
+                <ion-select-option value="utara">Utara</ion-select-option>
+                <ion-select-option value="timur laut">Timur Laut</ion-select-option>
+              </ion-select>
+              <input type="text" class="not-displayed" :value="property_heading" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Status Sertifikat</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" value="" v-model="certificate" required>
-              </ion-input>
+              <ion-select value="" v-model="certificate" ok-text="Pilih" cancel-text="Tutup">
+                <ion-select-option value="ppjb">PPJB</ion-select-option>
+                <ion-select-option value="girik">Girik</ion-select-option>
+                <ion-select-option value="ajb">AJB</ion-select-option>
+                <ion-select-option value="hgb">HGB</ion-select-option>
+              </ion-select>
+              <input type="text" class="not-displayed" :value="certificate" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Daya Listrik</ion-label>
               <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="electricity" required>
               </ion-input>
+              <input type="text" class="not-displayed" :value="electricity" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Kondisi Interior</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" value="" v-model="interior" required>
-              </ion-input>
+              <ion-select value="" v-model="interior" ok-text="Pilih" cancel-text="Tutup">
+                <ion-select-option value="furnished">Furnished</ion-select-option>
+                <ion-select-option value="semi">Semi</ion-select-option>
+                <ion-select-option value="non furnished">Non Furnished</ion-select-option>
+              </ion-select>
+              <input type="text" class="not-displayed" :value="interior" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Fasilitas Kawasan</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" value="" v-model="facilities" required>
-              </ion-input>
+              <ion-textarea rows="3" cols="20" id="" placeholder="" autocapitalize="off" title="" value="" v-model="facilities" required>
+              </ion-textarea>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
@@ -127,16 +153,20 @@
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Status Kepemilikan</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" value="" v-model="ownership_status" required>
-              </ion-input>
+              <ion-select value="" v-model="ownership_status" ok-text="Pilih" cancel-text="Tutup">
+                <ion-select-option value="pemilik">Pemilik</ion-select-option>
+                <ion-select-option value="kuasa pemilik">Kuasa Pemilik</ion-select-option>
+              </ion-select>
+              <input type="text" class="not-displayed" :value="ownership_status" required>
             </ion-item>
 
              <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label position="stacked">Tipe Perjanjian</ion-label>
               <ion-select value="" v-model="type_contract" ok-text="Pilih" cancel-text="Tutup">
-                <ion-select-option value="regular">Regular</ion-select-option>
-                <ion-select-option value="special">Istimewa</ion-select-option>
+                <ion-select-option value="ekslusif">Ekslusif</ion-select-option>
+                <ion-select-option value="non ekslusif">Non Ekslusif</ion-select-option>
               </ion-select>
+              <input type="text" class="not-displayed" :value="type_contract" required>
             </ion-item>
 
             <ion-item class="md photo ion-no-padding-start ion-no-padding-end bg-transparent mt-3">
@@ -163,6 +193,7 @@
                   </ion-button>
                 </li>
               </ul>
+              <input type="text" class="not-displayed" :value="albums.length > 0 ? 'filled' : ''" required>
             </ion-item>
             
             <div class="mt-3 text-right">
@@ -172,7 +203,7 @@
               class="ios md"
               expand="block"
               type="submit">
-                <strong>Tambahkan</strong>
+                <strong>{{detailListing ? 'Update Perubahan' : 'Tambahkan'}}</strong>
               </ion-button>
           </div>
           </div>
@@ -248,6 +279,35 @@ export default defineComponent({
     }
   },
   watch: {
+    detailListing: function (val) {
+      if (val) {
+        let {address, name, longitude, latitude, price, comission, type_listing, description, property_type, surface_area, building_area, floor, bedroom, bathroom, garage_capacity, carport_capacity, property_heading, certificate, electricity, interior, facilities, contact_name_for_marketing_contract, ownership_status, type_contract} = val
+        this.address = address
+        this.name = name
+        this.longitude = longitude
+        this.latitude = latitude
+        this.price = price
+        this.comission = comission
+        this.type_listing = type_listing
+        this.description = description
+        this.property_type = property_type
+        this.surface_area = surface_area
+        this.building_area = building_area
+        this.floor = floor
+        this.bedroom = bedroom
+        this.bathroom = bathroom
+        this.garage_capacity = garage_capacity
+        this.carport_capacity = carport_capacity
+        this.property_heading = property_heading
+        this.certificate = certificate
+        this.electricity = electricity
+        this.interior = interior
+        this.facilities = facilities
+        this.contact_name_for_marketing_contract = contact_name_for_marketing_contract
+        this.ownership_status = ownership_status
+        this.type_contract = type_contract
+      }
+    },
     listPhoto: function (val) {
       if (val) {
         this.albums.push(val)
@@ -256,10 +316,6 @@ export default defineComponent({
     }
   },
   props: {
-    submitListing: {
-      type: Function,
-      required: true
-    },
     detailListing: {
       type: Object
     }
@@ -267,7 +323,6 @@ export default defineComponent({
   data: function() {
     return {
       albums: [],
-      image: '',
       address: '',
       name: '',
       longitude: '-123',
@@ -299,26 +354,25 @@ export default defineComponent({
   computed: {
     payload: function() {
       return {
-        image: this.image,
         address: this.address,
-        name: this.contact_name_for_marketing_contract,
+        name: this.name,
         longitude: this.longitude,
         latitude: this.latitude,
-        price: this.price,
-        comission: this.comission,
+        price: parseInt(this.price) || '',
+        comission: parseInt(this.comission) || '',
         type_listing: this.type_listing,
         description: this.description,
         property_type: this.property_type,
-        surface_area: this.surface_area,
-        building_area: this.building_area,
-        floor: this.floor,
-        bedroom: this.bedroom,
-        bathroom: this.bathroom,
-        garage_capacity: this.garage_capacity,
-        carport_capacity: this.carport_capacity,
+        surface_area: parseInt(this.surface_area) || '',
+        building_area: parseInt(this.building_area) || '',
+        floor: parseInt(this.floor) || '',
+        bedroom: parseInt(this.bedroom) || '',
+        bathroom: parseInt(this.bathroom) || '',
+        garage_capacity: parseInt(this.garage_capacity) || '',
+        carport_capacity: parseInt(this.carport_capacity) || '',
         property_heading: this.property_heading,
         certificate: this.certificate,
-        electricity: this.electricity,
+        electricity: parseInt(this.electricity) || '',
         interior: this.interior,
         facilities: this.facilities,
         contact_name_for_marketing_contract: this.contact_name_for_marketing_contract,

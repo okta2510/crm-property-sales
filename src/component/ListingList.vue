@@ -66,6 +66,10 @@
                :value="item.price"
                preText="Rp."></PrintValue>
             </span>
+            <div class="mt-20 link">
+              <a :href="`/listing/edit/${item.id}`">
+              Edit</a>
+            </div>
           </ion-col>
           <ion-col size="12" v-if="listingType === 'other' && item.user">
             <div class="wrap-agent-info">
@@ -138,6 +142,10 @@ export default defineComponent({
     classProps: {
       type: String,
       default: ''
+    },
+    editButton: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
