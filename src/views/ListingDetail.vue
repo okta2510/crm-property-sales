@@ -2,15 +2,15 @@
   <ion-page class="logged">
     <HeaderPage
       title="Detil Listing"
-      urlPage=""
-      urlText=""
+      :urlPage="route.query.type === 'primary' ? `/listing/edit/${detail.id}`:''"
+      :urlText="route.query.type === 'primary' ? 'Edit':''"
       modalText=""
       backText="Kembali"
       backUrl="/tab2"
       headerClass="header-detail no-shadow border-bottom"
       v-on:modalClick="null">
     </HeaderPage>
-    <ion-content class="ion-padding min-height-100 pb-200 ">
+    <ion-content class="ion-padding min-height-100 pb-200 detail-page">
       <div class="news-detail">
         <ion-grid class="ion-no-padding ion-no-padding-top ion-no-padding-bottom">
           <ion-row>
@@ -59,7 +59,14 @@
                   </li>
                 </ul>
               </div>
-              <img class="feature-img" :src="`/assets/img-sample${(parseInt(route.params.id))}.jpg`" />
+               <img class="feature-img" v-if="detail.gallery && detail.gallery.length < 2" :src="`${detail.gallery.length === 1 ? detail.gallery[0].image : '/assets/empty-image-square.png'}`" />
+              <ion-slides v-if="detail.gallery && detail.gallery.length > 1" class="slider-feature ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
+                <ion-slide
+                v-for="(item, index_listing) in detail.gallery"
+                :key="index_listing">
+                   <img class="feature-img" :src="`${item.image}` || `/assets/empty-image-square.png`" />
+                </ion-slide>
+              </ion-slides> 
               <ion-grid>
                 <ion-row>
                   <ion-col size="7">
@@ -106,8 +113,8 @@
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Tipe Listing</span>
-                  <span class="d-block value">
-                    {{type_listing || '-'}}
+                  <span class="d-block value text-capitalize">
+                    {{detail.type_listing || '-'}}
                   </span>
                 </div>
                 <div class="form-group">
@@ -118,7 +125,7 @@
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Jenis Properti</span>
-                  <span class="d-block value">
+                  <span class="d-block value text-capitalize">
                     {{detail.property_type || '-'}}
                   </span>
                 </div>
@@ -162,13 +169,13 @@
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Properti menghadap ke arah</span>
-                  <span class="d-block value">
+                  <span class="d-block value text-capitalize">
                     {{detail.property_heading || '-'}}
                   </span>
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Status Sertifikat</span>
-                  <span class="d-block value">
+                  <span class="d-block value text-uppercase">
                     {{detail.certificate || '-'}}
                   </span>
                 </div>
@@ -178,25 +185,25 @@
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Kondisi Interior</span>
-                  <span class="d-block value">
+                  <span class="d-block value text-capitalize">
                     {{detail.interior || '-'}}
                   </span>
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Fasilitas Kawasan</span>
-                  <span class="d-block value">
+                  <span class="d-block value text-capitalize">
                     {{detail.facilities || '-'}}
                   </span>
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Status Kepemilikan</span>
-                  <span class="d-block value">
+                  <span class="d-block value text-capitalize">
                     {{detail.ownership_status || '-'}}
                   </span>
                 </div>
                 <div class="form-group">
                   <span class="d-block form-label">Tipe Perjanjian</span>
-                  <span class="d-block value">
+                  <span class="d-block value text-capitalize">
                     {{detail.type_contract || '-'}}
                   </span>
                 </div>
@@ -220,7 +227,11 @@ import {
   IonRow,
   IonCol,
   IonChip,
-  IonLabel
+  IonLabel,
+  IonSlides,
+  IonSlide,
+  IonButton,
+  IonRippleEffect
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
@@ -237,7 +248,11 @@ export default defineComponent({
     IonCol,
     IonChip,
     IonLabel,
-    PrintValue
+    PrintValue,
+    IonSlides,
+    IonSlide,
+    IonButton,
+    IonRippleEffect
   },
   data: function() {
     return {
@@ -248,7 +263,21 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    return {route, router}
+    const slideOpts = {
+      initialSlide: 0,
+      speed: 400,
+      autoHeight: true,
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+      }
+    };
+
+    return {route, router, slideOpts}
   },
   ionViewWillEnter() {
   },

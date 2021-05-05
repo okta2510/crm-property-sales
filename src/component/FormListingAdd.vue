@@ -182,7 +182,7 @@
               <!-- <input type="text" class="not-displayed" v-model="picture" required> -->
               <ul class="albums-multi-image list-unstyled" v-if="albums && albums.length > 0">
                 <li v-for="(item, index) in albums" :key="index">
-                  <img :src="item" width="100" height="100"/>
+                  <img :src="typeof item === 'object' ? item.image : item" width="100" height="100"/>
                   <ion-button
                   @click="removeImage(index)"
                   color="danger"
@@ -202,6 +202,7 @@
               size="large"
               class="ios md"
               expand="block"
+              :disabled="idDetail && Object.keys(detailListing).length === 0"
               type="submit">
                 <strong>{{detailListing ? 'Update Perubahan' : 'Tambahkan'}}</strong>
               </ion-button>
@@ -281,7 +282,7 @@ export default defineComponent({
   watch: {
     detailListing: function (val) {
       if (val) {
-        let {address, name, longitude, latitude, price, comission, type_listing, description, property_type, surface_area, building_area, floor, bedroom, bathroom, garage_capacity, carport_capacity, property_heading, certificate, electricity, interior, facilities, contact_name_for_marketing_contract, ownership_status, type_contract} = val
+        let {address, name, longitude, latitude, price, comission, type_listing, description, property_type, surface_area, building_area, floor, bedroom, bathroom, garage_capacity, carport_capacity, property_heading, certificate, electricity, interior, facilities, contact_name_for_marketing_contract, ownership_status, type_contract, gallery} = val
         this.address = address
         this.name = name
         this.longitude = longitude
@@ -306,6 +307,7 @@ export default defineComponent({
         this.contact_name_for_marketing_contract = contact_name_for_marketing_contract
         this.ownership_status = ownership_status
         this.type_contract = type_contract
+        this.albums = gallery.length > 0 ? [...gallery] : []
       }
     },
     listPhoto: function (val) {
@@ -317,11 +319,19 @@ export default defineComponent({
   },
   props: {
     detailListing: {
-      type: Object
+      type: Object,
+      default: function () {
+        return {}
+      }
+    },
+    idDetail: {
+      type: String,
+      default: undefined
     }
   },
   data: function() {
     return {
+      deleteImages: [],
       albums: [],
       address: '',
       name: '',
@@ -383,7 +393,9 @@ export default defineComponent({
   },
   methods: {
     removeImage: function (index) {
-      console.log(index)
+      if (typeof this.albums[index] === 'object') {
+        this.deleteImages.push(this.albums[index])
+      }
       this.albums.splice(index, 1)
       this.resetPhoto()
       console.log(this.albums)
@@ -393,8 +405,8 @@ export default defineComponent({
       console.log(this.albums)
     },
     submitPayload: function() {
-      console.log(this.payload)
-      this.$emit('submitListing', this.payload, this.albums)
+      this.$emit('submitListing', this.payload, this.albums, this.deleteImages)
+      this.deleteImages = []
     }
   }
 });

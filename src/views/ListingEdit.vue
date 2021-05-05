@@ -12,6 +12,7 @@
     </HeaderPage>
     <ion-content  id="content-page" class="min-height-100 ion-padding pb-100 bg-primary text-light form-logged">
         <FormListingAdd
+        :idDetail="route.params.id"
         :detailListing="detailListing"
         v-on:submitListing="onSubmitListing"/>
     </ion-content>
@@ -21,7 +22,8 @@
 <script>
 import { 
   IonContent,
-  IonPage
+  IonPage,
+  toastController
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
@@ -71,14 +73,28 @@ export default defineComponent({
   },
   created: async function () {
      await this.getUserInfo()
-     console.log(this.route.params)
      if (this.route.params && this.route.params.id) {
-       this.getListing()
+       this.getListingDetail()
      }
   },
   mounted() {
   },
   methods: {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
+    },
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{
         if(res) {
@@ -88,7 +104,7 @@ export default defineComponent({
         console.log(err)
       })
     },
-    getListing: function () {
+    getListingDetail: function () {
       let self = this
       axios.get(this.API_PRIMARY+'/'+this.route.params.id,{
          headers: {
@@ -101,9 +117,13 @@ export default defineComponent({
         self.detailListing = response.data
       }).catch(function (err) {
         console.log(err)
+        self.openToast('Error, Invalid listing detail', 5000, 'danger')
+        setTimeout(function() {
+          window.location = '/my-listing'
+        }, 2000)
       })
     },
-    onSubmitListing: function(payload, albums) {
+    onSubmitListing: function(payload, albums, deleted) {
       let self = this
       axios.put(this.API_PRIMARY+'/'+this.route.params.id, payload, {
          headers: {
@@ -113,13 +133,25 @@ export default defineComponent({
         mode:"cors"
       })
       .then((res) => {
-        console.log(res)
-        if (res.id && albums.length > 0) {
-          albums.forEach(element => {
-            self.uploadAlbums(res.id, element)
+        //check deleted bucket
+        if (res.data.id && deleted.length > 0) {
+          deleted.forEach(element => {
+            self.deleteImages(res.data.id, element)
           })
-        }  else {
-          window.location = '/my-listing'
+        }
+
+        //check new image
+        if (res.data.id && albums.length > 0) {
+          let checkImagesChange = 0
+          albums.forEach(element => {
+            if (typeof element !== 'object') {
+              self.uploadAlbums(res.data.id, element)
+              checkImagesChange++
+            }
+          })
+          if (checkImagesChange === 0) {
+            window.location = '/my-listing'
+          }
         }
       }, {
          headers: {
@@ -130,6 +162,7 @@ export default defineComponent({
       }).catch((err) => {
         // handle err
         console.log(err)
+        self.openToast('Error Edit listing', 5000, 'danger')
       })
     },
     uploadAlbums: function(id, image) {
@@ -149,6 +182,24 @@ export default defineComponent({
        window.location = '/my-listing'
       }).catch((err) => {
         // handle err
+        self.openToast('Error Upload image', 5000, 'danger')
+        console.log(err)
+      })
+    },
+    deleteImages: function(id, image) {
+      let self = this
+      axios.delete(this.API_IMAGE+'/'+image.id, {
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+        },
+        mode:"cors"
+      })
+      .then((res) => {
+        console.log(res)
+      }).catch((err) => {
+        // handle err
+        self.openToast('Error Delete image', 5000, 'danger')
         console.log(err)
       })
     }

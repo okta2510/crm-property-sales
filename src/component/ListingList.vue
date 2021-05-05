@@ -66,7 +66,7 @@
                :value="item.price"
                preText="Rp."></PrintValue>
             </span>
-            <div class="mt-20 link">
+            <div class="mt-20 link" v-if="listingType === 'primary' && editButton">
               <a :href="`/listing/edit/${item.id}`">
               Edit</a>
             </div>

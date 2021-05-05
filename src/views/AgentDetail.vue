@@ -119,7 +119,8 @@ import {
   IonIcon,
   // IonItem,
   IonButton,
-  IonRippleEffect
+  IonRippleEffect,
+  toastController
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
@@ -181,6 +182,21 @@ export default defineComponent({
   mounted() {
   },
   methods: {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
+    },
     goTo(path){
       window.location.href = path
     },

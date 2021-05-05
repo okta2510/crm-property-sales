@@ -20,7 +20,8 @@
 <script>
 import { 
   IonContent,
-  IonPage
+  IonPage,
+  toastController
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
@@ -69,6 +70,21 @@ export default defineComponent({
   mounted() {
   },
   methods: {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
+    },
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{
         if(res) {
@@ -94,6 +110,15 @@ export default defineComponent({
             self.uploadAlbums(res.id, element)
           })
         } 
+        if (res.data.id && albums.length > 0) {
+          albums.forEach(element => {
+            if (!element.includes('http')) {
+              self.uploadAlbums(res.data.id, element)
+            }
+          })
+        }  else {
+          window.location = '/tab2'
+        }
       }, {
          headers: {
           'Accept': "application/json",
@@ -103,6 +128,7 @@ export default defineComponent({
       }).catch((err) => {
         // handle err
         console.log(err)
+        self.openToast('Error Add listing', 5000, 'danger')
       })
     },
     uploadAlbums: function(id, image) {
@@ -119,8 +145,10 @@ export default defineComponent({
       })
       .then((res) => {
         console.log(res)
+        window.location = '/tab2'
       }).catch((err) => {
         // handle err
+        self.openToast('Error Upload image', 5000, 'danger')
         console.log(err)
       })
     }

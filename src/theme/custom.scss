@@ -678,6 +678,27 @@ ion-select::part(text) {
   }
 }
 
+.detail-page {
+  ion-slides {
+    --bullet-background: #ccc;
+    --bullet-background-active: #00A79D;
+    --background: #fff;
+    opacity: 1;
+  }
+  .slider-feature {
+    background-color: #fff;
+    .swiper-pagination-bullet {
+      opacity: 1;
+    }
+    .swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal>.swiper-pagination-bullets {
+      bottom: 20px;
+    }
+    img {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .btn-notification {
   --box-shadow: none;
   box-shadow: none;

@@ -194,16 +194,20 @@ export default defineComponent({
     const slideOpts = {
       initialSlide: 0,
       speed: 400,
+      autoHeight: true,
        autoplay: {
-        delay: 5000
+        delay: 5000,
+        disableOnInteraction: false
       }
     };
     const slideFeatureOpts = {
       initialSlide: 0,
       speed: 400,
       lazy: true,
+      autoHeight: true,
       autoplay: {
-        delay: 5000
+        delay: 5000,
+        disableOnInteraction: false
       }
     }
     return {
