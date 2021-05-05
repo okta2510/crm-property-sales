@@ -1,3 +1,6 @@
+NPM version 7.5.6
+nvm version 15.10.0
+
 Capacitor is Ionic’s official app runtime that makes it easy to deploy web apps to native platforms like iOS, Android, and more. If you’ve used Cordova in the past, consider reading more about the differences here.
 
 If you’re still running ionic serve in the terminal, cancel it. Complete a fresh build of the Ionic project, fixing any errors that it reports:
