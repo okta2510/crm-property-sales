@@ -11,6 +11,7 @@
       <ion-toolbar class="ion-no-padding ios-handled ios">
           <SearchBar
         v-on:searchEnter="onUpdateParams"
+        :searchString="route.query.search"
         searchType="Listing"
         :listResults="selectedList.results"
         ></SearchBar>
@@ -140,6 +141,7 @@ export default defineComponent({
     }
   },
   ionViewWillEnter() {
+    this.refreshQuery()
   },
   ionViewWillLeave() {
   },
@@ -148,19 +150,26 @@ export default defineComponent({
   ionViewDidLeave() {
     this.selectedList =  this.listingType === 'primary' ? {...this.primaryResults} : {...this.otherResults}
     this.currentModal = null
+    this.router.push({
+        'query': null
+    })
   },
   created: async function () {
     await this.getUserInfo()
-    this.refreshQuery()
     // this.selectedList = [...this.otherResults]
-    this.getListing(this.params)
+    this.getListing({...this.params, ...this.route.query})
   },
   beforeUpdate: function () {
-    if (Object.keys(this.route.query).length === 0) {
-      this.refreshQuery()
-    }
+    // if (Object.keys(this.route.query).length === 0) {
+    //   this.refreshQuery()
+    // }
   },
   mounted() {
+  },
+  unmounted() {
+    this.router.push({
+        'query': null
+      })
   },
   methods: {
     nextPage: function () {
@@ -174,9 +183,17 @@ export default defineComponent({
       }
     },
     refreshQuery: function () {
-      this.router.push({
-        query: this.params
-      })
+      if (this.route.query.search) {
+           this.router.push({
+              query: {...this.params, ...{
+                'search': this.route.query.search
+              }}
+            })
+      } else {
+         this.router.push({
+            query: this.params
+          })
+      }
     },
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{
@@ -249,6 +266,7 @@ export default defineComponent({
           'Authorization': 'PIINTU '+ self.userToken
 
         },
+        'params': params,
         mode:"cors"
       }).then(response => {
         if (self.route.query.pagination == 1 || filterChanged) {

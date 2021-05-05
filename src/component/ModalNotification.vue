@@ -12,9 +12,15 @@
   <ion-content class="ion-no-padding">
     <ion-item v-for="(item, index) in notifications" :key="index" :class="!item.readed ? '' : 'readed'">
       <ion-label>
-        <span class="date">2020-11-05 10:00</span>
-        <span class="title">Reset Password request</span>
-        <span class="desc">Silahkan lakukan verifikasi pada email anda</span>
+        <span class="date">
+          {{formattingDate(item.created, 'YYYY-MM-DD HH:mm') || 'YYYY-MM-DD HH:mm'}}
+        </span>
+        <span class="title">
+          {{item.notification || '-'}}
+        </span>
+        <span class="desc">
+          {{item.content || '-'}}
+        </span>
       </ion-label>
     </ion-item>
     <ion-item v-if="!notifications || notifications.length === 0" >
@@ -36,6 +42,7 @@ import {
   IonLabel,
   IonItem
 } from '@ionic/vue';
+import moment from 'moment';
 import { defineComponent } from 'vue';
 import { getLocal } from '@/services/storage'
 import axios from 'axios';
@@ -88,6 +95,9 @@ export default defineComponent({
     }
   },
   methods: {
+    formattingDate(val, format) {
+      return moment(val).format(format)
+    },
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{
         if(res) {

@@ -28,6 +28,7 @@ import {
   IonContent,
   IonPage,
   modalController,
+  IonButton
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
@@ -41,6 +42,7 @@ export default defineComponent({
     IonPage,
     HeaderPage,
     MarketingItems,
+    IonButton
   },
   data: function() {
     return {

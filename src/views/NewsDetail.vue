@@ -21,12 +21,12 @@
               <span class="date d-block">
                 {{formattingDate(article.created, 'MMM DD, YYYY') || 'MMM DD, YYYY'}}
               </span>
-              <img class="feature-img" :src="`/assets/img-sample${(parseInt(route.params.id))}.jpg`" />
+              <img class="feature-img" :src="article.thumbnail || `/assets/empty-image-square.png`" />
               <span class="excerpt d-block" v-html="article.excerpt">
               </span>
               <article v-html="article.content" class="mt-10">
               </article>
-              <div class="share-media mt-20">
+              <!-- <div class="share-media mt-20">
                 <span class="d-block">
                   Share :
                 </span>
@@ -52,7 +52,7 @@
                     </a>
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -100,7 +100,7 @@ export default defineComponent({
     return {route}
   },
   computed: {
-     API_HOST: function () {
+    API_HOST: function () {
       return 'http://54.179.9.67:8000/api/v1/consumer'
     },
     API_NEWS: function () {

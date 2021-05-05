@@ -35,13 +35,13 @@
             <h3 class="mt-0 mb-0">Artikel Terpopuler</h3>
           </div>
           <ul>
-            <li v-for="(item, index) in articles.results" :key="index" class="item">
-              <a :href="`/berita/${item}`">
+            <li v-for="(item, index) in popular.results" :key="index" class="item">
+              <a :href="`/berita/${item.id}`">
                 <span class="d-block w-100 date">
-                2020-11-05 10:00
+                {{formattingDate(item.created, 'YYYY-MM-DD HH:mm')}}
                 </span>
                 <span class="d-block w-100 title">
-                  Termurah di jatiasih, bisa cicil 24x dengan bunga yang fantastis
+                  {{item.title}}
                 </span>
               </a>
           </li>
@@ -69,6 +69,7 @@ import ModalFilterListing from '@/component/ModalFilterListing.vue'
 import NewsCard from '@/component/NewsCard.vue'
 import SearchBar from '@/component/SearchBar.vue'
 import { getLocal } from '@/services/storage'
+import moment from 'moment';
 
 export default defineComponent({
   components: {
@@ -88,6 +89,7 @@ export default defineComponent({
       titlePage: 'My Listing',
       currentModal: null,
       articles: {},
+      popular: {},
       params: {
         size: 10,
         sort: 'created',
@@ -111,9 +113,13 @@ export default defineComponent({
     },
     API_NEWS: function () {
       return this.API_HOST+'/article/list'
+    },
+    API_POPULAR: function () {
+      return this.API_HOST+'/article/list/popular'
     }
   },
   ionViewWillEnter() {
+    this.refreshQuery()
   },
   ionViewWillLeave() {
   },
@@ -122,21 +128,27 @@ export default defineComponent({
   ionViewDidLeave() {
     this.articles = []
     this.currentModal = null
+     this.router.push({
+        'query': null
+    })
   },
   created: async function () {
     await this.getUserInfo()
     this.getArticles(this.params)
-    this.refreshQuery()
+    this.getPopular()
     // this.selectedList = [...this.otherResults]Z
   },
   beforeUpdate: function () {
-    if (Object.keys(this.route.query).length === 0) {
-      this.refreshQuery()
-    }
+    // if (Object.keys(this.route.query).length === 0) {
+    //   this.refreshQuery()
+    // }
   },
   mounted() {
   },
   methods: {
+    formattingDate(val, format) {
+      return moment(val).format(format)
+    },
     nextPage: function () {
       this.articles.next = 2
       if (this.articles.next) {
@@ -207,9 +219,22 @@ export default defineComponent({
         } else {
           let newResults = {...response.data}
           newResults.results = [...self.articles.results, ...newResults.results]
-          console.log(newResults)
           self.articles = newResults
         }
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    getPopular () {
+      let self = this
+      axios.get(this.API_POPULAR,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+        },
+        mode:"cors"
+      }).then(response => {
+        self.popular = response.data
       }).catch(function (err) {
         console.log(err)
       })

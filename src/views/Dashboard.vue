@@ -104,7 +104,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-          <ion-slides class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
+          <ion-slides v-if="articleList && articleList.length > 0" class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
             <ion-slide
             v-for="(item, index_news) in articleList"
             :key="index_news">
@@ -114,6 +114,9 @@
               ></NewsDashboardCard>
             </ion-slide>
           </ion-slides> 
+          <div v-else class="text-center component-empty">
+            <span class="content">- Data Kosong -</span>
+          </div>
         </div>
       <!-- </div> -->
 
@@ -181,7 +184,8 @@ export default defineComponent({
       bannerList: [],
       countNotif: null,
       listingType: 'other',
-      userToken: null
+      userToken: null,
+      timeOut: null
     }
   },
   setup() {
@@ -237,6 +241,14 @@ export default defineComponent({
     this.getBanner()
     this.getCount()
   },
+  ionViewWillEnter() {
+  },
+  ionViewWillLeave() {
+  },
+  ionViewDidEnter() {
+  },
+  ionViewDidLeave() {
+  },
   methods: {
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{
@@ -261,7 +273,11 @@ export default defineComponent({
       console.log(val)
     },
     searchingQuery: function () {
-      //searching
+      let self = this
+      clearTimeout(this.timeOut)
+      this.timeOut =  setTimeout(function() {
+        window.location = `/tab2?search=${self.queryString}`;
+      }, 1500)
     },
     getBanner: function () {
       let self = this

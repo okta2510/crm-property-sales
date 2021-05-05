@@ -72,6 +72,11 @@ const routes = [
     component: () => import('@/views/ListingAdd.vue')
   },
   {
+    path: '/listing/edit/:id',
+    name: 'Listing Edit',
+    component: () => import('@/views/ListingEdit.vue')
+  },
+  {
     path: '/profile/edit',
     name: 'profile Edit',
     component: () => import('@/views/ProfileEdit.vue')
@@ -83,6 +88,7 @@ const routes = [
   // },
   {
     path: '/dashboard/',
+    props: true,
     component: () => import('@/views/Tabs.vue'),
     children: [
       {
@@ -91,6 +97,7 @@ const routes = [
       },
       {
         path: '/tab1',
+        props: true,
         component: () => import('@/views/Dashboard.vue')
       },
       {
@@ -100,10 +107,12 @@ const routes = [
       },
       {
         path: '/tab3',
+        props: true,
         component: () => import('@/views/Tab3.vue')
       },
       {
         path: '/tab4',
+        props: true,
         component: () => import('@/views/Tab4.vue')
       },
     ]

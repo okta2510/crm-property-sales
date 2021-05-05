@@ -84,6 +84,27 @@ body, html {
       left: 10px;
     }
   }
+  .albums-multi-image {
+    width: 100%;
+    display: block;
+    margin-top: 0;
+    li {
+      display: inline-block;
+      width: 150px;
+      padding: 5px;
+      margin-bottom: 5px;
+      font-size: 12px;
+      line-height: 12px;
+        ion-icon {
+          font-size: 14px;
+          margin-right: 3px;
+        }
+       img {
+         width: 100%;
+         height: auto;
+       }
+    }
+  }
   ion-button.btn-take-photo {
     --padding-start: 0px;
     --padding-end: 0px;
@@ -101,6 +122,29 @@ body, html {
       font-size: 16px;
     }
   }
+
+  .component-upload-multi-photo {
+    position: relative;
+    background-color: #fff;
+    color:#444;
+    width:auto;
+    height: auto;
+    border-radius:100px;
+    background-size: 100%;
+    padding: 0px 15px 0px 3px;
+    font-size: 0;
+    label {
+      vertical-align: middle;
+      font-size: 14px;
+      line-height: 14px;
+      padding: 0 8px;
+    }
+    ion-button.btn-take-photo {
+      --background: #304B57;
+      color:#eee;
+    }
+  }
+
   .forgot_password {
     padding: 10px 0;
     color:#fff;
@@ -502,6 +546,10 @@ ion-select::part(text) {
         line-height: 18px;
         color:#000;
       }
+      .link {
+        font-size: 14px;
+        line-height: 14px;
+      }
     }
   }
 
@@ -889,6 +937,13 @@ ion-modal.modal-component {
     font-size: 12px;
     line-height: 16px;
     font-weight: 500;
+  }
+  .link {
+    font-size: 14px;
+    line-height: 14px;
+    a {
+      color:#00A79D;
+    }
   }
   .wrap-feature-img {
     position: relative;
@@ -1504,6 +1559,23 @@ ion-chip.custom {
   ion-col {
     padding-left: 8px;
     padding-right: 8px;
+  }
+}
+
+.alert-button.sc-ion-alert-ios {
+  color:#00A79D;
+}
+
+.component-empty {
+  padding: 0px 16px;
+  .content {
+    padding: 40px 10px;
+    display: block;
+    width: 100%;
+    background-color: rgb(238, 238, 238);
+    color:rgb(128, 128, 128);
+    border:solid 1px rgb(216, 216, 216);
+    text-align: center;
   }
 }
 
