@@ -8,11 +8,18 @@
         </div>
         <form v-on:submit.prevent="submitPayload" class="form-custom logged">
           <div class="input-wrap mb-0">
-            <ion-item class="md ion-no-padding-start ion-no-padding-end">
+            <ion-item class="md ion-no-padding-start ion-no-padding-end mb-30">
               <ion-label color="medium" position="stacked">Nama Property</ion-label>
               <ion-input id="" placeholder="" autocapitalize="off" title="" type="texts" value="" v-model="name" required>
               </ion-input>
             </ion-item>
+            <ion-label color="medium" position="stacked">Pilih Lokasi</ion-label>
+            <GoogleMapSearch :disableUI="false"
+              :zoom="14"
+              mapType="roadmap"
+              :markers="markers"
+              :center="{ lat: 38.8977859, lng: -77.0057621 }">
+              </GoogleMapSearch>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Alamat Listing</ion-label>
               <ion-textarea rows="3" cols="20" id="" placeholder="" autocapitalize="off" title="" value="" v-model="address" required>
@@ -233,6 +240,7 @@ import { camera,trashOutline } from 'ionicons/icons';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 const { Camera } = Plugins;
 import { useRouter } from 'vue-router'
+import GoogleMapSearch from '@/component/GoogleMapSearch.vue'
 
 export default defineComponent({
   name: 'FormListingAdd',
@@ -247,12 +255,16 @@ export default defineComponent({
     IonIcon,
     IonSelect,
     IonSelectOption,
-    IonInput
+    IonInput,
+    GoogleMapSearch
   },
   setup(){
     // const listPhoto = [];
     const router = useRouter();
     const listPhoto = ref('')
+    const markers = [{
+      lat: 38.8977859, lng: -77.0057621, title: 'test map'
+    }]
 
     const takePhoto = async () => {
       const image = await Camera.getPhoto({
@@ -276,7 +288,8 @@ export default defineComponent({
       takePhoto,
       camera,
       trashOutline,
-      resetPhoto
+      resetPhoto,
+      markers
     }
   },
   watch: {
