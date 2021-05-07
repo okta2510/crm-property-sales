@@ -33,7 +33,7 @@ export default defineComponent({
     // load in the google script
     onMounted(() => {
       // key is is the .env file
-      const key = "AIzaSyBPyvOc9IgPRurMe2BeIXEwScIdPv-wvKg";
+      const key = "AIzaSyCq4b1nTv5YfnOuveHtFL48JM9MJUzt5ic";
 
       // create the script element to load
       const googleMapScript = document.createElement("SCRIPT");

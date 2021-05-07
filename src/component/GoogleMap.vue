@@ -14,7 +14,7 @@ import { defineComponent,ref } from 'vue';
     return;
   }
 
-  const key = "AIzaSyBPyvOc9IgPRurMe2BeIXEwScIdPv-wvKg";
+  const key = "AIzaSyCq4b1nTv5YfnOuveHtFL48JM9MJUzt5ic";
   const googleMapScript = document.createElement("SCRIPT");
   googleMapScript.setAttribute(
     "src",
