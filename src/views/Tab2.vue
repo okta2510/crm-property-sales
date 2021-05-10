@@ -75,7 +75,8 @@ import {
   IonSegment,
   IonLabel,
   IonSegmentButton,
-  IonButton
+  IonButton,
+  toastController
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent, KeepAlive } from 'vue';
@@ -140,7 +141,7 @@ export default defineComponent({
       this.selectedList = val === 'primary' ? {...this.primaryResults} : {...this.otherResults}
     }
   },
-  ionViewWillEnter() {
+  ionViewWillEnter: async function() {
     this.refreshQuery()
   },
   ionViewWillLeave() {
@@ -150,9 +151,9 @@ export default defineComponent({
   ionViewDidLeave() {
     this.selectedList =  this.listingType === 'primary' ? {...this.primaryResults} : {...this.otherResults}
     this.currentModal = null
-    this.router.push({
-        'query': null
-    })
+    // this.router.push({
+    //     'query': null
+    // })
   },
   created: async function () {
     await this.getUserInfo()
@@ -172,6 +173,21 @@ export default defineComponent({
       })
   },
   methods: {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
+    },
     nextPage: function () {
       if (this.selectedList.next) {
         this.router.push({
@@ -278,6 +294,7 @@ export default defineComponent({
         }
       }).catch(function (err) {
         console.log(err)
+        self.openToast('Error get listings', 5000, 'danger')
       })
 
       this.selectedList =  this.listingType === 'primary' ? {...this.primaryResults} : {...this.otherResults}

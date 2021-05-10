@@ -57,15 +57,14 @@ import { useRoute, useRouter } from 'vue-router'
 import { 
   IonContent,
   IonPage,
-  modalController,
   IonHeader,
   IonToolbar,
-  IonButton
+  IonButton,
+  toastController
   // IonItem
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent, KeepAlive } from 'vue';
-import ModalFilterListing from '@/component/ModalFilterListing.vue'
 import NewsCard from '@/component/NewsCard.vue'
 import SearchBar from '@/component/SearchBar.vue'
 import { getLocal } from '@/services/storage'
@@ -126,8 +125,7 @@ export default defineComponent({
   ionViewDidEnter() {
   },
   ionViewDidLeave() {
-    this.articles = []
-    this.currentModal = null
+    this.articles = {}
      this.router.push({
         'query': null
     })
@@ -136,16 +134,27 @@ export default defineComponent({
     await this.getUserInfo()
     this.getArticles(this.params)
     this.getPopular()
-    // this.selectedList = [...this.otherResults]Z
   },
   beforeUpdate: function () {
-    // if (Object.keys(this.route.query).length === 0) {
-    //   this.refreshQuery()
-    // }
   },
   mounted() {
   },
   methods: {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
+    },
     formattingDate(val, format) {
       return moment(val).format(format)
     },
@@ -183,27 +192,6 @@ export default defineComponent({
         console.log(err)
       })
     },
-    async openModal() {
-      const modal = await modalController
-        .create({
-          component: ModalFilterListing,
-          cssClass: 'modal-component filter-component',
-          swipeToClose: true,
-          showBackdrop: true,
-          mode: 'ios',
-          backdropDismiss: true,
-          animated: true,
-          componentProps: {
-            title: 'Filter Pencarian',
-            closeAction: this.closeModal
-          },
-        })
-      this.currentModal = modal
-      return modal.present();
-    },
-    closeModal() {
-      this.currentModal.dismiss()
-    },
     getArticles (params, filterChanged = false) {
       let self = this
       axios.get(this.API_NEWS,{
@@ -222,6 +210,7 @@ export default defineComponent({
           self.articles = newResults
         }
       }).catch(function (err) {
+        self.openToast('Error get news', 5000, 'danger')
         console.log(err)
       })
     },
@@ -237,6 +226,7 @@ export default defineComponent({
         self.popular = response.data
       }).catch(function (err) {
         console.log(err)
+        self.openToast('Error get popular news', 5000, 'danger')
       })
     }
   }

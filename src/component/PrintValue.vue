@@ -51,7 +51,7 @@ export default defineComponent({
       //   return number && number > 0 ? number + ' Juta' : '-'
       // }
 
-      return number && number > 0 ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator) : '-'
+      return number && number > 0 ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.separator) : (number === 0 ? 0 : '-')
     }
   },
   methods: {

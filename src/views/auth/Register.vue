@@ -129,7 +129,7 @@
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Nomor NPWP</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="no npwp" type="text" minlength="15" maxlength="15" v-model="npwp" value="" required>
+                              <ion-input id="nomor_npwp" placeholder="" autocapitalize="off" title="no npwp" type="text" minlength="15" maxlength="15" v-model="npwp" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md photo">

@@ -34,6 +34,10 @@
       </ion-grid>
     </div>
     </ion-item>
+
+    <div v-if="result.length <= 0" class="text-center component-empty">
+      <span class="content">- Data Kosong -</span>
+    </div>
   </div>
 </template>
 
@@ -66,7 +70,7 @@ export default defineComponent({
     result: {
       type: Array,
       default: function () {
-        return [1]
+        return []
       },
       required: true
     },

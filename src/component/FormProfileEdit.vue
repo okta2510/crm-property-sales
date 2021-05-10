@@ -2,8 +2,8 @@
   <ion-grid class="ion-no-padding component-form">
     <ion-row>
       <ion-col size-md="4" size-xs="10" offset-md="4" offset-xs="1">
-        <div class="heading-page text-center mb-30">
-          <h1 class="text-center title mt-0 mb-1">Perbaharui Info</h1>
+        <div class="heading-page text-center mb-30" v-on:click="showPayload">
+          <h1 class="text-center title mt-0 mb-1" >Perbaharui Info</h1>
           <span class="d-block text-center">Perbaharui informasi profil anda</span>
         </div>
         <ion-slides @ionSlideDidChange="getIndex()" ref="slides" pager="false" scrollbar="false" :options="slideOpts">
@@ -19,9 +19,9 @@
                             <ion-button class="btn-take-photo" @click="takePhoto('profile')">
                               <ion-icon :icon="camera" slot="icon-only"></ion-icon>
                             </ion-button>
-                            <img :src="profilePhoto" />
+                            <img :src="profilePhoto || profile_picture" />
                           </div>
-                            <input type="text" class="not-displayed" v-model="profile_picture" required>
+                            <input type="text" class="not-displayed" :value="profile_picture || profilePhoto ? 'filled':''" required>
                         </ion-item>
                         <ion-item class="md ion-no-padding-start ion-no-padding-end">
                           <ion-label color="medium" position="stacked">Nama Lengkap</ion-label>
@@ -104,7 +104,7 @@
                 <ion-slide>
                  
                      <div class="d-block text-left w-100 mt-4">
-                        <form id="step2" v-on:submit.prevent="onSubmit" class="form-custom">
+                        <form id="step2" v-on:submit.prevent="submitPayload" class="form-custom">
                           <h3 class="mt-0 sub-title h3">Halaman 2/2</h3>
                           <div class="input-wrap mb-4">
                             <!-- <ion-item class="md ion-no-padding-start ion-no-padding-end">
@@ -205,7 +205,6 @@ export default defineComponent({
   },
   data: function () {
     return {
-      signingIn: false,
       dob: null,
       name: null,
       display_name: null,
@@ -288,6 +287,20 @@ export default defineComponent({
     }
   },
   props: {
+    detailInfo: {
+      type: Object,
+      default: function () {
+        return {}
+      }
+    },
+    idDetail: {
+      type: String,
+      default: undefined
+    },
+    signingIn: {
+      type: Boolean,
+      default: false
+    }
   },
   ionViewWillEnter() {
   },
@@ -304,9 +317,6 @@ export default defineComponent({
   mounted() {
   },
   computed: {
-     API_REGISTER: function () {
-      return ''
-    },
     payload() {
       return {
         dob: this.dob,
@@ -316,32 +326,48 @@ export default defineComponent({
         email: this.email,
         address: this.address,
         pob: this.pob,
-        ktp: this.ktp,
-        npwp: this.npwp,
-        npwp_file: this.ktpPhoto,
-        profile_picture: this.profilePhoto,
+        // ktp: this.ktp,
+        // npwp: this.npwp,
+        // npwp_file: this.ktpPhoto,
+        profile_picture: this.profilePhoto || this.profile_picture,
         bank: this.bank,
         bank_branch: this.bank_branch,
         account_number: this.account_number,
         account_holder: this.account_holder,
         member_id : this.member_id,
-        mail_address: this.mail_addresss,
-        password: this.password
+        mail_address: this.address
       }
     }
   },
   watch: {
-    // ktpPhoto: async function (val) {
-    //   this.npwp_file = val
-    // },
-    // profilePhoto: async function (val) {
-    //   this.profile_picture = val;
-    // },
+    detailInfo: function (val) {
+      console.log(val)
+      if (val && Object.keys(val).length > 0) {
+        // let {dob, name, display_name, phone, email, address, pob, ktp, npwp, npwp_file, profile_picture, bank, bank_branch, account_number, account_holder, member_id,  mail_address, phone_second, phone_third} = val
+        let {dob, display_name, phone, address, pob, ktp, npwp, npwp_file, profile_picture, bank, bank_branch, account_number, account_holder, member_id, phone_second, phone_third} = val
+        this.dob= dob || ''
+        // this.name= name
+        this.display_name= display_name || ''
+        this.phone= phone || ''
+        // this.email= email
+        this.address= address || ''
+        this.pob= pob || ''
+        this.ktp= ktp || ''
+        this.npwp= npwp || ''
+        this.npwp_file= npwp_file || ''
+        this.profile_picture= profile_picture || ''
+        this.bank= bank || ''
+        this.bank_branch= bank_branch || ''
+        this.account_number= account_number || ''
+        this.account_holder= account_holder || ''
+        this.member_id = member_id || ''
+        this.mail_address= address || ''
+        this.phone_second= phone_second || ''
+        this.phone_third= phone_third || ''
+      }
+    },
   },
   methods: {
-    onSubmit: function () {
-      console.log(this.payload)
-    },
     formattingDate(val, format) {
       return moment(val).format(format)
     },
@@ -349,8 +375,14 @@ export default defineComponent({
       this.disableSwap(false)
       this.goNext()
     },
+    showPayload: function () {
+      alert()
+      console.log(this.payload)
+      console.log(this.albums)
+    },
     submitPayload: function() {
       console.log(this.payload)
+      this.$emit('submitProfile', this.payload)
     },
     resetState() {
       this.dob = null,

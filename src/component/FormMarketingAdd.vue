@@ -3,45 +3,47 @@
     <ion-row>
       <ion-col size-md="4" size-xs="10" offset-md="4" offset-xs="1">
         <div class="heading-page text-center mb-30">
-          <h1 class="text-center title mt-0 mb-1">Cetak Materi</h1>
+          <h1 class="text-center title mt-0 mb-1" @click="showPayload">Cetak Materi</h1>
           <span class="d-block text-center">Lengkapi kolom informasi dibawah</span>
         </div>
         <form v-on:submit.prevent="submitPayload" class="form-custom logged">
           <div class="input-wrap mb-0">
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label position="stacked">Tipe Printing</ion-label>
-              <ion-select value="1" ok-text="Pilih" cancel-text="Tutup">
-                <ion-select-option value="1">Banner</ion-select-option>
-                <ion-select-option value="2">Spanduk</ion-select-option>
+              <ion-select :value="marketing_tool_type" ok-text="Pilih" v-model="marketing_tool_type" cancel-text="Tutup">
+                <ion-select-option value="banner">Banner</ion-select-option>
+                <ion-select-option value="spanduk">Spanduk</ion-select-option>
               </ion-select>
+              <input type="text" class="not-displayed" :value="marketing_tool_type" required>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label position="stacked">Ukuran</ion-label>
-              <ion-select value="1" ok-text="Pilih" cancel-text="Tutup">
-                <ion-select-option value="1">50x40 cm</ion-select-option>
-                <ion-select-option value="2">90x60 cm</ion-select-option>
+              <ion-select :value="marketing_tool_size" ok-text="Pilih" v-model="marketing_tool_size" cancel-text="Tutup">
+                <ion-select-option value="50x40">50x40 cm</ion-select-option>
+                <ion-select-option value="90x60">90x60 cm</ion-select-option>
               </ion-select>
+               <input type="text" class="not-displayed" :value="marketing_tool_type" required>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label position="stacked">Tipe Transaksi</ion-label>
-              <ion-select value="1" ok-text="Pilih" cancel-text="Tutup">
-                <ion-select-option value="1">Dijual</ion-select-option>
-                <ion-select-option value="2">Disewa</ion-select-option>
+              <ion-select :value="marketing_tool_transaction" v-model="marketing_tool_transaction" ok-text="Pilih" cancel-text="Tutup">
+                <ion-select-option value="dijual">Dijual</ion-select-option>
+                <ion-select-option value="disewa">Disewa</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Nama Agent</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" required>
+              <ion-input id="" v-model="agent_name" placeholder="" autocapitalize="off" title="" type="text" required>
               </ion-input>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Jumlah (pcs)</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" required>
+              <ion-input id="" placeholder="" v-model="quantity" autocapitalize="off" title="" type="number" required>
               </ion-input>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Nomor Kontak Agent</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="phone" required>
+              <ion-input id="" placeholder="" v-model="agent_contact" autocapitalize="off" title="" type="phone" required>
               </ion-input>
             </ion-item>
             <ion-item class="md photo  ion-no-padding-start ion-no-padding-end bg-transparent mt-3">
@@ -50,7 +52,7 @@
                 <ion-button class="btn-take-photo" @click="takePhoto()">
                   <ion-icon :icon="camera" slot="icon-only"></ion-icon>
                 </ion-button>
-                <img :src="profilePhoto" />
+                <img :src="bannerPhoto" />
               </div>
                 <input type="text" class="not-displayed" v-model="picture" required>
             </ion-item>
@@ -107,12 +109,19 @@ export default defineComponent({
   },
   data: function() {
     return {
-      type: 'banner',
-      picture: null
+      picture: null,
+      marketing_tool_type : '',
+      marketing_tool_size : '',
+      marketing_tool_transaction : '',
+      for_sale: '',
+      for_lease: '',
+      agent_name : '',
+      agent_contact : '',
+      quantity: null
     }
   },
   setup(){
-    const profilePhoto = ref('');
+    const bannerPhoto = ref('');
     const router = useRouter();
 
     const takePhoto = async () => {
@@ -124,12 +133,12 @@ export default defineComponent({
       });
       console.log(image)
       let url = `data:image/${image.format};base64, ${image.base64String}`
-      profilePhoto.value = url;
+      bannerPhoto.value = url;
     }
 
     return {
       router,
-      profilePhoto,
+      bannerPhoto,
       takePhoto,
       camera
     }
@@ -141,13 +150,25 @@ export default defineComponent({
   computed: {
     payload: function() {
       return {
-        type: this.type
+        marketing_tool_type : this.marketing_tool_type,
+        marketing_tool_size : this.marketing_tool_size,
+        marketing_tool_transaction : this.marketing_tool_transaction,
+        office_logo : this.bannerPhoto,
+        for_sale: '',
+        for_lease: '',
+        agent_name : this.agent_name,
+        agent_contact : this.agent_contact,
+        quantity: parseInt(this.quantity)
       }
     }
   },
   methods: {
+    showPayload: function () {
+      console.log(this.payload)
+    },
     submitPayload: function() {
       console.log(this.payload)
+      this.$emit('submitMarketing',this.payload)
     }
   }
 });

@@ -37,7 +37,7 @@
             </ul>
           </div>
         </div>
-        <ion-item mode="md" class="reset-class" href="/profile/edit" routerDirection="forward">
+        <ion-item mode="md" class="reset-class" :href="urlEditProfile" routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -181,6 +181,11 @@ export default defineComponent({
     this.getUserInfo()
   },
   mounted() {
+  },
+  computed : {
+   urlEditProfile: function () {
+     return this.userDetail ? `profile/edit/${this.userDetail.id}` : '#'
+   }
   },
   methods: {
     getUserInfo: async function () {

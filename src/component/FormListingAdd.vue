@@ -294,32 +294,32 @@ export default defineComponent({
   },
   watch: {
     detailListing: function (val) {
-      if (val) {
+      if (val && Object.keys(val).length > 0) {
         let {address, name, longitude, latitude, price, comission, type_listing, description, property_type, surface_area, building_area, floor, bedroom, bathroom, garage_capacity, carport_capacity, property_heading, certificate, electricity, interior, facilities, contact_name_for_marketing_contract, ownership_status, type_contract, gallery} = val
-        this.address = address
-        this.name = name
-        this.longitude = longitude
-        this.latitude = latitude
-        this.price = price
-        this.comission = comission
-        this.type_listing = type_listing
-        this.description = description
-        this.property_type = property_type
-        this.surface_area = surface_area
-        this.building_area = building_area
-        this.floor = floor
-        this.bedroom = bedroom
-        this.bathroom = bathroom
-        this.garage_capacity = garage_capacity
-        this.carport_capacity = carport_capacity
-        this.property_heading = property_heading
-        this.certificate = certificate
-        this.electricity = electricity
-        this.interior = interior
-        this.facilities = facilities
-        this.contact_name_for_marketing_contract = contact_name_for_marketing_contract
-        this.ownership_status = ownership_status
-        this.type_contract = type_contract
+        this.address = address || ''
+        this.name = name || ''
+        this.longitude = longitude || ''
+        this.latitude = latitude || ''
+        this.price = price || ''
+        this.comission = comission || ''
+        this.type_listing = type_listing || ''
+        this.description = description || ''
+        this.property_type = property_type || ''
+        this.surface_area = surface_area || ''
+        this.building_area = building_area || ''
+        this.floor = floor || ''
+        this.bedroom = bedroom || ''
+        this.bathroom = bathroom || ''
+        this.garage_capacity = garage_capacity || ''
+        this.carport_capacity = carport_capacity || ''
+        this.property_heading = property_heading || ''
+        this.certificate = certificate || ''
+        this.electricity = electricity || ''
+        this.interior = interior || ''
+        this.facilities = facilities || ''
+        this.contact_name_for_marketing_contract = contact_name_for_marketing_contract || ''
+        this.ownership_status = ownership_status || ''
+        this.type_contract = type_contract || ''
         this.albums = gallery.length > 0 ? [...gallery] : []
       }
     },

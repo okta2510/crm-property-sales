@@ -11,7 +11,11 @@
       v-on:modalClick="null">
     </HeaderPage>
     <ion-content  id="content-page" class="min-height-100 ion-padding pb-100 bg-primary text-light form-logged">
-        <FormProfileEdit></FormProfileEdit>
+        <FormProfileEdit
+        :idDetail="route.params.id"
+        :detailInfo="detailInfo"
+        :signingIn="signingIn"
+        v-on:submitProfile="onSubmitProfile"/>
     </ion-content>
   </ion-page>
 </template>
@@ -20,12 +24,14 @@
 import { 
   IonContent,
   IonPage,
-  modalController,
+  toastController
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
-import ModalFilterListing from '@/component/ModalFilterListing.vue'
+import { getLocal } from '@/services/storage'
 import FormProfileEdit from '@/component/FormProfileEdit.vue'
+import { useRoute } from 'vue-router'
+import axios from 'axios';
 
 export default defineComponent({
   components: {
@@ -38,11 +44,23 @@ export default defineComponent({
     return {
       titlePage: 'My Listing',
       currentModal: null,
-      results: [1,2,3,4,5]
+      detailInfo: {},
+      signingIn: false
+    }
+  },
+  computed: {
+    API_HOST: function () {
+      return 'http://54.179.9.67:8000/api/v1/consumer'
+    },
+    API_PROFILE: function () {
+      return this.API_HOST+'/member/profile/'
     }
   },
   setup() {
-    return {}
+    const route = useRoute();
+    return {
+      route
+    }
   },
   ionViewWillEnter() {
   },
@@ -52,34 +70,83 @@ export default defineComponent({
   },
   ionViewDidLeave() {
   },
-  created() {
+  created: async function () {
+     await this.getUserInfo()
+     if (this.route.params && this.route.params.id) {
+       this.getDetail()
+     }
   },
   mounted() {
   },
   methods: {
-    getListing (queryString) {
-      queryString ?  this.results = [1] :  this.results = [1,2,3,4,5]
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
     },
-    async openModal() {
-      const modal = await modalController
-        .create({
-          component: ModalFilterListing,
-          cssClass: 'modal-component filter-component',
-          swipeToClose: true,
-          showBackdrop: true,
-          mode: 'ios',
-          backdropDismiss: true,
-          animated: true,
-          componentProps: {
-            title: 'Filter Pencarian',
-            closeAction: this.closeModal
-          },
-        })
-      this.currentModal = modal
-      return modal.present();
+    getUserInfo: async function () {
+      await getLocal('userInfo').then((res)=>{
+        if(res) {
+          this.userToken = res.token
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
     },
-    closeModal() {
-      this.currentModal.dismiss()
+    getDetail: function () {
+      let self = this
+      axios.get(this.API_PROFILE + this.route.params.id,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.detailInfo = response.data
+      }).catch(function (err) {
+        console.log(err)
+        self.openToast('Error, Invalid profile detail', 5000, 'danger')
+        setTimeout(function() {
+          // window.location = '/tab4'
+        }, 2000)
+      })
+    },
+    onSubmitProfile: function (payload) {
+      let self = this
+      this.signingIn = true
+      axios.put(this.API_PROFILE + this.route.params.id, payload, {
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      })
+      .then(() => {
+        self.openToast('Profile telah di perbaharui', 5000, 'success')
+        self.signingIn = false
+      }, {
+         headers: {
+          'Accept': "application/json"
+        },
+        mode:"cors"
+      }).catch((err) => {
+        // handle err
+        console.log(err.response)
+        self.openToast(err.response ? err.response.data.detail : 'Update Profile Error', 5000, 'danger')
+        self.signingIn = false
+      })
     }
   }
 });
