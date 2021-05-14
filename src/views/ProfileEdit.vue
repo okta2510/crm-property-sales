@@ -12,9 +12,11 @@
     </HeaderPage>
     <ion-content  id="content-page" class="min-height-100 ion-padding pb-100 bg-primary text-light form-logged">
         <FormProfileEdit
+        id="top-page"
         :idDetail="route.params.id"
         :detailInfo="detailInfo"
-        :onSubmitting="onSubmitting"
+        :submitting="onSubmitting"
+        :gettingDetail="onGettingDetail"
         v-on:submitProfile="onSubmitProfile"/>
     </ion-content>
   </ion-page>
@@ -45,7 +47,8 @@ export default defineComponent({
       titlePage: 'My Listing',
       currentModal: null,
       detailInfo: {},
-      onSubmitting: false
+      onSubmitting: false,
+      onGettingDetail: true,
     }
   },
   computed: {
@@ -105,6 +108,7 @@ export default defineComponent({
     },
     getDetail: function () {
       let self = this
+      this.onGettingDetail = true
       axios.get(this.API_PROFILE + this.route.params.id,{
          headers: {
           'Accept': "application/json",
@@ -113,6 +117,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
+        self.onGettingDetail = false
         self.detailInfo = response.data
       }).catch(function (err) {
         console.log(err)

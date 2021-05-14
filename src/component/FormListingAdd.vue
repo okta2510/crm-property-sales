@@ -1,16 +1,17 @@
 <template>
-  <ion-grid class="ion-no-padding component-form">
+  <ion-grid class="ion-no-padding component-form" id="top-page">
     <ion-row>
       <ion-col size-md="4" size-xs="10" offset-md="4" offset-xs="1">
         <div class="heading-page text-center mb-30">
           <h1 class="text-center title mt-0 mb-1" @click="showPayload">Listing Baru</h1>
           <span class="d-block text-center">Lengkapi form dibawah untuk upload</span>
         </div>
-        <form v-on:submit.prevent="submitPayload" class="form-custom logged">
+        <form v-on:submit.prevent="checkValidityForm" class="form-custom logged">
           <div class="input-wrap mb-0">
             <ion-item class="md ion-no-padding-start ion-no-padding-end mb-30">
+              <!-- required  -->
               <ion-label color="medium" position="stacked">Nama Property</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" value="" v-model="name" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" v-model="name">
               </ion-input>
             </ion-item>
             <ion-label color="medium" position="stacked">Titik Lokasi</ion-label>
@@ -22,96 +23,108 @@
               :center="{ lat: 38.8977859, lng: -77.0057621 }"
               :mapDidLoad="handleMapDidLoad">
               </GoogleMapSearch>
-               <ion-input id="" placeholder="Ketik Nama Lokasi..." autocapitalize="off" title="" type="text" class="w-100 mt-10 mb-10 px-0" value="" v-model="location"> </ion-input>
+               <ion-input id="" placeholder="Ketik Nama Lokasi..." autocapitalize="off" title="" type="text" class="w-100 mt-10 mb-10 px-0"  v-model="location"> </ion-input>
               <ion-button class="ios md" @click="findLocation" size="" expand="block">Cari Lokasi</ion-button>
               <p v-if="locResult">
                 lat {{ locresult.position }} {{locresult.address}}
               </p>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required  -->
               <ion-label color="medium" position="stacked">Alamat Listing</ion-label>
-              <ion-textarea rows="3" cols="20" id="" placeholder="" autocapitalize="off" title="" value="" v-model="address" required>
+              <ion-textarea rows="3" cols="20" id="" placeholder="" autocapitalize="off" title="" v-model="address">
               </ion-textarea>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required  -->
               <ion-label color="medium" position="stacked">Harga</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="price" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="price">
               </ion-input>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Komisi</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="comission" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="comission">
               </ion-input>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label position="stacked">Tipe Listing</ion-label>
-              <ion-select value="" v-model="type_listing" ok-text="Pilih" cancel-text="Tutup">
+              <ion-select  v-model="type_listing" ok-text="Pilih" cancel-text="Tutup">
                 <ion-select-option value="dijual">Dijual</ion-select-option>
                 <ion-select-option value="disewa">Disewa</ion-select-option>
               </ion-select>
-              <input type="text" class="not-displayed" :value="type_listing" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required  -->
               <ion-label color="medium" position="stacked">Deskripsi Listing</ion-label>
-              <ion-textarea rows="2" cols="20" id="" placeholder="" autocapitalize="off" title="" value="" v-model="description" required>
+              <ion-textarea rows="2" cols="20" id="" placeholder="" autocapitalize="off" title=""  v-model="description">
               </ion-textarea>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required  -->
               <ion-label position="stacked">Jenis Properti</ion-label>
-              <ion-select value="" v-model="property_type" ok-text="Pilih" cancel-text="Tutup">
+              <ion-select  v-model="property_type" ok-text="Pilih" cancel-text="Tutup">
                 <ion-select-option value="rumah">Rumah</ion-select-option>
                 <ion-select-option value="apartment">Apartement</ion-select-option>
                 <ion-select-option value="kavling">Kavling</ion-select-option>
               </ion-select>
-              <input type="text" class="not-displayed" :value="property_type" required>
             </ion-item>
             
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Luas Tanah</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="surface_area" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="surface_area">
               </ion-input>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Luas Bangunan</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="building_area" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="building_area">
               </ion-input>
             </ion-item>
             
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Jumlah Lantai</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="floor" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="floor">
               </ion-input>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Jumlah Kamar Tidur</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="bedroom" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="bedroom">
               </ion-input>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Jumlah Kamar Mandi</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="bathroom" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="bathroom">
               </ion-input>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Kapasitas Garasi</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="garage_capacity" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="garage_capacity">
               </ion-input>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Kapasitas Carpot</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="carport_capacity" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="carport_capacity">
               </ion-input>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Properti Menghadap ke arah</ion-label>
-              <ion-select value="" v-model="property_heading" ok-text="Pilih" cancel-text="Tutup">
+              <ion-select  v-model="property_heading" ok-text="Pilih" cancel-text="Tutup">
                 <ion-select-option value="timur">Timur</ion-select-option>
                 <ion-select-option value="tenggara">Tenggara</ion-select-option>
                 <ion-select-option value="selatan">Selatan</ion-select-option>
@@ -121,69 +134,71 @@
                 <ion-select-option value="utara">Utara</ion-select-option>
                 <ion-select-option value="timur laut">Timur Laut</ion-select-option>
               </ion-select>
-              <input type="text" class="not-displayed" :value="property_heading" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+              <!-- required -->
               <ion-label color="medium" position="stacked">Status Sertifikat</ion-label>
-              <ion-select value="" v-model="certificate" ok-text="Pilih" cancel-text="Tutup">
+              <ion-select  v-model="certificate" ok-text="Pilih" cancel-text="Tutup">
                 <ion-select-option value="ppjb">PPJB</ion-select-option>
                 <ion-select-option value="girik">Girik</ion-select-option>
                 <ion-select-option value="ajb">AJB</ion-select-option>
                 <ion-select-option value="hgb">HGB</ion-select-option>
               </ion-select>
-              <input type="text" class="not-displayed" :value="certificate" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+               <!-- required -->
               <ion-label color="medium" position="stacked">Daya Listrik</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number" value="" v-model="electricity" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="number"  v-model="electricity">
               </ion-input>
-              <input type="text" class="not-displayed" :value="electricity" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+               <!-- required -->
               <ion-label color="medium" position="stacked">Kondisi Interior</ion-label>
-              <ion-select value="" v-model="interior" ok-text="Pilih" cancel-text="Tutup">
+              <ion-select  v-model="interior" ok-text="Pilih" cancel-text="Tutup">
                 <ion-select-option value="furnished">Furnished</ion-select-option>
                 <ion-select-option value="semi">Semi</ion-select-option>
                 <ion-select-option value="non furnished">Non Furnished</ion-select-option>
               </ion-select>
-              <input type="text" class="not-displayed" :value="interior" required>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+               <!-- required -->
               <ion-label color="medium" position="stacked">Fasilitas Kawasan</ion-label>
-              <ion-textarea rows="3" cols="20" id="" placeholder="" autocapitalize="off" title="" value="" v-model="facilities" required>
+              <ion-textarea rows="3" cols="20" id="" placeholder="" autocapitalize="off" title=""  v-model="facilities">
               </ion-textarea>
             </ion-item>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+               <!-- required -->
               <ion-label color="medium" position="stacked">Nama Tertulis</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" value="" v-model="contact_name_for_marketing_contract" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text"  v-model="contact_name_for_marketing_contract">
               </ion-input>
             </ion-item>
             <small class="text-light"><i>*Sebagai Kontak Untuk di Perjanjian Jasa Pemasaran</i></small>
 
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
+               <!-- required -->
               <ion-label color="medium" position="stacked">Status Kepemilikan</ion-label>
-              <ion-select value="" v-model="ownership_status" ok-text="Pilih" cancel-text="Tutup">
+              <ion-select  v-model="ownership_status" ok-text="Pilih" cancel-text="Tutup">
                 <ion-select-option value="pemilik">Pemilik</ion-select-option>
                 <ion-select-option value="kuasa pemilik">Kuasa Pemilik</ion-select-option>
               </ion-select>
-              <input type="text" class="not-displayed" :value="ownership_status" required>
             </ion-item>
 
              <ion-item class="md ion-no-padding-start ion-no-padding-end">
+                <!-- required -->
               <ion-label position="stacked">Tipe Perjanjian</ion-label>
-              <ion-select value="" v-model="type_contract" ok-text="Pilih" cancel-text="Tutup">
+              <ion-select  v-model="type_contract" ok-text="Pilih" cancel-text="Tutup">
                 <ion-select-option value="ekslusif">Ekslusif</ion-select-option>
                 <ion-select-option value="non ekslusif">Non Ekslusif</ion-select-option>
               </ion-select>
-              <input type="text" class="not-displayed" :value="type_contract" required>
             </ion-item>
 
             <ion-item class="md photo ion-no-padding-start ion-no-padding-end bg-transparent mt-3">
+               <!-- required -->
               <ion-label color="medium" position="stacked">Foto Properti</ion-label>
 
               <div class="component-upload-multi-photo mt-2 mb-3" @click="takePhoto()" v-show="albums && albums.length < 5">
@@ -207,7 +222,7 @@
                   </ion-button>
                 </li>
               </ul>
-              <input type="text" class="not-displayed" :value="albums.length > 0 ? 'filled' : ''" required>
+              <!-- <input type="text" class="not-displayed" :value="albums.length > 0 ? 'filled' : ''" required> -->
             </ion-item>
             
             <div class="mt-3 text-right">
@@ -216,7 +231,7 @@
               size="large"
               class="ios md"
               expand="block"
-              :disabled="onSubmitting || idDetail && Object.keys(detailListing).length === 0"
+              :disabled="submitting || idDetail && Object.keys(detailListing).length === 0"
               type="submit">
                 <strong>{{detailListing && Object.keys(detailListing).length > 0 ? 'Update Perubahan' : 'Tambahkan'}}</strong>
               </ion-button>
@@ -240,7 +255,8 @@ import {
   IonIcon,
   IonSelect,
   IonSelectOption,
-  IonInput
+  IonInput,
+  toastController
 } from '@ionic/vue';
 import { ref, defineComponent } from 'vue';
 import { camera,trashOutline } from 'ionicons/icons';
@@ -379,7 +395,7 @@ export default defineComponent({
       type: String,
       default: undefined
     },
-    onSubmitting: {
+    submitting: {
       type: Boolean,
       default: false
     }
@@ -447,6 +463,21 @@ export default defineComponent({
     }
   },
   methods: {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
+    },
     removeImage: function (index) {
       if (typeof this.albums[index] === 'object') {
         this.deleteImages.push(this.albums[index])
@@ -462,6 +493,102 @@ export default defineComponent({
     submitPayload: function() {
       this.$emit('submitListing', this.payload, this.albums, this.deleteImages)
       this.deleteImages = []
+    },
+    checkValidityForm: function() {
+      // document.getElementById("top-page").scrollIntoView()
+      if (!this.name) {
+        this.openToast('Nama Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.address) {
+        this.openToast('Alamat Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.price) {
+        this.openToast('Harga Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.comission) {
+        this.openToast('Komisi Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.type_listing) {
+        this.openToast('Tipe Listing Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.description) {
+        this.openToast('Deskripsi Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.property_type) {
+        this.openToast('Tipe Properti Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.surface_area) {
+        this.openToast('Luas Tanah Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.building_area) {
+        this.openToast('Luas Bangunan Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.floor) {
+        this.openToast('Jumlah Lantai Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.bedroom) {
+        this.openToast('Jumlah Kamar Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.bathroom) {
+        this.openToast('Jumlah Kamar Tidur Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.garage_capacity) {
+        this.openToast('Nama Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.carport_capacity) {
+        this.openToast('Kapasitas Karpot Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.property_heading) {
+        this.openToast('Arah Menghadap Bangunan Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.certificate) {
+        this.openToast('Sertifikat Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.electricity) {
+        this.openToast('Daya Listrik Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.interior) {
+        this.openToast('Kondisi Interior Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.facilities) {
+        this.openToast('Fasilitas Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.contact_name_for_marketing_contract) {
+        this.openToast('Kontak Marketing Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.ownership_status) {
+        this.openToast('Status Kepemilikan Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.type_contract) {
+        this.openToast('Tipe Kontrak Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      if (!this.albums.length > 0) {
+        this.openToast('Foto Properti Wajib Diisi', 3000, 'danger', 'top')
+        return
+      }
+      this.submitPayload()
     }
   }
 });

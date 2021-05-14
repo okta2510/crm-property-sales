@@ -13,6 +13,7 @@
     <ion-content  id="content-page" class="min-height-100 ion-padding pb-100 bg-primary text-light form-logged">
         <FormListingAdd
         :idDetail="route.params.id"
+        :submitting="onSubmitting"
         :detailListing="detailListing"
         v-on:submitListing="onSubmitListing"/>
     </ion-content>

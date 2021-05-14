@@ -410,6 +410,9 @@ ion-select::part(text) {
     padding-top: 7px;
   }
 }
+input::placeholder {
+  font-size: 14px;
+}
 .input-search {
   background-color: #fff;
   --background: #fff;
@@ -991,6 +994,8 @@ ion-modal.modal-component {
       text-align: left;
       padding: 5px;
       ion-chip {
+        -webkit-box-shadow: 1px 1px 5px 0 #ccc;
+        box-shadow: 1px 1px 5px 0 #ccc;
         display: inline-block;
         padding: 0 8px;
         height: 16px;

@@ -19,14 +19,14 @@
                     <ion-label color="secondary">{{item.property_type}}</ion-label>
                   </ion-chip>
                </div>
-               <img @click="router.push(`/listing/${item.id}?type=${listingType}`)" class="feature-img cursor-pointer" :src="item.image || `/assets/empty-image-square.png`" />
+               <img @click="goTo(`/listing/${item.id}?type=${listingType}`)" class="feature-img cursor-pointer" :src="item.image || `/assets/empty-image-square.png`" />
              </div>
           </ion-col>
           <ion-col class='content-info' size="7">
             <span class="d-block w-100 date">
             {{formattingDate(item.created, 'YYYY-MM-DD HH:mm') || 'YYYY-MM-DD HH:mm'}}
             </span>
-            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item.id}?type=${listingType}`)">
+            <span class="d-block w-100 title cursor-pointer" @click="goTo(`/listing/${item.id}?type=${listingType}`)">
               {{item.name || 'title listing'}}
             </span>
             <div class="component-size-info">

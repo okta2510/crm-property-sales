@@ -59,7 +59,7 @@
 
             <div class="mt-3 text-right">
               <ion-button
-              :disabled="onSubmitting"
+              :disabled="submitting"
               color="secondary"
               size="large"
               class="ios md"
@@ -126,7 +126,7 @@ export default defineComponent({
 
     const takePhoto = async () => {
       const image = await Camera.getPhoto({
-        quality: 90,
+        quality: 80,
         // allowEditing: true,
         resultType: CameraResultType.Base64,
         source: CameraSource.Prompt
@@ -150,7 +150,7 @@ export default defineComponent({
         return []
       }
     },
-    onSubmitting: {
+    submitting: {
       type: Boolean,
       default: false
     }

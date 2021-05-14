@@ -11,11 +11,11 @@
       <div class="my-account">
         <div class="profile-info">
           <div class="thumbnail-photo">
-            <img :src="userDetail ? userDetail.profile_picture : '/assets/agent-empty.png'"/>
+            <img :src="userDetail ? userDetail.profile_picture : '/assets/agent-empty.png'" onerror="this.onerror=null; this.src='/assets/agent-empty.png'"/>
           </div>
           <div class="text">
             <span class="name">
-              {{userDetail ? userDetail.account_holder : '-name-'}}
+              {{userDetail ? userDetail.display_name : '-name-'}}
             </span>
             <span class="email">Professional Real Estate Agent</span>
             <ul class="star-rating mb-20" v-if="userDetail">

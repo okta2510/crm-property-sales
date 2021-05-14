@@ -7,7 +7,7 @@
     class="list-item"
     :class="classProps"
     >
-      <ion-card mode="ios" :href="`/berita/${detail.id}`">
+      <ion-card mode="ios" @click="goTo(`/berita/${detail.id}`)">
         <div class="wrap-image">
           <img class="feature-img" :src="detail.thumbnail || `/assets/empty-image-square.png`" />
         </div>
@@ -75,6 +75,9 @@ export default defineComponent({
   methods: {
     formattingDate(val, format) {
       return moment(val).format(format)
+    },
+    goTo (url) {
+      window.location.href = url
     },
     limitContent: function (string) {
       let newString = ''
