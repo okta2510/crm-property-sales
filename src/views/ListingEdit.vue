@@ -183,7 +183,7 @@ export default defineComponent({
         },
         mode:"cors"
       })
-      .then((res) => {
+      .then(() => {
         self.openToast('Listing berhasil diperbaharui', 5000, 'success')
         setTimeout(function() {
           window.location = '/my-listing'
