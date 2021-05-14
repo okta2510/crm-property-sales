@@ -82,7 +82,8 @@ import {
   toastController,
   IonHeader,
   IonFooter,
-  IonRippleEffect
+  IonRippleEffect,
+  useBackButton
 } from '@ionic/vue'
 import { add } from 'ionicons/icons';
 import { setLocal, getLocal, removeLocal } from '@/services/storage'
@@ -120,6 +121,9 @@ export default {
       })
     }
     getLoggedUser()
+    useBackButton(10, () => {
+      console.log('Handler was called!');
+    });
 
     return {
       add, router, Http

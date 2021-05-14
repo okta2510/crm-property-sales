@@ -23,11 +23,11 @@
                           </div>
                             <input type="text" class="not-displayed" :value="profile_picture || profilePhoto ? 'filled':''" required>
                         </ion-item>
-                        <ion-item class="md ion-no-padding-start ion-no-padding-end">
+                        <!-- <ion-item class="md ion-no-padding-start ion-no-padding-end">
                           <ion-label color="medium" position="stacked">Nama Lengkap</ion-label>
                           <ion-input name="full_name" id="full_name" placeholder="" autocapitalize="off" title="nama lengkap" type="text" v-model="name" :value="name" required>
                           </ion-input>
-                        </ion-item>
+                        </ion-item> -->
                         <ion-item class="md ion-no-padding-start ion-no-padding-end">
                           <ion-label color="medium" position="stacked">Nama Publik</ion-label>
                           <ion-input id="nama_publik" placeholder="" autocapitalize="off" title="nama publik" type="text" v-model="display_name" :value="display_name" required>
@@ -48,11 +48,11 @@
                           <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" v-model="phone_third" :value="phone_third">
                           </ion-input>
                         </ion-item>
-                        <ion-item class="md ion-no-padding-start ion-no-padding-end">
+                        <!-- <ion-item class="md ion-no-padding-start ion-no-padding-end">
                           <ion-label color="medium" position="stacked">Email</ion-label>
                           <ion-input id="" placeholder="" autocapitalize="off" title="" type="email" v-model="email" :value="email" required>
                           </ion-input>
-                        </ion-item>
+                        </ion-item> -->
                         <!-- <ion-item class="md ion-no-padding-start ion-no-padding-end">
                           <ion-label color="medium" position="stacked">Password</ion-label>
                           <ion-input id="" placeholder="" autocapitalize="off" title="" type="password" v-model="password" :value="password" required>
@@ -149,6 +149,7 @@
                             </ion-item>
                           </div>
                           <ion-button
+                          :disabled="onSubmitting"
                           color="warning"
                           size="large"
                           class="ios md"
@@ -209,20 +210,20 @@ export default defineComponent({
       name: null,
       display_name: null,
       phone: null,
-      email: null,
+      // email: null,
       address: null,
       pob: null,
-      ktp: null,
-      npwp: null,
-      npwp_file: null,
+      // ktp: null,
+      // npwp: null,
+      // npwp_file: null,
       profile_picture: null,
       bank: null,
       bank_branch: null,
       account_number: null,
       account_holder: null,
       member_id : null,
-      rePassword: null,
-      password: null,
+      // rePassword: null,
+      // password: null,
       mail_address: null,
       phone_second: null,
       phone_third: null
@@ -297,7 +298,7 @@ export default defineComponent({
       type: String,
       default: undefined
     },
-    signingIn: {
+    onSubmitting: {
       type: Boolean,
       default: false
     }
@@ -320,10 +321,10 @@ export default defineComponent({
     payload() {
       return {
         dob: this.dob,
-        name: this.name,
+        // name: this.name,
         display_name: this.display_name,
         phone: this.phone,
-        email: this.email,
+        // email: this.email,
         address: this.address,
         pob: this.pob,
         // ktp: this.ktp,
@@ -341,20 +342,19 @@ export default defineComponent({
   },
   watch: {
     detailInfo: function (val) {
-      console.log(val)
       if (val && Object.keys(val).length > 0) {
-        // let {dob, name, display_name, phone, email, address, pob, ktp, npwp, npwp_file, profile_picture, bank, bank_branch, account_number, account_holder, member_id,  mail_address, phone_second, phone_third} = val
-        let {dob, display_name, phone, address, pob, ktp, npwp, npwp_file, profile_picture, bank, bank_branch, account_number, account_holder, member_id, phone_second, phone_third} = val
+        // let {dob, name, display_name, phone, email, address, pob, ktp, npwp, npwp_file, profile_picture, bank, bank_branch, account_number, account_holder, member_id,  iya itu, phone_second, phone_third} = val
+        let {dob, display_name, phone, address, pob, profile_picture, bank, bank_branch, account_number, account_holder, member_id, phone_second, phone_third} = val
         this.dob= dob || ''
-        // this.name= name
+        // this.name= display_name || ''
         this.display_name= display_name || ''
         this.phone= phone || ''
-        // this.email= email
+        // this.email= 'anya@gmail.com'
         this.address= address || ''
         this.pob= pob || ''
-        this.ktp= ktp || ''
-        this.npwp= npwp || ''
-        this.npwp_file= npwp_file || ''
+        // this.ktp= ktp || ''
+        // this.npwp= npwp || ''
+        // this.npwp_file= npwp_file || ''
         this.profile_picture= profile_picture || ''
         this.bank= bank || ''
         this.bank_branch= bank_branch || ''
@@ -376,33 +376,31 @@ export default defineComponent({
       this.goNext()
     },
     showPayload: function () {
-      alert()
       console.log(this.payload)
       console.log(this.albums)
     },
     submitPayload: function() {
-      console.log(this.payload)
       this.$emit('submitProfile', this.payload)
     },
     resetState() {
       this.dob = null,
-      this.name = null,
+      // this.name = null,
       this.display_name = null,
       this.phone = null,
-      this.email = null,
+      // this.email = null,
       this.address =  null,
       this.pob = null,
-      this.ktp = null,
-      this.npwp = null,
-      this.npwp_file = null,
+      // this.ktp = null,
+      // this.npwp = null,
+      // this.npwp_file = null,
       this.profile_picture = null,
       this.bank = null,
       this.bank_branch = null,
       this.account_number = null,
       this.account_holder = null,
       this.member_id  = null,
-      this.rePassword = null,
-      this.password = null,
+      // this.rePassword = null,
+      // this.password = null,
       this.mail_addres =  null
     }
   }

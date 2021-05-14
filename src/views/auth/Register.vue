@@ -41,42 +41,43 @@
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nama Lengkap</ion-label>
-                          <ion-input name="full_name" id="full_name" placeholder="" autocapitalize="off" title="nama lengkap" type="text" v-model="name" value="" required>
+                          <ion-input placeholder="" autocapitalize="off" title="Isi nama anda" type="text" v-model="name" value="" :required="true">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nama Publik</ion-label>
-                          <ion-input id="nama_publik" placeholder="" autocapitalize="off" title="nama publik" type="text" v-model="display_name" value="" required>
+                          <ion-input id="" placeholder="" autocapitalize="off" title="nama publik" type="text" v-model="display_name" value="" :required="true">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">No HP (Primary)</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" value="" v-model="phone" required>
+                          <ion-input id="phone_primary" placeholder="ex: +62812XXXXXX" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" value="" v-model="phone" :required="true">
                           </ion-input>
+
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nomor ke - 2</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" v-model="phone_second" value="">
+                          <ion-input id="" placeholder="ex: +62812XXXXXX" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" v-model="phone_second" value="">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Nomor ke - 3</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43' minlength="12" type="tel" v-model="phone_third" value="">
+                          <ion-input id="" placeholder="ex: +62812XXXXXX" autocapitalize="off"  title="+62812XXXXXX" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 43'  minlength="12" type="tel" v-model="phone_third" value="">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Email</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="email" v-model="email" value="" required>
+                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="email" v-model="email" value="" :required="true">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Password</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="password" v-model="password" value="" required>
+                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="password" v-model="password" value="" :required="true">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Ketik Ulang Password</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="password" v-model="rePassword" value="" required>
+                          <ion-input id="rePassword" placeholder="" autocapitalize="off" title="" type="password" v-model="rePassword" value="" :required="true">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
@@ -92,23 +93,23 @@
                           name="date"
                           display-format="MMMM DD, YYYY"
                           month-short-names="jan, feb, mar, apr, mai, jun, jul, aug, sep, okt, nov, des"
-                          required></ion-datetime>
-                           <input type="text" class="not-displayed" v-model="dob" required>
+                          :required="true"></ion-datetime>
+                           <input type="text" class="not-displayed" v-model="dob" :required="true">
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Tempat Kelahiran</ion-label>
-                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" v-model="pob" value="" required>
+                          <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" v-model="pob" value="" :required="true">
                           </ion-input>
                         </ion-item>
                         <ion-item class="md">
                           <ion-label color="medium" position="stacked">Alamat</ion-label>
-                          <ion-textarea rows="4" cols="20" id="" placeholder="" autocapitalize="off" title=""  v-model="address" value="" required>
+                          <ion-textarea rows="4" cols="20" id="" placeholder="" autocapitalize="off" title=""  v-model="address" value="" :required="true">
                           </ion-textarea>
                         </ion-item>
                       </div>
 
                         <div class="mt-3 text-right">
-                          <ion-button name="selanjutnya" type="submit" class="clear-button">
+                          <ion-button name="selanjutnya" type="submit" class="clear-button" @click="checkValidityForm1">
                           Selanjutnya 
                           <ion-icon :icon="chevronForward"></ion-icon>
                           </ion-button>
@@ -144,26 +145,27 @@
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Bank</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="bank name" type="text" v-model="bank" value="" required>
+                              <ion-input id="bank_number" placeholder="" autocapitalize="off" title="bank name" type="text" v-model="bank" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Cabang</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="cabang bank" type="text" v-model="bank_branch" value="" required>
+                              <ion-input id="bank_branch" placeholder="" autocapitalize="off" title="cabang bank" type="text" v-model="bank_branch" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">No Rekening</ion-label>
-                              <ion-input id="nomor_ktp" placeholder="" autocapitalize="off" title="No Rekening" type="text" v-model="account_number" value="" required>
+                              <ion-input id="account_number" placeholder="" autocapitalize="off" title="No Rekening" type="text" v-model="account_number" value="" required>
                               </ion-input>
                             </ion-item>
                             <ion-item class="md">
                               <ion-label color="medium" position="stacked">Nama di Rekening</ion-label>
-                              <ion-input id="nomor_rekening" placeholder="" autocapitalize="off" title="Nama di Rekening" type="text" v-model="account_holder" value="" required>
+                              <ion-input id="nama_rekening" placeholder="" autocapitalize="off" title="Nama di Rekening" type="text" v-model="account_holder" value="" required>
                               </ion-input>
                             </ion-item>
                           </div>
                           <ion-button
+                          @click="checkValidityForm2"
                           color="warning"
                           size="large"
                           class="ios md"
@@ -183,6 +185,7 @@
 </template>
 <script>
 import axios from 'axios';
+import * as $ from "jquery";
 import {
   IonPage,
   IonContent,
@@ -386,6 +389,9 @@ export default defineComponent({
   },
   methods: {
     onSubmit: function () {
+      if (!this.checkValidityForm2) {
+        return
+      }
       let self = this
       this.signingIn = true
       axios.post(this.API_REGISTER, this.payload)
@@ -402,16 +408,17 @@ export default defineComponent({
       }).catch((err) => {
         // handle err
         console.log(err.response)
-        self.openToast(err.response ? err.response.data.detail : 'Login Error', 5000, 'danger')
+        self.openToast('Register Failed', 5000, 'danger')
         self.signingIn = false
       })
     },
-    async openToast(message='openToast', duration=2000, color='default') {
+    async openToast(message='openToast', duration=2000, color='default', position= 'bottom') {
       let toast = await toastController
         .create({
           message: message,
           duration: duration,
           animated: true,
+          position: position,
           cssClass: 'custom-toast',
           color: color
         })
@@ -425,7 +432,9 @@ export default defineComponent({
     },
     next: function () {
       this.disableSwap(false)
-      this.goNext()
+      if (this.checkValidityForm1) {
+        this.goNext()
+      }
     },
     printPayload() {
       console.log(this.payload)
@@ -450,6 +459,94 @@ export default defineComponent({
       this.rePassword = null,
       this.password = null,
       this.mail_addres =  null
+    },
+    checkValidityForm2: function () {
+      if (!this.ktp) {
+        this.openToast('Nomor kependudukan wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.npwp) {
+        this.openToast('Nomor NPWP wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.ktpPhoto) {
+        this.openToast('Foto KTP wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.bank) {
+        this.openToast('Nama bank wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.bank_branch) {
+        this.openToast('Rekening bank - nama cabang wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.account_number) {
+        this.openToast('Nomor rekening wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.account_holder) {
+        this.openToast('Nama pemilik rekening wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      return true
+    },
+    checkValidityForm1: function () {
+      if (!this.profilePhoto) {
+        this.openToast('Foto profil wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.name) {
+        this.openToast('Nama lengkap wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.display_name) {
+        this.openToast('Nama publik wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.phone) {
+        this.openToast('No HP wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.phone.includes('+') || this.phone.length <= 12) {
+        setTimeout(function() {
+          $("#phone_primary").find('input').focus()
+        },5)
+        this.openToast('Format no HP salah, ex: +62812XXXX dan minimal 12 digit', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.email) {
+        this.openToast('Email wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.password) {
+        this.openToast('Password wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.rePassword) {
+        this.openToast('Re-type password wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (this.rePassword !== this.password) {
+        setTimeout(function() {
+          $("#rePassword").find('input').focus()
+        },5)
+        this.openToast('Password dan Re-type password tidak cocok.', 2000, 'danger', 'top')
+        return false
+      }
+       if (!this.dob) {
+        this.openToast('Tanggal lahir wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.pob) {
+        this.openToast('Tempat kelahiran wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      if (!this.address) {
+        this.openToast('Alamat wajib di isi.', 2000, 'danger', 'top')
+        return false
+      }
+      return true
     }
   }
 })

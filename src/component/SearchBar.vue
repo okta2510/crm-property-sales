@@ -1,8 +1,8 @@
 <template>
   <div class="wrap-search wrap-content search-component" :class="classProps">
-    <div class="input-search input-icon-left">
+    <div class="input-search input-icon-left" :class="disabled ? 'disabled' : ''">
         <ion-icon :icon="search"></ion-icon>
-        <input type="text" v-model="queryString" v-on:keyup="searchingQuery" placeholder="Ketik Pencarian...">
+        <input :disabled="disabled" type="text" v-model="queryString" v-on:keyup="searchingQuery" placeholder="Ketik Pencarian...">
     </div>
     <ion-grid class="ion-no-padding">
       <ion-row>
@@ -41,6 +41,10 @@ export default defineComponent({
     IonCol
   },
   props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     searchEnter: { type: Function },
     listResults: {
       type: Array,
@@ -96,13 +100,15 @@ export default defineComponent({
       }
     },
     searchingQuery() {
-      let self = this
-      clearTimeout(this.timeOut)
-      this.timeOut =  setTimeout(function() {
-        self.$emit('searchEnter', {
-          'search': self.queryString
-        })
-      }, 1500)
+      if (!this.disabled) {
+        let self = this
+        clearTimeout(this.timeOut)
+        this.timeOut =  setTimeout(function() {
+          self.$emit('searchEnter', {
+            'search': self.queryString
+          })
+        }, 1500)
+      }
     }
   }
 });

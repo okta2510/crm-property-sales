@@ -51,7 +51,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-item mode="md" class="reset-class" href="#" routerDirection="forward">
+        <ion-item mode="md" class="reset-class" href="/coming-soon/reward-saya" routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -65,7 +65,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-item mode="md" class="reset-class"  routerDirection="forward">
+        <ion-item mode="md" class="reset-class" href="/coming-soon/transaction-saya"  routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -93,7 +93,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-         <ion-item mode="md" class="reset-class">
+         <ion-item mode="md" class="reset-class" href="/coming-soon/point-saya" routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">

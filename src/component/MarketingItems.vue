@@ -11,12 +11,14 @@
         <ion-row class="ion-align-items-center">
           <ion-col size="2">
            <div class="img-logo">
-              <img src="/assets/logo-agency.png"/>
+              <img :src="item.office_logo || '/assets/empty-image-square.png'"/>
            </div>
           </ion-col>
           <ion-col class='ion-no-padding pl-3' size="6">
             <span class="d-block w-100 date">
-            2020-11-05 10:00
+              {{
+                formattingDate()
+              }}
             </span>
             <span class="d-block w-100 title">
               Banner Dijual 50x40 cm
@@ -51,6 +53,7 @@ import {
     IonGrid
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import moment from 'moment';
 
 export default defineComponent({
   name: 'MarketingItems',
@@ -82,6 +85,9 @@ export default defineComponent({
   mounted() {
   },
   methods: {
+    formattingDate(val, format) {
+      return moment(val).format(format)
+    }
   }
 });
 </script>

@@ -423,6 +423,9 @@ ion-select::part(text) {
   border-radius: 10px;
   --webkit-border-radius: 10px;
   position: relative;
+  &.disabled {
+    background-color: #eee;
+  }
   input{
     height: 100%;
     border:none;
@@ -430,6 +433,10 @@ ion-select::part(text) {
     margin:0;
     vertical-align: top;
     display: inline-block;
+    width: 85%;
+    &:disabled {
+      cursor: not-allowed; 
+    }
     &::-webkit-input-placeholder { /* Edge */
       color: #D7D7D7;
     }

@@ -141,7 +141,8 @@ import {
   IonLabel,
   IonSegment,
   IonSegmentButton,
-  IonHeader
+  IonHeader,
+  useBackButton
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import {
@@ -153,7 +154,6 @@ import ListingList from '@/component/ListingList.vue'
 import NewsDashboardCard from '@/component/NewsDashboardCard.vue'
 import { useRouter } from 'vue-router'
 import { getLocal } from '@/services/storage'
-
 
 export default defineComponent({
   name: 'Dashboard',
@@ -210,6 +210,13 @@ export default defineComponent({
         disableOnInteraction: false
       }
     }
+
+    useBackButton(10, () => {
+      console.log('Handler was called!');
+    });
+
+    
+
     return {
       slideOpts,
       slideFeatureOpts,

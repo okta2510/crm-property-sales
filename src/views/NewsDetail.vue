@@ -96,7 +96,6 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    console.log(route.params.id)
     return {route}
   },
   computed: {

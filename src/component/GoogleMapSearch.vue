@@ -17,7 +17,8 @@ export default defineComponent({
     zoom: Number,
     mapType: String,
     disableUI: Boolean,
-    markers: Array
+    markers: Array,
+    mapDidLoad: Function
   },
   data: function () {
     return {
@@ -33,7 +34,7 @@ export default defineComponent({
     // load in the google script
     onMounted(() => {
       // key is is the .env file
-      const key = "AIzaSyCq4b1nTv5YfnOuveHtFL48JM9MJUzt5ic";
+      const key = "AIzaSyDUzZdi2LgA2zI5o2bBSqJvuV-bEEkfZpU";
 
       // create the script element to load
       const googleMapScript = document.createElement("SCRIPT");
@@ -47,7 +48,6 @@ export default defineComponent({
     });
 
     const loadMarkers = () => {
-      console.log(props.markers.length)
       if (props.markers.length === 0) return
       props.markers.forEach(markerInfo => {
         new window.google.maps.Marker({
@@ -69,6 +69,7 @@ export default defineComponent({
         center: props.center || { lat: 38.0, lng: -77.01 }
       });
       loadMarkers()
+      props.mapDidLoad &&  props.mapDidLoad(map, window.google.maps)
     };
     return {
       mapDivRef
@@ -79,9 +80,7 @@ export default defineComponent({
   beforeUpdate: function() {
   },
   mounted() {
-
-
-      console.log(this.markers)
+    // console.log(this.markers, this.mapDidLoad)
   },
   beforeUnmount: function() {
   },

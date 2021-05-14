@@ -10,7 +10,7 @@
     <ion-content class="ion-padding min-height-100 ion-no-padding-start ion-no-padding-end pb-100">
       <div id="container-page2">
         <div class="px-3 mb-3 text-center">
-          <ion-button color="medium" size="medium" class="min-w-300 mx-auto" @click="router.push('/marketing/add')">
+          <ion-button color="medium" size="medium" class="min-w-300 mx-auto" @click="goTo('/marketing/add')">
             <strong>Pesan Baru</strong>
           </ion-button>
         </div>
@@ -88,7 +88,6 @@ export default defineComponent({
   ionViewDidEnter() {
   },
   ionViewDidLeave() {
-    this.marketingOrders = {}
     //  this.router.push({
     //     'query': null
     // })
@@ -142,6 +141,9 @@ export default defineComponent({
       this.router.push({
         query: this.params
       })
+    },
+    goTo (url) {
+      window.location.href = url
     },
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{

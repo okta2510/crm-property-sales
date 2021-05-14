@@ -32,7 +32,7 @@
     "cordova-plugin-splashscreen": "^6.0.0",
     "core-js": "^3.6.5",
     "es6-promise-plugin": "^4.2.2",
-    "jquery": "^3.5.1",
+    "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "vue": "^3.0.0-0",
     "vue-resource": "^1.5.2",

@@ -11,8 +11,7 @@
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label position="stacked">Tipe Printing</ion-label>
               <ion-select :value="marketing_tool_type" ok-text="Pilih" v-model="marketing_tool_type" cancel-text="Tutup">
-                <ion-select-option value="banner">Banner</ion-select-option>
-                <ion-select-option value="spanduk">Spanduk</ion-select-option>
+                <ion-select-option v-for="(item, index) in typeTools" :key="index" :value="item.id">{{item.name}}</ion-select-option>
               </ion-select>
               <input type="text" class="not-displayed" :value="marketing_tool_type" required>
             </ion-item>
@@ -22,14 +21,15 @@
                 <ion-select-option value="50x40">50x40 cm</ion-select-option>
                 <ion-select-option value="90x60">90x60 cm</ion-select-option>
               </ion-select>
-               <input type="text" class="not-displayed" :value="marketing_tool_type" required>
+               <input type="text" class="not-displayed" :value="marketing_tool_size" required>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label position="stacked">Tipe Transaksi</ion-label>
-              <ion-select :value="marketing_tool_transaction" v-model="marketing_tool_transaction" ok-text="Pilih" cancel-text="Tutup">
+              <ion-select :value="transaction_type" v-model="transaction_type" ok-text="Pilih" cancel-text="Tutup">
                 <ion-select-option value="dijual">Dijual</ion-select-option>
                 <ion-select-option value="disewa">Disewa</ion-select-option>
               </ion-select>
+              <input type="text" class="not-displayed" :value="transaction_type" required>
             </ion-item>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Nama Agent</ion-label>
@@ -54,11 +54,12 @@
                 </ion-button>
                 <img :src="bannerPhoto" />
               </div>
-                <input type="text" class="not-displayed" v-model="picture" required>
+                <input type="text" class="not-displayed" v-model="bannerPhoto" required>
             </ion-item>
 
             <div class="mt-3 text-right">
               <ion-button
+              :disabled="onSubmitting"
               color="secondary"
               size="large"
               class="ios md"
@@ -109,10 +110,9 @@ export default defineComponent({
   },
   data: function() {
     return {
-      picture: null,
       marketing_tool_type : '',
       marketing_tool_size : '',
-      marketing_tool_transaction : '',
+      transaction_type : '',
       for_sale: '',
       for_lease: '',
       agent_name : '',
@@ -144,6 +144,16 @@ export default defineComponent({
     }
   },
   props: {
+    typeTools: {
+      type: Array,
+      default: function () {
+        return []
+      }
+    },
+    onSubmitting: {
+      type: Boolean,
+      default: false
+    }
   },
   mounted() {
   },
@@ -152,10 +162,8 @@ export default defineComponent({
       return {
         marketing_tool_type : this.marketing_tool_type,
         marketing_tool_size : this.marketing_tool_size,
-        marketing_tool_transaction : this.marketing_tool_transaction,
+        transaction_type : this.transaction_type,
         office_logo : this.bannerPhoto,
-        for_sale: '',
-        for_lease: '',
         agent_name : this.agent_name,
         agent_contact : this.agent_contact,
         quantity: parseInt(this.quantity)

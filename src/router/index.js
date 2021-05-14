@@ -62,6 +62,11 @@ const routes = [
     component: () => import('@/views/Transaction.vue')
   },
   {
+    path: '/coming-soon/:title',
+    name: 'ComingSoon',
+    component: () => import('@/views/Empty.vue')
+  },
+  {
     path: '/marketing/add',
     name: 'Marketing Add',
     component: () => import('@/views/MarketingAdd.vue')

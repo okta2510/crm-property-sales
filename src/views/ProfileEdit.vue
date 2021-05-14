@@ -14,7 +14,7 @@
         <FormProfileEdit
         :idDetail="route.params.id"
         :detailInfo="detailInfo"
-        :signingIn="signingIn"
+        :onSubmitting="onSubmitting"
         v-on:submitProfile="onSubmitProfile"/>
     </ion-content>
   </ion-page>
@@ -45,7 +45,7 @@ export default defineComponent({
       titlePage: 'My Listing',
       currentModal: null,
       detailInfo: {},
-      signingIn: false
+      onSubmitting: false
     }
   },
   computed: {
@@ -118,13 +118,13 @@ export default defineComponent({
         console.log(err)
         self.openToast('Error, Invalid profile detail', 5000, 'danger')
         setTimeout(function() {
-          // window.location = '/tab4'
+          window.location = '/tab4'
         }, 2000)
       })
     },
     onSubmitProfile: function (payload) {
       let self = this
-      this.signingIn = true
+      this.onSubmitting = true
       axios.put(this.API_PROFILE + this.route.params.id, payload, {
          headers: {
           'Accept': "application/json",
@@ -135,7 +135,9 @@ export default defineComponent({
       })
       .then(() => {
         self.openToast('Profile telah di perbaharui', 5000, 'success')
-        self.signingIn = false
+         setTimeout(function() {
+          window.location = '/tab4'
+        }, 2000)
       }, {
          headers: {
           'Accept': "application/json"
@@ -145,7 +147,7 @@ export default defineComponent({
         // handle err
         console.log(err.response)
         self.openToast(err.response ? err.response.data.detail : 'Update Profile Error', 5000, 'danger')
-        self.signingIn = false
+        self.onSubmitting = false
       })
     }
   }

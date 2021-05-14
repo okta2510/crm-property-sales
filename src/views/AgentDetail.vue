@@ -95,6 +95,16 @@
               </div>
             </li>
           </ul>
+          <ul class="border-top list-award" v-else>
+            <li class="title text-center">
+              Rewards
+            </li>
+            <li>
+              <div class="text-center component-empty">
+                <span class="content">- Data Kosong -</span>
+              </div>
+            </li>
+          </ul>
       </div>
     </ion-content>
   </ion-page>

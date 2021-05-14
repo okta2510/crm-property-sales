@@ -10,16 +10,23 @@
           <div class="input-wrap mb-0">
             <ion-item class="md ion-no-padding-start ion-no-padding-end mb-30">
               <ion-label color="medium" position="stacked">Nama Property</ion-label>
-              <ion-input id="" placeholder="" autocapitalize="off" title="" type="texts" value="" v-model="name" required>
+              <ion-input id="" placeholder="" autocapitalize="off" title="" type="text" value="" v-model="name" required>
               </ion-input>
             </ion-item>
-            <ion-label color="medium" position="stacked">Pilih Lokasi</ion-label>
+            <ion-label color="medium" position="stacked">Titik Lokasi</ion-label>
             <GoogleMapSearch :disableUI="false"
+              class="mt-10"
               :zoom="14"
               mapType="roadmap"
               :markers="markers"
-              :center="{ lat: 38.8977859, lng: -77.0057621 }">
+              :center="{ lat: 38.8977859, lng: -77.0057621 }"
+              :mapDidLoad="handleMapDidLoad">
               </GoogleMapSearch>
+               <ion-input id="" placeholder="Ketik Nama Lokasi..." autocapitalize="off" title="" type="text" class="w-100 mt-10 mb-10 px-0" value="" v-model="location"> </ion-input>
+              <ion-button class="ios md" @click="findLocation" size="" expand="block">Cari Lokasi</ion-button>
+              <p v-if="locResult">
+                lat {{ locresult.position }} {{locresult.address}}
+              </p>
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Alamat Listing</ion-label>
               <ion-textarea rows="3" cols="20" id="" placeholder="" autocapitalize="off" title="" value="" v-model="address" required>
@@ -209,9 +216,9 @@
               size="large"
               class="ios md"
               expand="block"
-              :disabled="idDetail && Object.keys(detailListing).length === 0"
+              :disabled="onSubmitting || idDetail && Object.keys(detailListing).length === 0"
               type="submit">
-                <strong>{{detailListing ? 'Update Perubahan' : 'Tambahkan'}}</strong>
+                <strong>{{detailListing && Object.keys(detailListing).length > 0 ? 'Update Perubahan' : 'Tambahkan'}}</strong>
               </ion-button>
           </div>
           </div>
@@ -260,6 +267,9 @@ export default defineComponent({
   },
   setup(){
     // const listPhoto = [];
+    let geoCoderService = null
+    const location = ref('');
+    const locResult = ref();
     const router = useRouter();
     const listPhoto = ref('')
     const markers = [{
@@ -281,6 +291,30 @@ export default defineComponent({
     const resetPhoto = function () {
       listPhoto.value = ""
     }
+    
+  // find lat lng base on address
+    const findLocation = () => {
+       geoCoderService.geocode({address: location.value}, (results, status) => {
+         if (status !==  'OK') {
+           console.log(results,status)
+           alert("no result")
+         } else {
+           console.log(results)
+           locResult.value.position = {
+             position: results[0].geometry.locationn.toJSON(),
+             address: results[0].formatted_address
+           }
+           locResult.value.address = results[0].formatted_address
+         }
+       })
+    }
+
+    const handleMapDidLoad = (map, GServices) => {
+      console.log('map loaded')
+      console.log(map)
+      console.log(GServices)
+      geoCoderService = new GServices.Geocoder();
+    }
 
     return {
       router,
@@ -289,7 +323,11 @@ export default defineComponent({
       camera,
       trashOutline,
       resetPhoto,
-      markers
+      markers,
+      handleMapDidLoad,
+      findLocation,
+      location,
+      locResult
     }
   },
   watch: {
@@ -340,6 +378,10 @@ export default defineComponent({
     idDetail: {
       type: String,
       default: undefined
+    },
+    onSubmitting: {
+      type: Boolean,
+      default: false
     }
   },
   data: function() {

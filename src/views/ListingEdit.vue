@@ -43,7 +43,8 @@ export default defineComponent({
   data: function() {
     return {
       titlePage: 'My Listing',
-      detailListing: {}
+      detailListing: {},
+      onSubmitting: false
     }
   },
   computed: {
@@ -125,6 +126,7 @@ export default defineComponent({
     },
     onSubmitListing: function(payload, albums, deleted) {
       let self = this
+      this.onSubmitting = true
       axios.put(this.API_PRIMARY+'/'+this.route.params.id, payload, {
          headers: {
           'Accept': "application/json",
@@ -150,7 +152,10 @@ export default defineComponent({
             }
           })
           if (checkImagesChange === 0) {
-            window.location = '/my-listing'
+            self.openToast('Listing berhasil diperbaharui', 5000, 'success')
+            setTimeout(function() {
+              window.location = '/my-listing'
+            }, 2000)
           }
         }
       }, {
@@ -163,6 +168,7 @@ export default defineComponent({
         // handle err
         console.log(err)
         self.openToast('Error Edit listing', 5000, 'danger')
+        self.onSubmitting = false
       })
     },
     uploadAlbums: function(id, image) {
@@ -178,12 +184,15 @@ export default defineComponent({
         mode:"cors"
       })
       .then((res) => {
-        console.log(res)
-       window.location = '/my-listing'
+        self.openToast('Listing berhasil diperbaharui', 5000, 'success')
+        setTimeout(function() {
+          window.location = '/my-listing'
+        }, 2000)
       }).catch((err) => {
         // handle err
         self.openToast('Error Upload image', 5000, 'danger')
         console.log(err)
+        self.onSubmitting = false
       })
     },
     deleteImages: function(id, image) {

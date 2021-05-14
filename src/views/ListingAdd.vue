@@ -12,6 +12,7 @@
     </HeaderPage>
     <ion-content  id="content-page" class="min-height-100 ion-padding pb-100 bg-primary text-light form-logged">
         <FormListingAdd
+        :onSubmitting="onSubmitting"
         v-on:submitListing="onSubmitListing"/>
     </ion-content>
   </ion-page>
@@ -39,7 +40,8 @@ export default defineComponent({
   },
   data: function() {
     return {
-      titlePage: 'My Listing'
+      titlePage: 'My Listing',
+      onSubmitting: false
     }
   },
   computed: {
@@ -96,6 +98,7 @@ export default defineComponent({
     },
     onSubmitListing: function(payload, albums) {
       let self = this
+      this.onSubmitting = true
       axios.post(this.API_PRIMARY, payload, {
          headers: {
           'Accept': "application/json",
@@ -117,7 +120,10 @@ export default defineComponent({
             }
           })
         }  else {
-          window.location = '/tab2'
+         self.openToast('Listing berhasil ditambahkan', 5000, 'success')
+          setTimeout(function() {
+            window.location = '/tab2'
+          }, 2000)
         }
       }, {
          headers: {
@@ -129,10 +135,12 @@ export default defineComponent({
         // handle err
         console.log(err)
         self.openToast('Error Add listing', 5000, 'danger')
+        this.onSubmitting = false
       })
     },
     uploadAlbums: function(id, image) {
       let self = this
+      this.onSubmitting = true
       axios.post(this.API_IMAGE, {
         'listing': id,
         'image': image
@@ -144,12 +152,15 @@ export default defineComponent({
         mode:"cors"
       })
       .then((res) => {
-        console.log(res)
-        window.location = '/tab2'
+        self.openToast('Listing berhasil ditambahkan', 5000, 'success')
+         setTimeout(function() {
+          window.location = '/tab2'
+        }, 2000)
       }).catch((err) => {
         // handle err
         self.openToast('Error Upload image', 5000, 'danger')
         console.log(err)
+        this.onSubmitting = false
       })
     }
   }
