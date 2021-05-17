@@ -220,6 +220,10 @@ export default defineComponent({
         this.openToast('No Kontak Wajib Diisi', 3000, 'danger', 'top')
         return
       }
+      if (!this.agent_contact.includes('+62') || this.agent_contact.length < 12) {
+        this.openToast('Format No Kontak Agent Salah, ex: +62812XXXX', 3000, 'danger', 'top')
+        return
+      }
        if (!this.bannerPhoto) {
         this.openToast('Foto Banner Wajib Diisi', 3000, 'danger', 'top')
         return

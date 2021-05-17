@@ -497,15 +497,15 @@ export default defineComponent({
         this.openToast('No HP Wajib Diisi.', 3000, 'danger', 'top')
         return
       }
-      if (!this.phone.includes('+') || this.phone.length < 12) {
+      if (!this.phone.includes('+62') || this.phone.length < 12) {
         this.openToast('Format No HP (Utama) Salah, ex: +62812XXXX', 3000, 'danger', 'top')
         return
       }
-      if (this.phone_second && !this.phone_second.includes('+') || this.phone.length < 12) {
+      if (this.phone_second && !this.phone_second.includes('+62') || this.phone.length < 12) {
         this.openToast('Format No HP (ke-2) Salah, ex: +62812XXXX', 3000, 'danger', 'top')
         return
       }
-      if (this.phone_third && !this.phone_third.includes('+') || this.phone.length < 12) {
+      if (this.phone_third && !this.phone_third.includes('+62') || this.phone.length < 12) {
         this.openToast('Format No HP (ke-3) Salah, ex: +62812XXXX', 3000, 'danger', 'top')
         return
       }
