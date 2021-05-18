@@ -41,7 +41,15 @@ export default defineComponent({
   data: function() {
     return {
       titlePage: 'My Listing',
-      typeTools: [],
+      typeTools: [
+        {id:"banner_unit", name: "Banner"},
+        {id:"banner_papan", name: "Papan Banner"},
+        {id:"sticker", name: "Sticker"},
+        {id:"property_web", name: "Web Property"},
+        {id:"ijin_pemasangan", name: "Izin Pemasangan"},
+        {id:"papan_bunga", name: "Papan Bunga"},
+        {id:"name_card", name: "Kartu Nama"},
+      ],
       onSubmitting: false
     }
   },
@@ -69,7 +77,7 @@ export default defineComponent({
   },
   created: async function () {
      await this.getUserInfo()
-     this.getListType()
+    //  this.getListType()
   },
   mounted() {
   },

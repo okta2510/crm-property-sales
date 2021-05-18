@@ -16,14 +16,13 @@
               </ion-select>
               <!-- <input type="text" class="not-displayed" :value="marketing_tool_type" required> -->
             </ion-item>
-            <ion-item class="md ion-no-padding-start ion-no-padding-end">
+            <!-- <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label position="stacked">Ukuran</ion-label>
               <ion-select :value="marketing_tool_size" ok-text="Pilih" v-model="marketing_tool_size" cancel-text="Tutup">
                 <ion-select-option value="50x40">50x40 cm</ion-select-option>
                 <ion-select-option value="90x60">90x60 cm</ion-select-option>
               </ion-select>
-               <!-- <input type="text" class="not-displayed" :value="marketing_tool_size" required> -->
-            </ion-item>
+            </ion-item> -->
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label position="stacked">Tipe Transaksi</ion-label>
               <ion-select :value="transaction_type" v-model="transaction_type" ok-text="Pilih" cancel-text="Tutup">
@@ -37,11 +36,11 @@
               <ion-input id="" v-model="agent_name" placeholder="" autocapitalize="off" title="" type="text">
               </ion-input>
             </ion-item>
-            <ion-item class="md ion-no-padding-start ion-no-padding-end">
+            <!-- <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Jumlah (pcs)</ion-label>
               <ion-input id="" placeholder="" v-model="quantity" autocapitalize="off" title="" type="number">
               </ion-input>
-            </ion-item>
+            </ion-item> -->
             <ion-item class="md ion-no-padding-start ion-no-padding-end">
               <ion-label color="medium" position="stacked">Nomor Kontak Agent</ion-label>
               <ion-input id="" placeholder="" v-model="agent_contact" autocapitalize="off" title="" type="phone">
@@ -163,12 +162,12 @@ export default defineComponent({
     payload: function() {
       return {
         marketing_tool_type : this.marketing_tool_type,
-        marketing_tool_size : this.marketing_tool_size,
+        // marketing_tool_size : this.marketing_tool_size,
         transaction_type : this.transaction_type,
         office_logo : this.bannerPhoto,
         agent_name : this.agent_name,
         agent_contact : this.agent_contact,
-        quantity: parseInt(this.quantity)
+        // quantity: parseInt(this.quantity)
       }
     }
   },
@@ -200,10 +199,10 @@ export default defineComponent({
         this.openToast('Tipe Printing Wajib Diisi', 3000, 'danger', 'top')
         return
       }
-       if (!this.marketing_tool_size) {
-        this.openToast('Size Printing Wajib Diisi', 3000, 'danger', 'top')
-        return
-      }
+      //  if (!this.marketing_tool_size) {
+      //   this.openToast('Size Printing Wajib Diisi', 3000, 'danger', 'top')
+      //   return
+      // }
        if (!this.transaction_type) {
         this.openToast('Tipe Transaksi Wajib Diisi', 3000, 'danger', 'top')
         return
@@ -212,10 +211,10 @@ export default defineComponent({
         this.openToast('Nama Agent Wajib Diisi', 3000, 'danger', 'top')
         return
       }
-       if (!this.quantity) {
-        this.openToast('Jumalh Order Wajib Diisi', 3000, 'danger', 'top')
-        return
-      }
+      //  if (!this.quantity) {
+      //   this.openToast('Jumalh Order Wajib Diisi', 3000, 'danger', 'top')
+      //   return
+      // }
        if (!this.agent_contact) {
         this.openToast('No Kontak Wajib Diisi', 3000, 'danger', 'top')
         return
