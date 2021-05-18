@@ -82,7 +82,8 @@ import {
   toastController,
   IonHeader,
   IonFooter,
-  IonRippleEffect
+  IonRippleEffect,
+  useBackButton
 } from '@ionic/vue'
 import { add } from 'ionicons/icons';
 import { setLocal, getLocal, removeLocal } from '@/services/storage'
@@ -120,6 +121,9 @@ export default {
       })
     }
     getLoggedUser()
+    useBackButton(10, () => {
+      console.log('Handler was called!');
+    });
 
     return {
       add, router, Http
@@ -217,12 +221,12 @@ export default {
       .then(response => {
         if (Object.keys(response.data).length > 0 && response.data.token) {
           setLocal('userInfo', response.data)
-          self.openToast('Login Success', 3000, 'success', 'top')
+          self.openToast('Selamat datang kembali, '+ response.data.user.display_name.toUpperCase(), 3000, 'success', 'top')
+          this.router.push('/dashboard')
         } else {
           self.openToast('Error, response data empty', 5000, 'danger')
         }
         self.signingIn = false
-        this.router.push('/dashboard')
       }).catch(function (err) {
         // handle err`
         console.log(err);

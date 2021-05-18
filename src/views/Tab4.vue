@@ -11,33 +11,33 @@
       <div class="my-account">
         <div class="profile-info">
           <div class="thumbnail-photo">
-            <img :src="userDetail.profile_picture || '/assets/agent-empty.png'"/>
+            <img :src="userDetail ? userDetail.profile_picture : '/assets/agent-empty.png'" onerror="this.onerror=null; this.src='/assets/agent-empty.png'"/>
           </div>
           <div class="text">
             <span class="name">
-              {{userDetail ? userDetail.account_holder : '-name-'}}
+              {{userDetail ? userDetail.display_name : '-name-'}}
             </span>
             <span class="email">Professional Real Estate Agent</span>
-            <ul class="star-rating mb-20">
-              <li class="">
+            <ul class="star-rating mb-20" v-if="userDetail">
+              <li :class="userDetail.rating > 4 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="">
+              <li :class="userDetail.rating > 3 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="userDetail.rating > 2 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="userDetail.rating > 1 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="userDetail.rating > 0 ? 'filled' : ''">
                 <ion-icon class="filled" :icon="star"></ion-icon>
               </li>
             </ul>
           </div>
         </div>
-        <ion-item mode="md" class="reset-class" href="/profile/edit" routerDirection="forward">
+        <ion-item mode="md" class="reset-class" :href="urlEditProfile" routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -51,7 +51,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-item mode="md" class="reset-class" href="#" routerDirection="forward">
+        <ion-item mode="md" class="reset-class" href="/coming-soon/reward-saya" routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -65,7 +65,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-        <ion-item mode="md" class="reset-class"  routerDirection="forward">
+        <ion-item mode="md" class="reset-class" href="/coming-soon/transaction-saya"  routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -93,7 +93,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-         <ion-item mode="md" class="reset-class">
+         <ion-item mode="md" class="reset-class" href="/coming-soon/point-saya" routerDirection="forward">
           <ion-grid>
             <ion-row>
               <ion-col size="9">
@@ -181,6 +181,11 @@ export default defineComponent({
     this.getUserInfo()
   },
   mounted() {
+  },
+  computed : {
+   urlEditProfile: function () {
+     return this.userDetail ? `profile/edit/${this.userDetail.id}` : '#'
+   }
   },
   methods: {
     getUserInfo: async function () {

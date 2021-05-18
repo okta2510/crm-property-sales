@@ -15,8 +15,8 @@
             <ion-card-title>{{ detail.title || '-'}}</ion-card-title>
           </div>
         </ion-card-header>
-        <ion-card-content v-if="detail.content">
-          {{ limitContent(detail.content) }}
+        <ion-card-content v-if="detail.excerpt">
+          <article v-html="detail.excerpt"></article>
         </ion-card-content>
         <ion-card-content v-else>
           -

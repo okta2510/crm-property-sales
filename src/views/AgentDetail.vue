@@ -14,25 +14,27 @@
       <div class="my-account">
         <div class="profile-info">
           <div class="thumbnail-photo">
-            <img src="/assets/agent-photo.png"/>
+            <img :src="detailInfo ? detailInfo.profile_picture : '/assets/agent-empty.png'"/>
           </div>
           <div class="text">
-            <span class="name">James Harden</span>
+            <span class="name">
+              {{detailInfo.display_name || '-'}}
+            </span>
             <span class="email">Professional Real Estate Agent</span>
-            <ul class="star-rating mb-20">
-              <li class="">
+            <ul class="star-rating mb-20" v-if="detailInfo">
+              <li :class="detailInfo.rating > 4 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="">
+              <li :class="detailInfo.rating > 3 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="detailInfo.rating > 2 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="detailInfo.rating > 1 ? 'filled' : ''">
                 <ion-icon :icon="star"></ion-icon>
               </li>
-              <li class="filled">
+              <li :class="detailInfo.rating > 0 ? 'filled' : ''">
                 <ion-icon class="filled" :icon="star"></ion-icon>
               </li>
             </ul>
@@ -45,7 +47,7 @@
               <ion-col size="6" class="ion-no-padding-top ion-no-padding-bottom text-center">
                 <div class="wrap-box">
                   <span class="number">
-                    230
+                    <PrintValue :value="detailInfo.total_listing" />
                   </span>
                   <span class="text">
                     Total Listing
@@ -55,7 +57,7 @@
               <ion-col size="6" class="ion-no-padding-top ion-no-padding-bottom text-center">
                 <div class="wrap-box">
                   <span class="number">
-                    113
+                    <PrintValue :value="detailInfo.total_sold" />
                   </span>
                   <span class="text">
                    Terjual / Tersewa
@@ -73,33 +75,34 @@
             </ion-row>
           </ion-grid>
         </div>
-        <ul class="border-top list-award">
+        <ul class="border-top list-award" v-if="detailInfo && detailInfo.awards">
+            <li class="title text-center">
+              Rewards
+            </li>
+            <li v-for="(item, index) in detailInfo.awards" :key="index">
+              <span class="title-date d-block">
+                {{item.year}}
+              </span>
+              <ul v-for="(list, index2) in item.entries" :key="index2">
+                <li>
+                  {{list}}
+                </li>
+              </ul>
+            </li>
+            <li v-if="detailInfo.awards.length <= 0">
+              <div class="text-center component-empty">
+                <span class="content">- Data Kosong -</span>
+              </div>
+            </li>
+          </ul>
+          <ul class="border-top list-award" v-else>
             <li class="title text-center">
               Rewards
             </li>
             <li>
-              <span class="title-date d-block">2019</span>
-              <ul>
-                <li>TOP 1 by unit transaction</li>
-                <li>TOP 10 by KPR periode 2021</li>
-                <li>TOP 3 by Gross Closed Commission periode 2021</li>
-              </ul>
-            </li>
-            <li>
-              <span class="title-date d-block">2019</span>
-              <ul>
-                <li>TOP 1 by unit transaction</li>
-                <li>TOP 10 by KPR periode 2021</li>
-                <li>TOP 3 by Gross Closed Commission periode 2021</li>
-              </ul>
-            </li>
-            <li>
-              <span class="title-date d-block">2019</span>
-              <ul>
-                <li>TOP 1 by unit transaction</li>
-                <li>TOP 10 by KPR periode 2021</li>
-                <li>TOP 3 by Gross Closed Commission periode 2021</li>
-              </ul>
+              <div class="text-center component-empty">
+                <span class="content">- Data Kosong -</span>
+              </div>
             </li>
           </ul>
       </div>
@@ -119,13 +122,17 @@ import {
   IonIcon,
   // IonItem,
   IonButton,
-  IonRippleEffect
+  IonRippleEffect,
+  toastController
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
 import ModalFilterListing from '@/component/ModalFilterListing.vue'
+import PrintValue from '@/component/PrintValue.vue'
 import { chevronForward, star } from 'ionicons/icons'
-import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+import { getLocal } from '@/services/storage'
+import axios from 'axios';
 
 export default defineComponent({
   components: {
@@ -139,21 +146,30 @@ export default defineComponent({
     IonIcon,
     // IonItem,
     IonButton,
-    IonRippleEffect
+    IonRippleEffect,
+    PrintValue
   },
   data: function() {
     return {
       titlePage: 'Agent Detail',
       currentModal: null,
-      results: [1,2,3,4,5]
+      detailInfo: {}
     }
   },
   setup() {
-    const router = useRouter();
+    const route = useRoute();
     return {
-      router,
+      route,
       chevronForward,
       star
+    }
+  },
+  computed: {
+    API_HOST: function () {
+      return 'http://54.179.9.67:8000/api/v1/consumer'
+    },
+    API_DETAIL: function () {
+      return this.API_HOST+'/member/agent/list/'+this.route.params.id
     }
   },
   ionViewWillEnter() {
@@ -164,16 +180,54 @@ export default defineComponent({
   },
   ionViewDidLeave() {
   },
-  created() {
+  created: async function () {
+     await this.getUserInfo()
+     this.getDetail()
   },
   mounted() {
   },
   methods: {
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
+    },
     goTo(path){
       window.location.href = path
     },
-    getListing (queryString) {
-      queryString ?  this.results = [1] :  this.results = [1,2,3,4,5]
+    getUserInfo: async function () {
+      await getLocal('userInfo').then((res)=>{
+        if(res) {
+          this.userToken = res.token
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
+    getDetail: function () {
+      let self = this
+      axios.get(this.API_DETAIL,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.detailInfo = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
     },
     async openModal() {
       const modal = await modalController

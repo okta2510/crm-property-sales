@@ -84,6 +84,27 @@ body, html {
       left: 10px;
     }
   }
+  .albums-multi-image {
+    width: 100%;
+    display: block;
+    margin-top: 0;
+    li {
+      display: inline-block;
+      width: 150px;
+      padding: 5px;
+      margin-bottom: 5px;
+      font-size: 12px;
+      line-height: 12px;
+        ion-icon {
+          font-size: 14px;
+          margin-right: 3px;
+        }
+       img {
+         width: 100%;
+         height: auto;
+       }
+    }
+  }
   ion-button.btn-take-photo {
     --padding-start: 0px;
     --padding-end: 0px;
@@ -101,6 +122,29 @@ body, html {
       font-size: 16px;
     }
   }
+
+  .component-upload-multi-photo {
+    position: relative;
+    background-color: #fff;
+    color:#444;
+    width:auto;
+    height: auto;
+    border-radius:100px;
+    background-size: 100%;
+    padding: 0px 15px 0px 3px;
+    font-size: 0;
+    label {
+      vertical-align: middle;
+      font-size: 14px;
+      line-height: 14px;
+      padding: 0 8px;
+    }
+    ion-button.btn-take-photo {
+      --background: #304B57;
+      color:#eee;
+    }
+  }
+
   .forgot_password {
     padding: 10px 0;
     color:#fff;
@@ -366,6 +410,9 @@ ion-select::part(text) {
     padding-top: 7px;
   }
 }
+input::placeholder {
+  font-size: 14px;
+}
 .input-search {
   background-color: #fff;
   --background: #fff;
@@ -379,6 +426,9 @@ ion-select::part(text) {
   border-radius: 10px;
   --webkit-border-radius: 10px;
   position: relative;
+  &.disabled {
+    background-color: #eee;
+  }
   input{
     height: 100%;
     border:none;
@@ -386,6 +436,10 @@ ion-select::part(text) {
     margin:0;
     vertical-align: top;
     display: inline-block;
+    width: 85%;
+    &:disabled {
+      cursor: not-allowed; 
+    }
     &::-webkit-input-placeholder { /* Edge */
       color: #D7D7D7;
     }
@@ -501,6 +555,10 @@ ion-select::part(text) {
         font-size: 14px;
         line-height: 18px;
         color:#000;
+      }
+      .link {
+        font-size: 14px;
+        line-height: 14px;
       }
     }
   }
@@ -627,6 +685,27 @@ ion-select::part(text) {
     padding-bottom: 30px;
     min-height: 100px;
     background-color: transparent;
+  }
+}
+
+.detail-page {
+  ion-slides {
+    --bullet-background: #ccc;
+    --bullet-background-active: #00A79D;
+    --background: #fff;
+    opacity: 1;
+  }
+  .slider-feature {
+    background-color: #fff;
+    .swiper-pagination-bullet {
+      opacity: 1;
+    }
+    .swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal>.swiper-pagination-bullets {
+      bottom: 20px;
+    }
+    img {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -890,6 +969,13 @@ ion-modal.modal-component {
     line-height: 16px;
     font-weight: 500;
   }
+  .link {
+    font-size: 14px;
+    line-height: 14px;
+    a {
+      color:#00A79D;
+    }
+  }
   .wrap-feature-img {
     position: relative;
     font-size:0;
@@ -908,6 +994,8 @@ ion-modal.modal-component {
       text-align: left;
       padding: 5px;
       ion-chip {
+        -webkit-box-shadow: 1px 1px 5px 0 #ccc;
+        box-shadow: 1px 1px 5px 0 #ccc;
         display: inline-block;
         padding: 0 8px;
         height: 16px;
@@ -1490,6 +1578,7 @@ ion-chip.custom {
       line-height: 28px;
       color: #456B80;
       font-weight: bold;
+      margin-bottom: 5px;
     }
     .text {
       font-size: 14px;
@@ -1505,6 +1594,88 @@ ion-chip.custom {
     padding-left: 8px;
     padding-right: 8px;
   }
+}
+
+.alert-button.sc-ion-alert-ios {
+  color:#00A79D;
+}
+
+.component-empty {
+  padding: 0px 16px;
+  .content {
+    padding: 40px 10px;
+    display: block;
+    width: 100%;
+    background-color: rgb(238, 238, 238);
+    color:rgb(128, 128, 128);
+    border:solid 1px rgb(216, 216, 216);
+    text-align: center;
+  }
+}
+
+.map {
+  width: 100%;
+  height: 300px;
+}
+.map-wrap {
+  .controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  #pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+  }
+  
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+  
+  .pac-container {
+    font-family: Roboto;
+  }
+  
+  #type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+  }
+  
+  #type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
+  #target {
+    width: 345px;
+  }
+}
+
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: "Roboto", "sans-serif";
+  line-height: 30px;
+  padding-left: 10px;
 }
 
 /* 2532x1170 pixels at 460ppi iPhone 12 and iPhone 12 Pro */

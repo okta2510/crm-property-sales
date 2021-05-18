@@ -27,7 +27,7 @@
         </ion-button>
       </ion-buttons>
 
-      <ion-title mode="ios">{{title}}</ion-title>
+      <ion-title class="text-capitalize" mode="ios">{{title}}</ion-title>
     </ion-toolbar>
   </ion-header>
 </template>

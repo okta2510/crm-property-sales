@@ -62,6 +62,11 @@ const routes = [
     component: () => import('@/views/Transaction.vue')
   },
   {
+    path: '/coming-soon/:title',
+    name: 'ComingSoon',
+    component: () => import('@/views/Empty.vue')
+  },
+  {
     path: '/marketing/add',
     name: 'Marketing Add',
     component: () => import('@/views/MarketingAdd.vue')
@@ -72,7 +77,12 @@ const routes = [
     component: () => import('@/views/ListingAdd.vue')
   },
   {
-    path: '/profile/edit',
+    path: '/listing/edit/:id',
+    name: 'Listing Edit',
+    component: () => import('@/views/ListingEdit.vue')
+  },
+  {
+    path: '/profile/edit/:id',
     name: 'profile Edit',
     component: () => import('@/views/ProfileEdit.vue')
   },
@@ -83,6 +93,7 @@ const routes = [
   // },
   {
     path: '/dashboard/',
+    props: true,
     component: () => import('@/views/Tabs.vue'),
     children: [
       {
@@ -91,18 +102,22 @@ const routes = [
       },
       {
         path: '/tab1',
+        props: true,
         component: () => import('@/views/Dashboard.vue')
       },
       {
         path: '/tab2',
+        props: true,
         component: () => import('@/views/Tab2.vue')
       },
       {
         path: '/tab3',
+        props: true,
         component: () => import('@/views/Tab3.vue')
       },
       {
         path: '/tab4',
+        props: true,
         component: () => import('@/views/Tab4.vue')
       },
     ]

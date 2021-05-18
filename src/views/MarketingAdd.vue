@@ -11,7 +11,10 @@
       v-on:modalClick="null">
     </HeaderPage>
     <ion-content  id="content-page" class="min-height-100 ion-padding pb-100 bg-primary text-light form-logged">
-        <FormMarketingAdd></FormMarketingAdd>
+        <FormMarketingAdd
+        :typeTools="typeTools"
+        :submitting="onSubmitting"
+        v-on:submitMarketing="onSubmitMarketing"></FormMarketingAdd>
     </ion-content>
   </ion-page>
 </template>
@@ -20,12 +23,13 @@
 import { 
   IonContent,
   IonPage,
-  modalController,
+  toastController
 } from '@ionic/vue';
 import HeaderPage from '@/component/HeaderPage'
 import { defineComponent } from 'vue';
-import ModalFilterListing from '@/component/ModalFilterListing.vue'
 import FormMarketingAdd from '@/component/FormMarketingAdd.vue'
+import { getLocal } from '@/services/storage'
+import axios from 'axios';
 
 export default defineComponent({
   components: {
@@ -37,8 +41,27 @@ export default defineComponent({
   data: function() {
     return {
       titlePage: 'My Listing',
-      currentModal: null,
-      results: [1,2,3,4,5]
+      typeTools: [
+        {id:"banner_unit", name: "Banner"},
+        {id:"banner_papan", name: "Papan Banner"},
+        {id:"sticker", name: "Sticker"},
+        {id:"property_web", name: "Web Property"},
+        {id:"ijin_pemasangan", name: "Izin Pemasangan"},
+        {id:"papan_bunga", name: "Papan Bunga"},
+        {id:"name_card", name: "Kartu Nama"},
+      ],
+      onSubmitting: false
+    }
+  },
+  computed: {
+    API_HOST: function () {
+      return 'http://54.179.9.67:8000/api/v1/consumer'
+    },
+    API_MARKETING: function () {
+      return this.API_HOST+'/marketing/list'
+    },
+    API_TYPE: function () {
+      return this.API_HOST+'/marketing/tool-type'
     }
   },
   setup() {
@@ -52,34 +75,79 @@ export default defineComponent({
   },
   ionViewDidLeave() {
   },
-  created() {
+  created: async function () {
+     await this.getUserInfo()
+    //  this.getListType()
   },
   mounted() {
   },
   methods: {
-    getListing (queryString) {
-      queryString ?  this.results = [1] :  this.results = [1,2,3,4,5]
+    async openToast(message='empty toast', duration=2000, color='default', position='bottom') {
+        let toast = await toastController
+          .create({
+            message: message,
+            duration: duration,
+            animated: true,
+            cssClass: 'custom-toast',
+            color: color,
+            position: position
+          })
+        toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+      return toast.present();
     },
-    async openModal() {
-      const modal = await modalController
-        .create({
-          component: ModalFilterListing,
-          cssClass: 'modal-component filter-component',
-          swipeToClose: true,
-          showBackdrop: true,
-          mode: 'ios',
-          backdropDismiss: true,
-          animated: true,
-          componentProps: {
-            title: 'Filter Pencarian',
-            closeAction: this.closeModal
-          },
-        })
-      this.currentModal = modal
-      return modal.present();
+    getUserInfo: async function () {
+      await getLocal('userInfo').then((res)=>{
+        if(res) {
+          this.userToken = res.token
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
     },
-    closeModal() {
-      this.currentModal.dismiss()
+    getListType: function () {
+      let self = this
+      axios.get(this.API_TYPE,{
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+
+        },
+        mode:"cors"
+      }).then(response => {
+        self.typeTools = response.data
+      }).catch(function (err) {
+        console.log(err)
+      })
+    },
+    onSubmitMarketing: function (payload) {
+      let self = this
+      this.onSubmitting = true
+      axios.post(this.API_MARKETING, payload, {
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+        },
+        mode:"cors"
+      })
+      .then(() => {
+        self.openToast('Marketing tools berhasil dipesan', 5000, 'success')
+        setTimeout(function() {
+          window.location = '/tab3'
+        }, 2000)
+      }, {
+         headers: {
+          'Accept': "application/json",
+          'Authorization': 'PIINTU '+ self.userToken
+        },
+        mode:"cors"
+      }).catch((err) => {
+        // handle err
+        console.log(err)
+        self.openToast('Error Add listing', 5000, 'danger')
+        self.onSubmitting = false
+      })
     }
   }
 });

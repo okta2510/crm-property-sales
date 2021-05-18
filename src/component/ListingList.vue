@@ -19,14 +19,14 @@
                     <ion-label color="secondary">{{item.property_type}}</ion-label>
                   </ion-chip>
                </div>
-               <img @click="router.push(`/listing/${item.id}`)" class="feature-img cursor-pointer" :src="item.image || `/assets/empty-image-square.png`" />
+               <img @click="goTo(`/listing/${item.id}?type=${listingType}`)" class="feature-img cursor-pointer" :src="item.image || `/assets/empty-image-square.png`" />
              </div>
           </ion-col>
           <ion-col class='content-info' size="7">
             <span class="d-block w-100 date">
             {{formattingDate(item.created, 'YYYY-MM-DD HH:mm') || 'YYYY-MM-DD HH:mm'}}
             </span>
-            <span class="d-block w-100 title cursor-pointer" @click="router.push(`/listing/${item.id}`)">
+            <span class="d-block w-100 title cursor-pointer" @click="goTo(`/listing/${item.id}?type=${listingType}`)">
               {{item.name || 'title listing'}}
             </span>
             <div class="component-size-info">
@@ -66,13 +66,17 @@
                :value="item.price"
                preText="Rp."></PrintValue>
             </span>
+            <div class="mt-20 link" v-if="listingType === 'primary' && editButton">
+              <a :href="`/listing/edit/${item.id}`">
+              Edit</a>
+            </div>
           </ion-col>
           <ion-col size="12" v-if="listingType === 'other' && item.user">
             <div class="wrap-agent-info">
               <div class="profile cursor-pointer" @click="goTo('/agent/'+item.user.id)" :style="`background-image: url(${item.user.profile_picture || '/assets/agent-empty.png'})`"></div>
-              <div class="top-section">{{ item.contact_name_for_marketing_contract || 'Agent Name'}}</div>
-              <div class="bottom-section">
-                {{ item.agency_name|| 'Agency Name'}}
+              <div class="top-section text-capitalize">{{ item.contact_name_for_marketing_contract || 'Agent Name'}}</div>
+              <div class="bottom-section text-capitalize">
+                {{ item.user.agency_name|| 'Agency Name'}}
               </div>
             </div>
           </ion-col>
@@ -80,6 +84,9 @@
       </ion-grid>
     </div>
     </ion-item>
+  </div>
+  <div v-else class="text-center component-empty">
+    <span class="content">- Data Kosong -</span>
   </div>
 </template>
 
@@ -115,9 +122,9 @@ export default defineComponent({
     }
   },
   watch: {
-    listingType: function(val) {
-      console.log(val)
-    }
+    // listingType: function(val) {
+    //   console.log(val)
+    // }
   },
   props: {
     listingType: {
@@ -135,6 +142,10 @@ export default defineComponent({
     classProps: {
       type: String,
       default: ''
+    },
+    editButton: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {

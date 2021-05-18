@@ -104,7 +104,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-          <ion-slides class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
+          <ion-slides v-if="articleList && articleList.length > 0" class="slider-listing ion-margin-bottom" pager="true" mode="ios" :options="slideOpts">
             <ion-slide
             v-for="(item, index_news) in articleList"
             :key="index_news">
@@ -114,6 +114,9 @@
               ></NewsDashboardCard>
             </ion-slide>
           </ion-slides> 
+          <div v-else class="text-center component-empty">
+            <span class="content">- Data Kosong -</span>
+          </div>
         </div>
       <!-- </div> -->
 
@@ -138,7 +141,8 @@ import {
   IonLabel,
   IonSegment,
   IonSegmentButton,
-  IonHeader
+  IonHeader,
+  useBackButton
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import {
@@ -150,7 +154,6 @@ import ListingList from '@/component/ListingList.vue'
 import NewsDashboardCard from '@/component/NewsDashboardCard.vue'
 import { useRouter } from 'vue-router'
 import { getLocal } from '@/services/storage'
-
 
 export default defineComponent({
   name: 'Dashboard',
@@ -181,7 +184,8 @@ export default defineComponent({
       bannerList: [],
       countNotif: null,
       listingType: 'other',
-      userToken: null
+      userToken: null,
+      timeOut: null
     }
   },
   setup() {
@@ -190,18 +194,29 @@ export default defineComponent({
     const slideOpts = {
       initialSlide: 0,
       speed: 400,
+      autoHeight: true,
        autoplay: {
-        delay: 5000
+        delay: 5000,
+        disableOnInteraction: false
       }
     };
     const slideFeatureOpts = {
       initialSlide: 0,
       speed: 400,
       lazy: true,
+      autoHeight: true,
       autoplay: {
-        delay: 5000
+        delay: 5000,
+        disableOnInteraction: false
       }
     }
+
+    useBackButton(10, () => {
+      console.log('Handler was called!');
+    });
+
+    
+
     return {
       slideOpts,
       slideFeatureOpts,
@@ -237,6 +252,14 @@ export default defineComponent({
     this.getBanner()
     this.getCount()
   },
+  ionViewWillEnter() {
+  },
+  ionViewWillLeave() {
+  },
+  ionViewDidEnter() {
+  },
+  ionViewDidLeave() {
+  },
   methods: {
     getUserInfo: async function () {
       await getLocal('userInfo').then((res)=>{
@@ -261,7 +284,11 @@ export default defineComponent({
       console.log(val)
     },
     searchingQuery: function () {
-      //searching
+      let self = this
+      clearTimeout(this.timeOut)
+      this.timeOut =  setTimeout(function() {
+        window.location = `/tab2?search=${self.queryString}`;
+      }, 1500)
     },
     getBanner: function () {
       let self = this
@@ -286,7 +313,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.primaryResults = response.data
+        self.primaryResults = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
@@ -301,7 +328,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.otherResults = response.data
+        self.otherResults = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
@@ -314,7 +341,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.primaryResults = response.data
+        self.primaryResults = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
@@ -329,7 +356,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.articleList = response.data
+        self.articleList = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
@@ -344,7 +371,7 @@ export default defineComponent({
         },
         mode:"cors"
       }).then(response => {
-        self.countNotif = response.data
+        self.countNotif = response.data.results
       }).catch(function (err) {
         console.log(err)
       })
